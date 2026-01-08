@@ -1,0 +1,86 @@
+[
+  {
+    "id": "case-772m",
+    "caseNumber": "772-M",
+    "title": "The Greenhouse Ghost",
+    "difficulty": "medium",
+    "crimeType": "Homicide by Proxy",
+    "briefing": {
+      "description": "Dr. Aris Thorne, a world-renowned botanist, was found dead inside his hermetically sealed 'Titan Arum' greenhouse. The cause of death was acute respiratory failure. Curiously, the automated security log shows the door never opened during the time of death, yet his inhaler—which he never left without—was found crushed outside in the gravel path.",
+      "warning": "Involves descriptions of chemical asphyxiation."
+    },
+    "victim": {
+      "name": "Dr. Aris Thorne",
+      "age": 42,
+      "job": "Lead Botanist",
+      "timeOfDeath": "01:45",
+      "modeOfDeath": "Inhalation of concentrated nightshade vapor.",
+      "routine": [
+        "23:00 - Nightly feeding of the Titan Arum.",
+        "00:00 - Calibration of the CO2 scrubbers.",
+        "01:30 - Final humidity check.",
+        "02:00 - Lockdown of the research wing."
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-2",
+        "role": "Night Security",
+        "statement": "I saw someone near the ventilation intake around midnight, but they were wearing a standard lab tech jumpsuit. I didn't think twice about it.",
+        "reliability": "High"
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-3",
+        "name": "Leo Vance",
+        "connection": "Lab Assistant",
+        "alibi": "Claims to have been asleep in the staff dorms.",
+        "relationToVictim": "Thorne was about to publish a paper that Vance claimed was based on his stolen data.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "23:15",
+              "from": "Leo Vance",
+              "text": "The ventilation system in Section B is overdue for 'maintenance.' I'll handle it tonight."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-4",
+        "name": "Dr. Sarah Bloom",
+        "connection": "Research Rival",
+        "alibi": "Attending a virtual symposium. (Connection logs show her ID was active).",
+        "relationToVictim": "Competing for the same million-credit grant.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "00:10",
+              "from": "Unknown",
+              "text": "Did you get the override codes?"
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-3",
+        "name": "Corroded Valve Stem",
+        "description": "A part from the CO2 scrubber. It looks like it was intentionally doused in acid to cause a leak.",
+        "type": "Forensic"
+      },
+      {
+        "id": "e-4",
+        "name": "Crushed Inhaler",
+        "description": "Found 50 feet from the greenhouse door. It has traces of a greasy residue.",
+        "type": "Physical"
+      }
+    ],
+    "solution": {
+      "killerId": "s-3",
+      "closingStatement": "Leo Vance used his knowledge of the ventilation system to pump toxins into the greenhouse, knowing Thorne's inhaler had been moved to prevent him from surviving the initial attack."
+    }
+  }
+]

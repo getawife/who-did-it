@@ -1,0 +1,98 @@
+[
+  {
+    "id": "case-402b",
+    "caseNumber": "402-B",
+    "title": "The Clockmaker's Final Second",
+    "difficulty": "easy",
+    "crimeType": "Extreme Homicide",
+    "briefing": {
+      "description": "Elias Thorne was found slumped over his workbench in a room locked from the inside. There is a chilling surgical precision to the scene; the victim's heart has been removed with no traces of blood on the floor or his clothes. The only sound in the room was the frantic ticking of a hundred clocks.",
+      "warning": "This case involves graphic descriptions of surgical mutilation and psychological distress."
+    },
+    "victim": {
+      "name": "Elias Thorne",
+      "age": 58,
+      "sex": "Male",
+      "job": "Master Horologist",
+      "timeOfDeath": "22:14",
+      "modeOfDeath": "Cerebral hypoxia followed by surgical evisceration.",
+      "routine": [
+        "18:00 - Opens shop for private clients.",
+        "20:00 - Winds the central Grandfather clock.",
+        "21:30 - Evening tea at the desk.",
+        "22:10 - Final security check of the vault.",
+        "22:15 - Shop doors locked for the night."
+      ],
+      "otherInfo": "Thorne was known for his obsessive punctuality. Neighbors claim you could set your watch by his movements."
+    },
+    "witnesses": [
+      {
+        "id": "w-1",
+        "role": "The Landlady",
+        "statement": "I heard a loud thud and raised voices coming from the shop around 22:30. I assumed it was just Elias arguing with a customer again.",
+        "reliability": "Medium - She admits she wasn't wearing her hearing aids."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-1",
+        "name": "Julian Vane",
+        "connection": "Former Apprentice",
+        "alibi": "Claimed to be at 'The Rusty Cog' tavern from 21:00 until midnight.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "21:45",
+              "from": "Unknown",
+              "text": "Is the old man alone?"
+            },
+            {
+              "time": "22:05",
+              "from": "Julian Vane",
+              "text": "He's winding the clocks. I'm going in the back way now."
+            }
+          ]
+        },
+        "relationToVictim": "Fired three weeks ago for stealing rare gears; owed the victim 5,000 credits.",
+        "additionalInfo": "Vane has basic medical training from a dropped-out residency."
+      },
+      {
+        "id": "s-2",
+        "name": "Marcus Thorne",
+        "connection": "Estranged Brother",
+        "alibi": "Working the late shift at the shipyard. No witnesses can confirm.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "19:20",
+              "from": "Elias Thorne",
+              "text": "Don't come here again, Marcus. The inheritance is settled."
+            }
+          ]
+        },
+        "relationToVictim": "Primary beneficiary of the shop's land deed.",
+        "additionalInfo": "Known for gambling debts and a violent temper."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-1",
+        "name": "Broken Pocket Watch",
+        "description": "Found in the victim's hand. The glass is shattered and the hands are permanently frozen at 22:14.",
+        "type": "Forensic"
+      },
+      {
+        "id": "e-2",
+        "name": "Clean Scalpel",
+        "description": "A surgical tool found resting on the workbench. It is wiped completely clean of fingerprints.",
+        "type": "Physical"
+      }
+    ],
+    "solution": {
+      "killerId": "s-1",
+      "closingStatement": "Julian Vane confessed after being presented with the phone records..."
+    }
+  }
+]

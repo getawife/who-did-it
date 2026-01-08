@@ -1,0 +1,1704 @@
+[
+  {
+    "id": "case-910h",
+    "caseNumber": "910-H",
+    "title": "The Oxygen Thief",
+    "difficulty": "hard",
+    "crimeType": "Homicide / Industrial Sabotage",
+    "briefing": {
+      "description": "Billionaire explorer Elias Thorne was found dead inside his private 'Deep-Sea' pressurized sleeping chamber. The chamber is airtight and monitored 24/7. Oxygen levels were reported as normal, yet Thorne died of asphyxiation. The external seal remained unbroken.",
+      "warning": "Requires understanding of chemical displacement."
+    },
+    "victim": {
+      "name": "Elias Thorne",
+      "age": 52,
+      "job": "CEO of Thorne Depths",
+      "timeOfDeath": "03:45",
+      "modeOfDeath": "Asphyxiation via Nitrogen displacement.",
+      "routine": [
+        "22:00 - Enters chamber for hyperbaric sleep.",
+        "22:15 - System initiates 100% seal protocol.",
+        "07:00 - Automated wake-up sequence."
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-4",
+        "role": "The Night Security",
+        "statement": "I saw nothing. The cameras on that floor 'glitched' for five minutes, but the seal logs say no one entered. I'm not losing my job over this, don't ask again.",
+        "reliability": "Low - Refusal to testify further."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-7",
+        "name": "Julian Vane",
+        "connection": "Chief Engineer",
+        "alibi": "In the control room. Logged several 'sensor errors' during the night.",
+        "relationToVictim": "Thorne was planning to scrap Vane’s life-work for a cheaper alternative.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "01:20",
+              "from": "Julian Vane",
+              "text": "The sensors won't tell the difference between O2 and N2 if the calibration is off."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-8",
+        "name": "Sarah Thorne",
+        "connection": "Ex-Wife",
+        "alibi": "At a gala across town. Photographed at 03:00.",
+        "relationToVictim": "Stands to inherit the company if Elias dies before the divorce is finalized tomorrow.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "04:00",
+              "from": "Unknown",
+              "text": "Is the inheritance secure?"
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-9",
+        "name": "Marcus Reed",
+        "connection": "Rival CEO",
+        "alibi": "Sleeping at home. No verification.",
+        "relationToVictim": "Elias was about to win a government contract Reed desperately needed."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-7",
+        "name": "Empty Nitrogen Tank",
+        "description": "Found in the maintenance closet. The serial number has been filed off, but it fits the chamber’s emergency fire suppression port.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-8",
+        "name": "Calibration Log",
+        "description": "The system logs show the 'Oxygen' sensor was manually overridden to read Nitrogen as Oxygen at 03:30.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-7",
+      "closingStatement": "Julian Vane used his deep knowledge of the system to pump Nitrogen into the chamber via the fire suppression port. By recalibrating the sensors to misidentify the gas, he suffocated Thorne while the monitors reported perfectly breathable air."
+    }
+  },
+  {
+    "id": "case-911h",
+    "caseNumber": "911-H",
+    "title": "The Glass Grin",
+    "difficulty": "hard",
+    "crimeType": "Poisoning",
+    "briefing": {
+      "description": "Food critic Alistair Thorne collapsed during a private tasting of a vintage 1945 wine. The wine bottle was corked and opened in front of him. The glass he used was polished by the sommelier. He died of strychnine poisoning, but the wine in the bottle is untainted.",
+      "warning": "Focus on the delivery method, not the source."
+    },
+    "victim": {
+      "name": "Alistair Thorne",
+      "age": 48,
+      "job": "Food Critic",
+      "timeOfDeath": "20:30",
+      "modeOfDeath": "Strychnine poisoning.",
+      "routine": [
+        "19:30 - Arrives at 'The Gilded Lily'.",
+        "20:00 - Wine service begins.",
+        "20:15 - First sip taken."
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-5",
+        "role": "The Sommelier",
+        "statement": "I opened the bottle myself. I even tasted it—see, I am fine! I polished the glass with a clean linen cloth.",
+        "reliability": "High - Corroborated by other staff."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-10",
+        "name": "Chef Dominique",
+        "connection": "Head Chef",
+        "alibi": "In the kitchen the entire evening.",
+        "relationToVictim": "Alistair’s last review cost Dominique his third Michelin star.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "15:00",
+              "from": "Dominique",
+              "text": "He won't taste the bitterness over that vintage oak."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-11",
+        "name": "Elena Vance",
+        "connection": "Waitress",
+        "alibi": "Serving other tables. Not near the wine station.",
+        "relationToVictim": "Fired by Alistair from his personal staff years ago for a minor error.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "20:45",
+              "from": "Elena Vance",
+              "text": "The critic finally shut his mouth."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-9",
+        "name": "The Polishing Cloth",
+        "description": "A fine linen cloth used by the sommelier. Forensic analysis shows trace amounts of strychnine powder on one corner.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-10",
+      "closingStatement": "Chef Dominique knew the sommelier used a specific cloth to polish the glasses. He coated the interior of the critic's designated glass with a concentrated, colorless strychnine film before the wine was ever poured."
+    }
+  },
+  {
+    "id": "case-912h",
+    "caseNumber": "912-H",
+    "title": "The Dead Signal",
+    "difficulty": "hard",
+    "crimeType": "Homicide / Hit-and-Run",
+    "briefing": {
+      "description": "Tech mogul Silas Grave was struck by his own self-driving car in his driveway. The car's AI logs show it detected an 'obstacle' and applied brakes, but the car accelerated instead. The code shows no signs of external hacking.",
+      "warning": "Involves physical sensor manipulation."
+    },
+    "victim": {
+      "name": "Silas Grave",
+      "age": 41,
+      "job": "AI Developer",
+      "timeOfDeath": "23:55",
+      "modeOfDeath": "Blunt force trauma.",
+      "routine": [
+        "23:50 - Walks to the driveway to retrieve a package.",
+        "23:54 - Car auto-starts to pull out of the garage."
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-6",
+        "role": "The Neighbor",
+        "statement": "I heard the engine revving like crazy. It didn't sound like an electric car normally does. I think I saw someone running, but it was too dark.",
+        "reliability": "Medium - It was a moonless night."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-12",
+        "name": "Leo Fender",
+        "connection": "Mechanic",
+        "alibi": "At the shop. Security footage shows him working on a different car.",
+        "relationToVictim": "Silas was suing Leo for a faulty repair on his vintage collection.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "12:00",
+              "from": "Leo Fender",
+              "text": "If he wants to complain about the brakes, I'll give him something to really complain about."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-13",
+        "name": "Ava Grave",
+        "connection": "Business Partner / Wife",
+        "alibi": "Inside the house. Claimed to be asleep.",
+        "relationToVictim": "They were in a heated dispute over selling the company."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-10",
+        "name": "Infrared LED",
+        "description": "A small, battery-powered IR light found taped to the fence opposite the garage. It was pointed directly at the car's LIDAR sensor.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-12",
+      "closingStatement": "Leo Fender used an Infrared LED to 'blind' the car's LIDAR sensor. The light created a ghost image in the car's logic board, making it think the path was clear while actually hiding Silas's position, causing the AI to accelerate into the 'gap' it thought it saw."
+    }
+  },
+  [
+    {
+      "id": "case-913h",
+      "caseNumber": "913-H",
+      "title": "The Ghost in the Kiln",
+      "difficulty": "hard",
+      "crimeType": "Arson / Homicide",
+      "briefing": {
+        "description": "Renowned ceramicist Beatrice Gallo was found dead inside her walk-in industrial kiln. The timer was set for a 12-hour fire, and the door was bolted from the outside. However, the internal thermal sensors recorded a 'cold spot' near the floor for the first three hours of the cycle.",
+        "warning": "Look for insulation anomalies."
+      },
+      "victim": {
+        "name": "Beatrice Gallo",
+        "age": 59,
+        "job": "Ceramic Artist",
+        "timeOfDeath": "01:00",
+        "modeOfDeath": "Hyperthermia / Smoke inhalation.",
+        "routine": [
+          "22:00 - Final glaze application.",
+          "23:00 - Loading the kiln.",
+          "23:30 - Ignition and lock-up."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-7",
+          "role": "The Apprentice",
+          "statement": "I left at 21:00. Beatrice liked to work alone at night. She said the clay 'talks' better in the dark. I have nothing else to say.",
+          "reliability": "Medium - Avoiding specific questions about the lock mechanism."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-14",
+          "name": "Marco Rossi",
+          "connection": "Business Rival",
+          "alibi": "Claimed to be at a gallery opening, but witnesses say he left early.",
+          "relationToVictim": "Beatrice recently outbid him for a massive public commission.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "23:45",
+                "from": "Unknown",
+                "text": "The fire is lit. Is the door secure?"
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-15",
+          "name": "Silvia Gallo",
+          "connection": "Estranged Daughter",
+          "alibi": "At home alone.",
+          "relationToVictim": "Written out of the will two weeks ago."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-11",
+          "name": "Dry Ice Residue",
+          "description": "Minute traces of CO2 frost patterns found on the interior floor vent, explaining the 'cold spot' recorded by the sensors.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-14",
+        "closingStatement": "Marco Rossi used dry ice to mask the victim's body heat from the automated safety sensors that would have prevented the kiln from igniting if it detected a living person inside. He bolted the door and fled, knowing the dry ice would evaporate, leaving no physical trace of the sabotage."
+      }
+    },
+    {
+      "id": "case-914h",
+      "caseNumber": "914-H",
+      "title": "The Last Will and Testament",
+      "difficulty": "hard",
+      "crimeType": "Homicide / Forgery",
+      "briefing": {
+        "description": "Attorney Arthur Penhaligon was found dead in his study, slumped over a newly signed will. The cause of death was a lethal dose of nicotine absorbed through the skin. Oddly, his expensive fountain pen was missing its cap.",
+        "warning": "Analyze the contact points of the writing process."
+      },
+      "victim": {
+        "name": "Arthur Penhaligon",
+        "age": 72,
+        "job": "Estate Lawyer",
+        "timeOfDeath": "14:15",
+        "modeOfDeath": "Acute nicotine toxicity.",
+        "routine": [
+          "13:00 - Private lunch in study.",
+          "14:00 - Appointment for will signing (Client cancelled).",
+          "14:10 - Began reviewing paperwork."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-8",
+          "role": "The Secretary",
+          "statement": "I brought him his tea at 13:30. He was fine. He was agitated about the ink in his pen being 'clogged' again. I don't like talking to police.",
+          "reliability": "Low - Visibly nervous and refusing to sign a formal statement."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-16",
+          "name": "Victor Penhaligon",
+          "connection": "Nephew",
+          "alibi": "At the gym. No keycard log found.",
+          "relationToVictim": "Deeply in debt to several offshore casinos.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "11:00",
+                "from": "Victor",
+                "text": "The ink is ready. Just make sure he uses that specific pen."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-17",
+          "name": "Lydia Thorne",
+          "connection": "Disinherited Client",
+          "alibi": "In a meeting with another lawyer.",
+          "relationToVictim": "Arthur had successfully blocked her from her father's fortune."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-12",
+          "name": "Modified Pen Grip",
+          "description": "The rubber grip of the fountain pen has been replaced with a porous, chemically-treated silicone.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-16",
+        "closingStatement": "Victor knew his uncle's habit of gripping his pen tightly when stressed. He replaced the standard grip with a porous material soaked in concentrated liquid nicotine, which was absorbed through Arthur's skin as he wrote."
+      }
+    },
+    {
+      "id": "case-915h",
+      "caseNumber": "915-H",
+      "title": "The Weight of Silence",
+      "difficulty": "hard",
+      "crimeType": "Homicide",
+      "briefing": {
+        "description": "An Olympic weightlifter, Ivan Drago (no relation), died when a 400lb barbell crushed his windpipe during a solo midnight session. The safety catches were engaged, but the bar somehow slipped past them. The gym's magnetic lock was bypassed.",
+        "warning": "Check the structural integrity of the equipment."
+      },
+      "victim": {
+        "name": "Ivan Volkov",
+        "age": 28,
+        "job": "Professional Athlete",
+        "timeOfDeath": "00:30",
+        "modeOfDeath": "Crushing injury to the larynx.",
+        "routine": [
+          "23:30 - Nightly recovery session.",
+          "00:00 - Heavy set bench press.",
+          "01:00 - Post-workout protein ritual."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-9",
+          "role": "The Janitor",
+          "statement": "I don't see anything. I clean the floors, I leave. The heavy weights scare me. Go away.",
+          "reliability": "Low - Refuses to testify."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-18",
+          "name": "Dmitri Sokolov",
+          "connection": "Training Partner",
+          "alibi": "At a bar. The bartender vaguely remembers him.",
+          "relationToVictim": "Always placed second to Ivan; Ivan was recently chosen for the national squad over him.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "18:00",
+                "from": "Dmitri",
+                "text": "The safety pins only work if they stay in place. A little grease goes a long way."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-19",
+          "name": "Coach Miller",
+          "connection": "Gym Owner",
+          "alibi": "In his office. No one saw him enter or leave.",
+          "relationToVictim": "Ivan was planning to leave Miller’s gym for a high-end facility in the city."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-13",
+          "name": "Shaved Safety Pin",
+          "description": "The steel pins holding the safety catches have been filed down by precisely 2mm, making them prone to slipping under extreme vibration.",
+          "type": "Physical"
+        }
+      ],
+      "solution": {
+        "killerId": "s-18",
+        "closingStatement": "Dmitri Sokolov sabotaged the safety catches by filing down the pins. He knew Ivan’s explosive lifting style created enough vibration to cause the weakened pins to fail when the weight hit the catches, turning a safety feature into a trap."
+      }
+    },
+    {
+      "id": "case-916h",
+      "caseNumber": "916-H",
+      "title": "The Alchemist’s Error",
+      "difficulty": "hard",
+      "crimeType": "Homicide",
+      "briefing": {
+        "description": "A high-school chemistry teacher was found dead in his lab after an explosion. Investigators initially ruled it an accident involving sodium and water, but the teacher's protective goggles were found placed neatly on his desk, not on his face.",
+        "warning": "Observe the deviation from professional safety habits."
+      },
+      "victim": {
+        "name": "Walter Hedges",
+        "age": 45,
+        "job": "Chemistry Teacher",
+        "timeOfDeath": "16:45",
+        "modeOfDeath": "Blast injuries / Chemical burns.",
+        "routine": [
+          "15:30 - Class ends.",
+          "16:00 - Lab prep for next day.",
+          "17:00 - Departure."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-10",
+          "role": "The Lab Assistant",
+          "statement": "He was very careful. He never even touched a beaker without gloves. I wasn't there when it happened. I don't want to be involved in a murder case.",
+          "reliability": "Low - Witness refuses to speak further."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-20",
+          "name": "Kyle Reed",
+          "connection": "Failing Student",
+          "alibi": "In detention. Monitored by a different teacher.",
+          "relationToVictim": "Hedges refused to change his grade, costing him a scholarship.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "15:45",
+                "from": "Kyle",
+                "text": "Check the bottom of the sink trap. He'll never see it coming."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-21",
+          "name": "Principal Skinner",
+          "connection": "Employer",
+          "alibi": "In a school board meeting.",
+          "relationToVictim": "Hedges was about to blow the whistle on budget embezzlement."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-14",
+          "name": "Magnesium Strips",
+          "description": "Found inside the paper towel dispenser. They appear to have been rigged to a small battery.",
+          "type": "Physical"
+        }
+      ],
+      "solution": {
+        "killerId": "s-20",
+        "closingStatement": "Kyle Reed rigged the paper towel dispenser with magnesium strips and a battery. When Hedges went to dry his hands after a routine cleaning, the friction ignited the magnesium, which then reacted violently with the chemical residues in the sink area."
+      }
+    },
+    {
+      "id": "case-917h",
+      "caseNumber": "917-H",
+      "title": "The Blue Horizon",
+      "difficulty": "hard",
+      "crimeType": "Homicide",
+      "briefing": {
+        "description": "A commercial pilot died mid-flight while the co-pilot was in the restroom. The cockpit door was locked from the inside. The pilot had no history of heart disease, but the autopsy shows his blood was an unusual shade of bright cherry-red.",
+        "warning": "Cherry-red blood is a classic sign of Carbon Monoxide."
+      },
+      "victim": {
+        "name": "Captain Jack Sterling",
+        "age": 50,
+        "job": "Airline Pilot",
+        "timeOfDeath": "10:20",
+        "modeOfDeath": "Carbon monoxide poisoning.",
+        "routine": [
+          "08:00 - Takeoff.",
+          "10:00 - Co-pilot break.",
+          "10:15 - Emergency descent initiated by autopilot."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-11",
+          "role": "The Flight Attendant",
+          "statement": "I brought the Captain his coffee. He seemed fine, just a little tired. The co-pilot was gone for maybe ten minutes.",
+          "reliability": "High - Corroborated by black box audio."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-22",
+          "name": "First Officer Miller",
+          "connection": "Co-pilot",
+          "alibi": "In the restroom. Seen by passengers.",
+          "relationToVictim": "Sterling had recently filed a report that would end Miller's career.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "07:30",
+                "from": "Unknown",
+                "text": "The canister is hidden in the headset foam. It releases when the pressure changes."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-23",
+          "name": "Sarah Sterling",
+          "connection": "Wife",
+          "alibi": "On the ground. Not on the flight.",
+          "relationToVictim": "Massive life insurance policy."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-15",
+          "name": "Micro-Aerosol Canister",
+          "description": "A tiny, pressure-activated canister found inside the lining of the pilot's noise-canceling headsets.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-22",
+        "closingStatement": "First Officer Miller hid a pressure-activated CO canister inside Sterling's headset. As the plane reached cruising altitude, the change in cabin pressure triggered the release of the gas directly into the pilot's ear and nose."
+      }
+    },
+    {
+      "id": "case-918h",
+      "caseNumber": "918-H",
+      "title": "The Frozen Asset",
+      "difficulty": "hard",
+      "crimeType": "Homicide",
+      "briefing": {
+        "description": "A banker was found dead in a walk-in bank vault. He died of a head wound, but there was no weapon found in the vault, and the security footage shows no one entering or leaving during the time of death.",
+        "warning": "The weapon must have disappeared after the strike."
+      },
+      "victim": {
+        "name": "Gregory Vance",
+        "age": 55,
+        "job": "Investment Banker",
+        "timeOfDeath": "18:00",
+        "modeOfDeath": "Blunt force trauma to the cranium.",
+        "routine": [
+          "17:30 - Final vault audit.",
+          "17:45 - Vault locks automatically.",
+          "08:00 - Body discovered."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-12",
+          "role": "The Security Guard",
+          "statement": "I was at the desk. The vault door never opened. I don't know what to tell you. I'm not a murderer.",
+          "reliability": "Low - Witness is defensive and refuses to sign a statement."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-24",
+          "name": "Elena Vance",
+          "connection": "Wife",
+          "alibi": "At a charity event. Multiple witnesses.",
+          "relationToVictim": "Gregory was about to divorce her and leave her with nothing."
+        },
+        {
+          "id": "s-25",
+          "name": "Robert Blackwood",
+          "connection": "Junior Partner",
+          "alibi": "Claimed to be at his desk, but security logs show he was near the vault at 17:35.",
+          "relationToVictim": "Caught Gregory stealing from the firm and wanted his share.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "17:10",
+                "from": "Robert",
+                "text": "Ice is the perfect weapon. It hits hard and then it's just water."
+              }
+            ]
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-16",
+          "name": "Damp Patch",
+          "description": "A small, circular patch of water on the vault floor near the body's head. The vault is climate-controlled and very dry.",
+          "type": "Physical"
+        }
+      ],
+      "solution": {
+        "killerId": "s-25",
+        "closingStatement": "Robert Blackwood used a heavy block of ice shaped like a club to kill Gregory. He entered the vault just before it locked, struck Gregory, and left the ice to melt. By the time the vault was opened the next morning, the weapon had vanished into the ventilation system."
+      }
+    },
+    {
+      "id": "case-919h",
+      "caseNumber": "919-H",
+      "title": "The Final Reel",
+      "difficulty": "hard",
+      "crimeType": "Homicide",
+      "briefing": {
+        "description": "A famous film director was found electrocuted in his private screening room. He was holding a metal film reel. The room was supposedly 'grounded', yet the director took a massive surge.",
+        "warning": "Check for modifications to the projection equipment."
+      },
+      "victim": {
+        "name": "Julian DeMille",
+        "age": 63,
+        "job": "Film Director",
+        "timeOfDeath": "21:00",
+        "modeOfDeath": "Electrocution.",
+        "routine": [
+          "20:00 - Screening begins.",
+          "21:00 - Projected film ends; director goes to change the reel."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-13",
+          "role": "The Projectionist",
+          "statement": "I set up the film and left him to it. He liked to handle the final reels himself. I was in the breakroom.",
+          "reliability": "Medium - Breakroom has no cameras."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-26",
+          "name": "Marcus Stone",
+          "connection": "Lead Actor",
+          "alibi": "In his trailer. No one can verify.",
+          "relationToVictim": "DeMille was going to edit Stone out of the movie entirely.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "19:45",
+                "from": "Marcus",
+                "text": "The 'special' reel is ready. Tell him it's the director's cut."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-27",
+          "name": "Clara DeMille",
+          "connection": "Wife",
+          "alibi": "In the main house.",
+          "relationToVictim": "Long history of domestic disputes."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-17",
+          "name": "Copper-Lined Film Reel",
+          "description": "The edges of the film reel have been subtly plated with a highly conductive copper alloy, hidden under a layer of black paint.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-26",
+        "closingStatement": "Marcus Stone replaced the standard film reel with a copper-plated version. He also sabotaged the projector's grounding wire, ensuring that when DeMille touched the reel to change it, the electrical current from the projector traveled directly through his heart."
+      }
+    },
+    {
+      "id": "case-920h",
+      "caseNumber": "920-H",
+      "title": "The Honey Trap",
+      "difficulty": "hard",
+      "crimeType": "Homicide / Poisoning",
+      "briefing": {
+        "description": "An allergic beekeeper died of anaphylactic shock after being stung by a single bee. He was wearing his full protective suit, which had no holes. The autopsy found the sting was on his neck, right under the seal of the hood.",
+        "warning": "How did a bee get inside a sealed suit?"
+      },
+      "victim": {
+        "name": "Samuel Hive",
+        "age": 60,
+        "job": "Master Beekeeper",
+        "timeOfDeath": "11:00",
+        "modeOfDeath": "Anaphylaxis.",
+        "routine": [
+          "10:00 - Puts on suit in the shed.",
+          "10:30 - Begins hive inspection.",
+          "11:30 - Found dead by the hives."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-14",
+          "role": "The Gardener",
+          "statement": "I saw him walking out. He looked fine. I don't know anything about bees. Please leave me out of this.",
+          "reliability": "Low - Witness refuses to speak further."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-28",
+          "name": "Benjamin Hive",
+          "connection": "Son",
+          "alibi": "At the hardware store. Receipt shows 10:45.",
+          "relationToVictim": "Wanted to sell the family land to developers; Samuel refused.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "09:00",
+                "from": "Benjamin",
+                "text": "I put the queen pheromone on the inside of the collar. They'll find a way in."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-29",
+          "name": "Alice Green",
+          "connection": "Neighbor",
+          "alibi": "At home.",
+          "relationToVictim": "Ongoing feud over bee swarms on her property."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-18",
+          "name": "Queen Pheromone Traces",
+          "description": "High concentrations of synthetic queen bee pheromones found on the inner collar of the beekeeping suit.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-28",
+        "closingStatement": "Benjamin Hive applied queen pheromones to the inside of his father's suit collar. This caused a worker bee to aggressively force its way through the Velcro seal of the hood, stinging Samuel in the neck and triggering his fatal allergy."
+      }
+    },
+    {
+      "id": "case-921h",
+      "caseNumber": "921-H",
+      "title": "The Clockwork Killer",
+      "difficulty": "hard",
+      "crimeType": "Homicide",
+      "briefing": {
+        "description": "A clockmaker was found dead in his shop, killed by a small, high-velocity projectile to the temple. No gun was found, and the shop was locked from the inside. The projectile appears to be a small brass gear.",
+        "warning": "The 'weapon' is part of the shop's inventory."
+      },
+      "victim": {
+        "name": "Horace Tick",
+        "age": 68,
+        "job": "Clockmaker",
+        "timeOfDeath": "15:00",
+        "modeOfDeath": "Penetrating head wound.",
+        "routine": [
+          "14:00 - Works on the 'Grandfather' clock.",
+          "15:00 - Shop is closed for tea.",
+          "15:30 - Body discovered by a customer."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-15",
+          "role": "The Apprentice",
+          "statement": "I was in the back room cleaning gears. I heard a loud 'twang' but thought it was just a spring snapping. I don't want to testify against anyone.",
+          "reliability": "Low - Witness refuses to speak."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-30",
+          "name": "Silas Vane",
+          "connection": "Competitor",
+          "alibi": "Claimed to be at his own shop. No customers can verify.",
+          "relationToVictim": "Horace was about to reveal Silas’s 'antiques' as fakes.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "12:00",
+                "from": "Silas",
+                "text": "The mainspring is overwound. When the chime hits three, it'll let go."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-31",
+          "name": "Penny Tick",
+          "connection": "Daughter",
+          "alibi": "At the library.",
+          "relationToVictim": "Expected to inherit the valuable collection of rare clocks."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-19",
+          "name": "Shattered Mainspring",
+          "description": "The mainspring of the grandfather clock Horace was working on shows signs of manual over-tensioning beyond safety limits.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-30",
+        "closingStatement": "Silas Vane snuck into the shop and over-wound the mainspring of Horace's current project. He rigged the chime mechanism to release all that kinetic energy at once when the clock struck three, turning a brass gear into a lethal projectile."
+      }
+    },
+    {
+      "id": "case-922h",
+      "caseNumber": "922-H",
+      "title": "The Poisoned Page",
+      "difficulty": "hard",
+      "crimeType": "Homicide",
+      "briefing": {
+        "description": "A rare book collector was found dead in his library. He was reading a 1st edition Dickens. He died of a sudden, violent seizure. There are no puncture marks or signs of ingestion, but his right index finger is stained with yellow ink.",
+        "warning": "The toxin was absorbed through the skin, likely via a common reading habit."
+      },
+      "victim": {
+        "name": "Oliver Reed",
+        "age": 70,
+        "job": "Book Collector",
+        "timeOfDeath": "22:00",
+        "modeOfDeath": "Tetanus toxin poisoning.",
+        "routine": [
+          "21:00 - Enters library for nightly reading.",
+          "21:30 - Starts the new acquisition.",
+          "22:15 - Found dead by his butler."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-16",
+          "role": "The Butler",
+          "statement": "He was very particular about his books. He always licked his finger to turn the pages. It's a disgusting habit, but he did it for fifty years. I have nothing more to say.",
+          "reliability": "High - Corroborated by the victim's habits."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-32",
+          "name": "Julian Thorne",
+          "connection": "Rival Collector",
+          "alibi": "At home alone.",
+          "relationToVictim": "Oliver outbid him for the very book he was reading when he died."
+        },
+        {
+          "id": "s-33",
+          "name": "Sarah Reed",
+          "connection": "Niece",
+          "alibi": "In the city at a club. CCTV is blurry.",
+          "relationToVictim": "Deeply in debt and knew she was the sole heir.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "15:00",
+                "from": "Sarah",
+                "text": "The yellow ink is a nice touch. It looks just like aged paper."
+              }
+            ]
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-20",
+          "name": "Treated Paper Edge",
+          "description": "The edges of pages 50-100 in the book have been coated with a thin, yellow-tinted layer of neurotoxin.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-33",
+        "closingStatement": "Sarah Reed knew her uncle’s habit of licking his finger to turn pages. She coated the edges of the middle pages with a potent toxin disguised as yellowed ink, knowing he would ingest the poison as he progressed through the book."
+      }
+    }
+  ],
+  [
+    {
+      "id": "case-923h",
+      "caseNumber": "923-H",
+      "title": "The Icarus Protocol",
+      "difficulty": "hard",
+      "crimeType": "Aviation Sabotage / Corporate Espionage",
+      "briefing": {
+        "description": "The prototype 'Icarus' hydrogen-cell jet crashed during its unmanned maiden flight. Data logs show the fuel pumps reversed mid-air, causing a vacuum collapse. The software was air-gapped, meaning someone physically altered the hardware.",
+        "warning": "Focus on mechanical access points."
+      },
+      "victim": {
+        "name": "SkyBound Aerospace",
+        "age": 0,
+        "job": "Corporate Entity",
+        "timeOfDeath": "14:02",
+        "modeOfDeath": "Total loss of $400M prototype.",
+        "routine": [
+          "13:50 - Pre-flight diagnostic clear.",
+          "14:00 - Takeoff from private airstrip.",
+          "14:02 - Pump reversal initiated."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-17",
+          "role": "The Hangar Guard",
+          "statement": "I didn't see anyone enter the hangar. But I did take a 20-minute smoke break behind the fuel tanks. Don't tell the warden.",
+          "reliability": "Low - Admits to negligence."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-34",
+          "name": "Dr. Aris Thorne",
+          "connection": "Lead Designer",
+          "alibi": "In the observation tower.",
+          "relationToVictim": "Disgruntled after SkyBound sold his patents to a defense contractor.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "11:00",
+                "from": "Aris",
+                "text": "If I can't fly it, no one will."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-35",
+          "name": "Lydia Vance",
+          "connection": "Chief Mechanic",
+          "alibi": "Claimed to be calibrating the landing gear.",
+          "relationToVictim": "Rumored to be on the payroll of a rival firm, 'Aero-Global'."
+        },
+        {
+          "id": "s-36",
+          "name": "Marcus Flint",
+          "connection": "Systems Analyst",
+          "alibi": "Monitoring the ground-station code.",
+          "relationToVictim": "Owes $2M in gambling debts."
+        },
+        {
+          "id": "s-37",
+          "name": "Sarah Jenkins",
+          "connection": "Test Pilot (Ground Control)",
+          "alibi": "Operating the remote stick.",
+          "relationToVictim": "Blames the company for a previous crash that ended her flight career."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-21",
+          "name": "Magnetic Polarizer",
+          "description": "A small device found attached to the fuel line. It uses a timed magnetic pulse to flip the internal check-valves of the pump.",
+          "type": "Physical"
+        }
+      ],
+      "solution": {
+        "killerId": "s-35",
+        "closingStatement": "Lydia Vance used her access as Chief Mechanic to install a magnetic polarizer on the fuel lines. She was paid by Aero-Global to ensure the prototype failed, making SkyBound's stock plummet so they could be bought out."
+      }
+    },
+    {
+      "id": "case-924h",
+      "caseNumber": "924-H",
+      "title": "The Monochrome Heist",
+      "difficulty": "hard",
+      "crimeType": "Grand Larceny / Art Forgery",
+      "briefing": {
+        "description": "The 'Midnight Sun'—a $50M diamond—was swapped with a high-quality glass replica during a blackout at the museum. The laser grid never deactivated, and the pressure sensors on the pedestal remained constant.",
+        "warning": "Think about how to maintain weight while swapping objects."
+      },
+      "victim": {
+        "name": "The Royal Museum",
+        "age": 0,
+        "job": "Institution",
+        "timeOfDeath": "02:00",
+        "modeOfDeath": "Theft of primary asset.",
+        "routine": [
+          "22:00 - Museum closes.",
+          "02:00 - 30-second power surge/blackout.",
+          "02:01 - Power restored, diamond appears present."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-18",
+          "role": "The Night Curator",
+          "statement": "I checked the monitors immediately after the surge. The diamond was right there. I don't know why you're bothering me, the security is perfect.",
+          "reliability": "Low - Overly confident in a failed system."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-38",
+          "name": "Julian Black",
+          "connection": "Security Tech",
+          "alibi": "In the server room fixing the surge.",
+          "relationToVictim": "Expert in laser bypass systems.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "01:45",
+                "from": "Julian",
+                "text": "The weight is exactly 402 grams. Prepare the suction."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-39",
+          "name": "Elena Rossi",
+          "connection": "Professional Forger",
+          "alibi": "Staying at a nearby hotel. CCTV shows her entering at 23:00.",
+          "relationToVictim": "Has a 'signature' for glass replicas that look identical to real diamonds."
+        },
+        {
+          "id": "s-40",
+          "name": "Arthur Pym",
+          "connection": "Janitor",
+          "alibi": "Cleaning the East Wing.",
+          "relationToVictim": "Former diamond cutter with a criminal record."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-22",
+          "name": "Nitrogen Cooling Sprayer",
+          "description": "Found in a trash can. Used to freeze laser sensors so they don't detect movement.",
+          "type": "Physical"
+        }
+      ],
+      "solution": {
+        "killerId": "s-38",
+        "closingStatement": "Julian Black used the 30-second blackout he created to access the pedestal. He used a vacuum-sealed suction device to lift the diamond while simultaneously lowering the weighted glass replica, ensuring the pressure sensors never triggered an alarm."
+      }
+    },
+    {
+      "id": "case-925h",
+      "caseNumber": "925-H",
+      "title": "The Sovereign Leak",
+      "difficulty": "hard",
+      "crimeType": "Cyber-Espionage / Treason",
+      "briefing": {
+        "description": "Classified state secrets were leaked from a 'Scif' (Sensitive Compartmented Information Facility). The room is lead-lined—no signals get in or out. No USB drives were found, and the printers were all disabled.",
+        "warning": "The data left the room in a non-digital format."
+      },
+      "victim": {
+        "name": "Ministry of Defense",
+        "age": 0,
+        "job": "Government Agency",
+        "timeOfDeath": "11:30",
+        "modeOfDeath": "Data breach of Project X.",
+        "routine": [
+          "09:00 - Daily briefing.",
+          "11:00 - File 'Project X' accessed.",
+          "12:00 - Leak appears on the dark web."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-19",
+          "role": "The Lead Archivist",
+          "statement": "I checked everyone for electronics. No phones, no watches. I won't speak to you without my lawyer. This is a matter of national security.",
+          "reliability": "Low - Witness refuses to cooperate."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-41",
+          "name": "Agent Cooper",
+          "connection": "Intelligence Officer",
+          "alibi": "In the Scif during the leak.",
+          "relationToVictim": "Passing information to a foreign power to pay off family debts.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "13:00",
+                "from": "Unknown",
+                "text": "Is the 'music' uploaded?"
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-42",
+          "name": "Director Vance",
+          "connection": "Department Head",
+          "alibi": "In a closed-door meeting with the Prime Minister.",
+          "relationToVictim": "Under investigation for mismanagement."
+        },
+        {
+          "id": "s-43",
+          "name": "Dr. Arlo Finch",
+          "connection": "Data Analyst",
+          "alibi": "Working at his station.",
+          "relationToVictim": "A known 'hacktivist' before being hired by the government."
+        },
+        {
+          "id": "s-44",
+          "name": "Waitress Mia",
+          "connection": "Catering",
+          "alibi": "Delivered coffee to the Scif at 11:15.",
+          "relationToVictim": "Brother is a political prisoner."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-23",
+          "name": "Musical Score Sheet",
+          "description": "Found in Agent Cooper's briefcase. It's a Mozart piece, but the notes are slightly irregular. Forensic cryptology reveals the notes are actually a binary code.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-41",
+        "closingStatement": "Agent Cooper translated the classified data into a musical cipher. He hand-wrote the 'score' while inside the Scif and walked out with it in plain sight, as handwritten notes on paper are often overlooked by electronic security sweeps."
+      }
+    },
+    {
+      "id": "case-926h",
+      "caseNumber": "926-H",
+      "title": "The Gilded Forgery",
+      "difficulty": "hard",
+      "crimeType": "Art Forgery / Fraud",
+      "briefing": {
+        "description": "A 'lost' Rembrandt was sold at auction for $80 million. Two weeks later, the paint began to crack in a pattern inconsistent with 17th-century oils. The carbon dating was perfect, but the image is a lie.",
+        "warning": "How do you fake the age of the canvas but not the paint?"
+      },
+      "victim": {
+        "name": "Maximilian Sterling",
+        "age": 62,
+        "job": "Billionaire Collector",
+        "timeOfDeath": "15:00",
+        "modeOfDeath": "Financial loss / Fraud.",
+        "routine": [
+          "Oct 12 - Painting authenticated by three experts.",
+          "Oct 15 - Auction closes.",
+          "Nov 01 - First signs of 'micro-cracking'."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-20",
+          "role": "The Authenticator",
+          "statement": "The canvas is definitely from the 1600s. The wood of the frame is original. I stand by my work. I have nothing more to say.",
+          "reliability": "Medium - Embarrassed by the mistake."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-45",
+          "name": "Henri LeClair",
+          "connection": "Art Restorer",
+          "alibi": "In his studio for the last six months.",
+          "relationToVictim": "Hates Sterling for 'buying history he doesn't understand.'",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "09:00",
+                "from": "Henri",
+                "text": "The 'Palimpsest' technique worked perfectly. The old art is buried under the new."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-46",
+          "name": "Sarah Miller",
+          "connection": "Auction House Rep",
+          "alibi": "Traveling between London and NYC.",
+          "relationToVictim": "Earned a massive commission on the sale."
+        },
+        {
+          "id": "s-47",
+          "name": "Tobias Finch",
+          "connection": "Historian",
+          "alibi": "In the National Archives.",
+          "relationToVictim": "The person who 'discovered' the painting in a French basement."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-24",
+          "name": "X-Ray Radiograph",
+          "description": "Reveals a second painting beneath the Rembrandt. It's a worthless 17th-century landscape that was scraped down to reuse the authentic canvas.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-45",
+        "closingStatement": "Henri LeClair found a genuine but worthless 17th-century painting. He meticulously scraped off the original image and painted a 'new' Rembrandt over it using chemically aged paints, ensuring any carbon dating of the canvas or wood would return an 'authentic' result."
+      }
+    },
+    {
+      "id": "case-927h",
+      "caseNumber": "927-H",
+      "title": "The Silicon Syringe",
+      "difficulty": "hard",
+      "crimeType": "Industrial Sabotage / Bio-Terrorism",
+      "briefing": {
+        "description": "A pharmaceutical batch of insulin was contaminated with a fast-acting paralytic. The contamination occurred inside a robotic, sterile 'clean room' where no humans have entered in months. The digital logs show no unauthorized access.",
+        "warning": "Check for biological interference with hardware."
+      },
+      "victim": {
+        "name": "BioGen Labs",
+        "age": 0,
+        "job": "Corporation",
+        "timeOfDeath": "04:00",
+        "modeOfDeath": "Product recall and brand destruction.",
+        "routine": [
+          "02:00 - Batch 704 begins sterilization.",
+          "03:00 - Automated injection of active ingredients.",
+          "04:00 - Quality control detects toxin."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-21",
+          "role": "The Systems Monitor",
+          "statement": "The robots were following the script perfectly. There was no lag, no errors. I'm not answering any more questions without a union rep.",
+          "reliability": "Low - Witness refuses to cooperate."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-48",
+          "name": "Dr. Felix Gault",
+          "connection": "Microbiologist",
+          "alibi": "In the breakroom. Seen on camera.",
+          "relationToVictim": "Passed over for a promotion in favor of the automation system.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "22:00",
+                "from": "Felix",
+                "text": "Nature always finds a way into the machine."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-49",
+          "name": "Ava Thorne",
+          "connection": "Software Engineer",
+          "alibi": "Working remotely from home.",
+          "relationToVictim": "Secretly shorting BioGen stock."
+        },
+        {
+          "id": "s-50",
+          "name": "Marcus Vane",
+          "connection": "Janitor",
+          "alibi": "Cleaning the exterior hallways.",
+          "relationToVictim": "Daughter died after using a BioGen drug that was priced too high."
+        },
+        {
+          "id": "s-51",
+          "name": "Director Stone",
+          "connection": "Facility Manager",
+          "alibi": "In his office.",
+          "relationToVictim": "Trying to cover up a previous safety leak."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-25",
+          "name": "Genetically Modified Slime Mold",
+          "description": "Found inside the robotic arm's control box. The mold was engineered to be conductive, creating new circuit paths that forced the robot to draw from the wrong chemical reservoir.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-48",
+        "closingStatement": "Dr. Felix Gault engineered a conductive slime mold and introduced it into the robotic arm's ventilation. The mold grew along the circuit boards, eventually 're-wiring' the robot's physical logic to inject toxin into the insulin batch without changing a single line of code."
+      }
+    },
+    {
+      "id": "case-928h",
+      "caseNumber": "928-H",
+      "title": "The Phantom Trade",
+      "difficulty": "hard",
+      "crimeType": "Financial Fraud / Market Manipulation",
+      "briefing": {
+        "description": "A high-frequency trading firm lost $2 billion in three seconds due to a series of 'impossible' trades. The server room is guarded by biometric scanners, and the trading algorithm is encrypted with military-grade keys.",
+        "warning": "The 'hack' might be physical, not digital."
+      },
+      "victim": {
+        "name": "Apex Trading Group",
+        "age": 0,
+        "job": "Hedge Fund",
+        "timeOfDeath": "09:30:01",
+        "modeOfDeath": "Instantaneous financial collapse.",
+        "routine": [
+          "09:30:00 - Market opens.",
+          "09:30:01 - Algorithm executes 50,000 'Sell' orders.",
+          "09:30:04 - Firm declared insolvent."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-22",
+          "role": "The Server Tech",
+          "statement": "I checked the logs. No one logged in. No one even touched the rack. I saw a fly in there once, but that's it. Go away.",
+          "reliability": "Low - Dismissive and refuses to provide further details."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-52",
+          "name": "Leo Sterling",
+          "connection": "Quant Developer",
+          "alibi": "At his desk in full view of the floor.",
+          "relationToVictim": "Stated that the 'greed of the firm needs a reset.'",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "08:45",
+                "from": "Leo",
+                "text": "The heat will do the work for us."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-53",
+          "name": "Sarah Croft",
+          "connection": "Network Admin",
+          "alibi": "In the server room 10 minutes before opening.",
+          "relationToVictim": "Recent divorce from the CEO was very messy."
+        },
+        {
+          "id": "s-54",
+          "name": "Victor Graves",
+          "connection": "Rival Fund Manager",
+          "alibi": "On the golf course. Photos on social media.",
+          "relationToVictim": "Apex was about to put him out of business."
+        },
+        {
+          "id": "s-55",
+          "name": "Penny Lane",
+          "connection": "Intern",
+          "alibi": "Getting coffee for the team.",
+          "relationToVictim": "Actually a brilliant coder who felt ignored."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-26",
+          "name": "Industrial Laser Pointer",
+          "description": "A high-powered laser found hidden in the ceiling tiles, aimed directly at the fiber-optic cable entering the server.",
+          "type": "Physical"
+        }
+      ],
+      "solution": {
+        "killerId": "s-52",
+        "closingStatement": "Leo Sterling didn't hack the software; he used a high-powered laser to heat the fiber-optic cables. The heat changed the refractive index of the glass, causing just enough 'noise' to flip specific bits in the data stream, turning 'Buy' signals into 'Sell' signals at the hardware level."
+      }
+    },
+    {
+      "id": "case-929h",
+      "caseNumber": "929-H",
+      "title": "The Deepfake Deposit",
+      "difficulty": "hard",
+      "crimeType": "Grand Larceny / Identity Theft",
+      "briefing": {
+        "description": "A CEO authorized a $100M wire transfer during a video call with his Board of Directors. The board members now claim they never made the call, but the CEO has a recording of the meeting with all their faces and voices.",
+        "warning": "Look for the 'glitch' in the perfection."
+      },
+      "victim": {
+        "name": "Global Holdings Inc.",
+        "age": 0,
+        "job": "Corporation",
+        "timeOfDeath": "16:00",
+        "modeOfDeath": "Theft of $100M.",
+        "routine": [
+          "15:30 - Emergency Zoom call initiated.",
+          "15:45 - Board votes to transfer funds for 'acquisition'.",
+          "16:00 - Funds cleared to a Cayman Islands account."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-23",
+          "role": "The IT Manager",
+          "statement": "The call came from inside the corporate VPN. It looked 100% legitimate. I don't want to be blamed for this, I'm done talking.",
+          "reliability": "Low - Witness is terrified of being the scapegoat."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-56",
+          "name": "Arthur Dent",
+          "connection": "CTO",
+          "alibi": "Claimed to be at lunch, but his laptop was active during the call.",
+          "relationToVictim": "Expert in AI and generative video.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "14:00",
+                "from": "Arthur",
+                "text": "The model is trained. Their own wives wouldn't know the difference."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-57",
+          "name": "Lydia Thorne",
+          "connection": "CEO's Assistant",
+          "alibi": "Taking notes during the call.",
+          "relationToVictim": "Has access to all the Board's private schedules and past speech recordings."
+        },
+        {
+          "id": "s-58",
+          "name": "Marcus Vane",
+          "connection": "Disgruntled Board Member",
+          "alibi": "On a flight to Tokyo. Wifi logs show he didn't connect.",
+          "relationToVictim": "Wanted to liquidate the company."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-27",
+          "name": "Background Loop Error",
+          "description": "In the recording of the call, a clock on the wall in the background of one 'Board Member' ticks backward for two seconds every minute.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-56",
+        "closingStatement": "Arthur Dent used the company's own AI servers to generate real-time deepfakes of the Board. He bypassed the VPN using his CTO credentials, but the AI model had a minor 'temporal' glitch that caused background elements like the clock to loop incorrectly."
+      }
+    },
+    {
+      "id": "case-930h",
+      "caseNumber": "930-H",
+      "title": "The Dead Drop",
+      "difficulty": "hard",
+      "crimeType": "Espionage / Sabotage",
+      "briefing": {
+        "description": "A satellite launch failed when the payload fairing failed to separate. The manual override was triggered, but the signal was blocked by a local 'jamming' device. The facility is a 'no-signal' zone with active frequency scanning.",
+        "warning": "How do you jam a signal without being detected by a jammer-detector?"
+      },
+      "victim": {
+        "name": "Orbital Dynamics",
+        "age": 0,
+        "job": "Space Agency",
+        "timeOfDeath": "05:00",
+        "modeOfDeath": "Loss of satellite / Failed launch.",
+        "routine": [
+          "04:55 - Launch successful.",
+          "04:59 - Fairing separation command sent.",
+          "05:00 - Signal blocked; satellite burns up in atmosphere."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-24",
+          "role": "The Radio Tech",
+          "statement": "There were no illegal frequencies detected. The airwaves were clean. I'm not a traitor, stop looking at me!",
+          "reliability": "Low - Witness is hyper-defensive."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-59",
+          "name": "Dr. Elena Vance",
+          "connection": "Lead Physicist",
+          "alibi": "In the control room.",
+          "relationToVictim": "Secretly working for a rival nation's space program.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "04:30",
+                "from": "Elena",
+                "text": "The 'silent' frequency is ready. It's not a wave, it's a pulse."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-60",
+          "name": "Marcus Reed",
+          "connection": "Safety Inspector",
+          "alibi": "On the launchpad 1 hour before takeoff.",
+          "relationToVictim": "Failed his own pilot training and blames the agency."
+        },
+        {
+          "id": "s-61",
+          "name": "Sarah Miller",
+          "connection": "Software Lead",
+          "alibi": "Monitoring code from the bunker.",
+          "relationToVictim": "Under massive pressure to succeed; might have sabotaged to blame 'hardware'."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-28",
+          "name": "Ultrasonic Transducer",
+          "description": "Found hidden inside a fire extinguisher near the antenna. It doesn't use radio waves, but high-frequency sound to vibrate the antenna's physical components, disrupting the signal via 'mechanical' interference.",
+          "type": "Physical"
+        }
+      ],
+      "solution": {
+        "killerId": "s-59",
+        "closingStatement": "Dr. Elena Vance used an ultrasonic transducer to bypass the radio-frequency scanners. By vibrating the receiving antenna at a specific resonance, she physically prevented it from processing the separation command without ever emitting a radio signal."
+      }
+    },
+    {
+      "id": "case-931h",
+      "caseNumber": "931-H",
+      "title": "The Red-Tape Sabotage",
+      "difficulty": "hard",
+      "crimeType": "Industrial Sabotage / Arson",
+      "briefing": {
+        "description": "A massive server farm burned down. The Halon fire-suppression system was full and functional, but when the fire started, the gas simply didn't release. The physical pulls were disconnected, and the digital trigger was delayed by exactly 10 minutes.",
+        "warning": "The delay was built into the 'maintenance' schedule."
+      },
+      "victim": {
+        "name": "CloudCore Data",
+        "age": 0,
+        "job": "Server Farm",
+        "timeOfDeath": "23:00",
+        "modeOfDeath": "Total destruction of data center.",
+        "routine": [
+          "22:30 - Routine system backup begins.",
+          "22:50 - Fire starts in rack 4-B.",
+          "23:00 - Servers melt; Halon finally releases too late."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-25",
+          "role": "The Maintenance Man",
+          "statement": "I just did the inspection yesterday. Everything was green. I don't know why it failed. Leave me alone.",
+          "reliability": "Low - Witness refuses to provide inspection logs."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-62",
+          "name": "Julian Thorne",
+          "connection": "Safety Officer",
+          "alibi": "At home with his wife.",
+          "relationToVictim": "Was recently fired but given a 30-day 'handover' period.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "12:00",
+                "from": "Julian",
+                "text": "I updated the firmware. It'll follow the 'new' safety protocol now."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-63",
+          "name": "Elena Rossi",
+          "connection": "Rival CEO",
+          "alibi": "In a meeting in a different state.",
+          "relationToVictim": "CloudCore was about to win a contract she desperately needed."
+        },
+        {
+          "id": "s-64",
+          "name": "Marcus Flint",
+          "connection": "Night Guard",
+          "alibi": "On patrol. Claims he didn't smell smoke until it was too late.",
+          "relationToVictim": "Gambling addict; easily bribed."
+        },
+        {
+          "id": "s-65",
+          "name": "Ava Stone",
+          "connection": "Hardware Engineer",
+          "alibi": "Working in the East Wing.",
+          "relationToVictim": "Considers the company's carbon footprint 'unacceptable'."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-29",
+          "name": "Firmware Version 1.0.4",
+          "description": "The fire suppression firmware was 'updated' to a version that includes a 10-minute 'verification' delay to prevent 'false positives'. This version was never approved by the board.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-62",
+        "closingStatement": "Julian Thorne used his final days as Safety Officer to upload unapproved firmware to the fire system. He added a 10-minute 'verification' delay, knowing that in a server fire, 10 minutes is the difference between a minor glitch and total destruction."
+      }
+    },
+    {
+      "id": "case-932h",
+      "caseNumber": "932-H",
+      "title": "The Ledger of Lies",
+      "difficulty": "hard",
+      "crimeType": "Financial Fraud / Embezzlement",
+      "briefing": {
+        "description": "A non-profit for orphans discovered $50M was missing from their accounts. The blockchain ledger shows the money was spent on 'supplies', but the suppliers don't exist. The private keys were stored in a physical safe that was never opened.",
+        "warning": "The keys were stolen without the safe being opened."
+      },
+      "victim": {
+        "name": "Hope Foundation",
+        "age": 0,
+        "job": "Non-Profit",
+        "timeOfDeath": "09:00",
+        "modeOfDeath": "Financial ruin.",
+        "routine": [
+          "Mon - Weekly audit.",
+          "Wed - $50M transferred out in small increments.",
+          "Fri - Discrepancy found."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-26",
+          "role": "The Treasurer",
+          "statement": "I have the only key to that safe. I never opened it. It's impossible. I won't help you find a ghost.",
+          "reliability": "Low - Witness is in shock and refusing to help."
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-66",
+          "name": "Silas Vane",
+          "connection": "IT Consultant",
+          "alibi": "Working in the server room.",
+          "relationToVictim": "Has a history of 'losing' money at previous jobs, though never convicted.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "22:00",
+                "from": "Silas",
+                "text": "The camera in the safe room has a blind spot in the infrared spectrum."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-67",
+          "name": "Elena Miller",
+          "connection": "Founder",
+          "alibi": "In Africa on a mission trip.",
+          "relationToVictim": "Actually living a double life of luxury in Europe."
+        },
+        {
+          "id": "s-68",
+          "name": "Marcus Stone",
+          "connection": "Bank Liaison",
+          "alibi": "At the bank. Security footage confirms.",
+          "relationToVictim": "Receives a kickback for every large transfer."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-30",
+          "name": "Fiber-Optic Endoscope",
+          "description": "Found in the air vent. A tiny, flexible camera used to look inside the safe's dial mechanism from the back to see the combination as it's being turned.",
+          "type": "Physical"
+        }
+      ],
+      "solution": {
+        "killerId": "s-66",
+        "closingStatement": "Silas Vane used a fiber-optic endoscope threaded through the wall to watch the Treasurer open the safe. He recorded the combination, returned later to take the private keys, and then used a custom script to drain the funds into fake supplier accounts."
+      }
+    }
+  ]
+]
