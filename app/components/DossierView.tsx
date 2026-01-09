@@ -5,42 +5,25 @@ import { motion, AnimatePresence } from "framer-motion";
 import easyCases from "@/app/cases/easyCases.json";
 import mediumCases from "@/app/cases/mediumCases.json";
 import hardCases from "@/app/cases/hardCases.json";
+import CharacterAvatar from "./CharacterAvatar";
 
-// Updated type to support all three difficulty files
 type Case =
   | (typeof easyCases)[0]
   | (typeof mediumCases)[0]
   | (typeof hardCases)[0];
 type Suspect = Case["suspects"][0];
-import CharacterAvatar from "./CharacterAvatar";
 
 interface DossierProps {
   difficulty: "easy" | "medium" | "hard";
 }
 
-// Logic Mapping for Difficulty Requirements
 const DIFFICULTY_CONFIG = {
   easy: { forensic: 10, subpoena: 15, witnessSilence: 0, subpoenaFail: 0 },
   medium: { forensic: 30, subpoena: 60, witnessSilence: 0.05, subpoenaFail: 0 },
   hard: { forensic: 60, subpoena: 45, witnessSilence: 0.3, subpoenaFail: 0.2 },
 };
 
-const InterviewStamp = () => (
-  <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 overflow-hidden">
-    <motion.div
-      initial={{ scale: 2, opacity: 0 }}
-      animate={{ scale: 1, opacity: 0.8 }}
-      className="border-4 border-red-700 px-4 py-1 rounded-sm rotate-[-12deg] bg-white/10 backdrop-blur-[1px]"
-    >
-      <p className="text-red-700 font-black text-xl tracking-tighter uppercase font-mono">
-        INTERVIEWED
-      </p>
-    </motion.div>
-  </div>
-);
-
 export default function DossierView({ difficulty }: DossierProps) {
-  // --- STATE ---
   const [activeTab, setActiveTab] = useState<
     "briefing" | "victim" | "suspects" | "evidence"
   >("briefing");
@@ -49,7 +32,7 @@ export default function DossierView({ difficulty }: DossierProps) {
     Record<string, number>
   >({});
   const [unlockedRecords, setUnlockedRecords] = useState<string[]>([]);
-  const [failedActions, setFailedActions] = useState<string[]>([]); // Tracks Hard mode errors
+  const [failedActions, setFailedActions] = useState<string[]>([]);
   const [selectedSuspect, setSelectedSuspect] = useState<Suspect | null>(null);
   const [viewingPhone, setViewingPhone] = useState<Suspect | null>(null);
   const [forensicTimer, setForensicTimer] = useState<number | null>(null);
@@ -59,37 +42,26 @@ export default function DossierView({ difficulty }: DossierProps) {
   const [witnessTestimonies, setWitnessTestimonies] = useState<
     Record<string, string>
   >({});
-
   const [isAccusing, setIsAccusing] = useState(false);
   const [verdict, setVerdict] = useState<"pending" | "correct" | "incorrect">(
     "pending"
   );
 
-  // --- EFFECTS ---
-
+  // Game logic (unchanged)
   useEffect(() => {
     const collections = {
       easy: easyCases,
       medium: mediumCases,
       hard: hardCases,
     };
-
     const selectedCollection = collections[difficulty];
-
-    // Logic for range 909 to 1100
-    // (1100 - 909 + 1) = 192 possible outcomes
     const randomNumber = Math.floor(Math.random() * 192) + 909;
     const randomID = randomNumber.toString();
-
     const foundCase = selectedCollection.find(
       (c) => c.id === `case-${randomID}h`
     ) as Case;
-
-    if (foundCase) {
-      setCurrentCase(foundCase);
-    } else {
-      // Fallback: If the specific ID doesn't exist, pick any random case
-      // from the file so the screen isn't blank
+    if (foundCase) setCurrentCase(foundCase);
+    else {
       const fallbackIndex = Math.floor(
         Math.random() * selectedCollection.length
       );
@@ -97,28 +69,21 @@ export default function DossierView({ difficulty }: DossierProps) {
     }
   }, [difficulty]);
 
-  // Forensic Logic (Medium 50% chance of no forensic)
   useEffect(() => {
     if (activeTab === "evidence" && forensicTimer === null) {
       let time = DIFFICULTY_CONFIG[difficulty].forensic;
-
-      if (difficulty === "medium" && Math.random() > 0.5) {
-        time = 0; // 50% chance of instant unlock
-      }
-
+      if (difficulty === "medium" && Math.random() > 0.5) time = 0;
       setForensicTimer(time);
     }
   }, [activeTab, forensicTimer, difficulty]);
 
-  // Master Clock for Subpoenas and Forensic
   useEffect(() => {
     const interval = setInterval(() => {
       setPendingSubpoenas((prev) => {
         const next = { ...prev };
         Object.keys(next).forEach((name) => {
-          if (next[name] > 1) {
-            next[name] -= 1;
-          } else {
+          if (next[name] > 1) next[name] -= 1;
+          else {
             setUnlockedRecords((records) =>
               records.includes(name) ? records : [...records, name]
             );
@@ -132,24 +97,16 @@ export default function DossierView({ difficulty }: DossierProps) {
     return () => clearInterval(interval);
   }, []);
 
-  // --- HANDLERS ---
-
   const handleSubpoena = (suspectName: string) => {
-    // 1. Find the suspect object to check for data existence
     const suspect = currentCase?.suspects.find((s) => s.name === suspectName);
-
     if (
       !pendingSubpoenas[suspectName] &&
       !unlockedRecords.includes(suspectName)
     ) {
-      // 2. Check if subpoena data exists for this suspect
       if (!suspect || !suspect.subpoenaData) {
         setFailedActions((prev) => [...prev, `subpoena-${suspectName}`]);
-        // You can also add a specific toast or alert here: "Unable to file a subpoena"
         return;
       }
-
-      // 3. If it exists, start the timer based on DIFFICULTY_CONFIG
       setPendingSubpoenas((prev) => ({
         ...prev,
         [suspectName]: DIFFICULTY_CONFIG[difficulty].subpoena,
@@ -160,8 +117,6 @@ export default function DossierView({ difficulty }: DossierProps) {
   const handleInterview = (role: string, statement: string) => {
     if (!interviewedWitnesses.includes(role)) {
       setInterviewedWitnesses((prev) => [...prev, role]);
-
-      // Check if the statement exists in the JSON
       if (!statement || statement.trim() === "") {
         setWitnessTestimonies((prev) => ({
           ...prev,
@@ -177,573 +132,799 @@ export default function DossierView({ difficulty }: DossierProps) {
   };
 
   const submitAccusation = (suspectId: string) => {
-    if (suspectId === currentCase?.solution?.killerId) {
-      setVerdict("correct");
-    } else {
-      setVerdict("incorrect");
-    }
+    if (suspectId === currentCase?.solution?.killerId) setVerdict("correct");
+    else setVerdict("incorrect");
   };
 
   if (!currentCase) return null;
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="flex w-full h-full bg-[#1a1a1a] text-stone-900 rounded-lg overflow-hidden shadow-2xl border border-stone-800 relative"
-    >
-      {/* CINEMATIC ACCUSATION MODAL */}
-      <AnimatePresence>
-        {isAccusing && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-[100] flex items-center justify-center bg-red-950/95 backdrop-blur-2xl p-10"
-          >
-            <motion.div
-              initial={{ scale: 0.9, rotate: -1 }}
-              animate={{ scale: 1, rotate: 0 }}
-              className="bg-[#fdf6e3] max-w-2xl w-full p-12 border-[12px] border-stone-900 shadow-2xl relative"
-            >
-              <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-red-700 text-white px-8 py-2 font-black uppercase tracking-[0.4em] text-sm shadow-xl">
-                Official Indictment
-              </div>
-
-              {verdict === "pending" ? (
-                <>
-                  <div className="text-center mb-10">
-                    <h2 className="text-4xl font-black uppercase tracking-tighter text-stone-900 mb-2">
-                      Select the Prime Suspect
-                    </h2>
-                    <p className="text-[10px] text-stone-500 font-mono uppercase tracking-widest underline underline-offset-4">
-                      Warning: A wrongful arrest will result in immediate
-                      termination of the investigation.
-                    </p>
-                  </div>
-                  <div className="space-y-3">
-                    {currentCase.suspects.map((s) => (
-                      <button
-                        key={s.id}
-                        onClick={() => submitAccusation(s.id)}
-                        className="w-full p-4 border-2 border-stone-300 hover:border-red-700 hover:bg-red-50 text-left flex items-center justify-between group transition-all"
-                      >
-                        <div className="flex items-center gap-5">
-                          <CharacterAvatar
-                            seed={s.name}
-                            className="w-14 h-14 grayscale group-hover:grayscale-0 border border-stone-800"
-                          />
-                          <div>
-                            <p className="font-black uppercase text-lg text-stone-900 leading-none">
-                              {s.name}
-                            </p>
-                            <p className="text-[9px] font-mono text-stone-500 mt-1 uppercase">
-                              {s.relationToVictim}
-                            </p>
-                          </div>
-                        </div>
-                        <span className="opacity-0 group-hover:opacity-100 text-red-700 font-black text-[10px] tracking-widest">
-                          ISSUE WARRANT →
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                  <div className="mt-10 pt-4 border-t border-stone-200 text-center">
-                    <button
-                      onClick={() => setIsAccusing(false)}
-                      className="text-stone-400 hover:text-stone-800 uppercase text-[10px] font-bold tracking-widest transition-colors"
-                    >
-                      « Return to Field Notes
-                    </button>
-                  </div>
-                </>
-              ) : verdict === "correct" ? (
-                <div className="text-center py-8 space-y-6">
-                  <div className="text-green-700 font-black text-7xl tracking-tighter scale-110">
-                    GUILTY
-                  </div>
-                  <h3 className="text-2xl font-bold uppercase border-y border-stone-200 py-4">
-                    The Case of {currentCase.title} is Closed
-                  </h3>
-                  <p className="text-stone-800 italic leading-relaxed text-lg">
-                    "{currentCase.solution?.closingStatement}"
-                  </p>
-                  <button
-                    onClick={() => window.location.reload()}
-                    className="w-full bg-stone-900 text-white py-4 font-black uppercase tracking-widest hover:bg-black transition-all"
-                  >
-                    Next Assignment
-                  </button>
-                </div>
-              ) : (
-                <div className="text-center py-8 space-y-6">
-                  <div className="text-red-600 font-black text-7xl tracking-tighter">
-                    FAILED
-                  </div>
-                  <h3 className="text-2xl font-bold uppercase">
-                    Wrongful Arrest
-                  </h3>
-                  <p className="text-stone-700 border-y border-stone-200 py-6">
-                    The evidence was insufficient. The real killer has slipped
-                    through your fingers, and your department has been served
-                    with a lawsuit.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setVerdict("pending");
-                      setIsAccusing(false);
-                    }}
-                    className="w-full bg-red-900 text-white py-4 font-black uppercase tracking-widest"
-                  >
-                    Try Again
-                  </button>
-                </div>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* PHONE RECORDS MODAL */}
-      <AnimatePresence>
-        {viewingPhone && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-xl p-20"
-          >
-            <motion.div
-              initial={{ y: 50, scale: 0.9 }}
-              animate={{ y: 0, scale: 1 }}
-              className="bg-[#0a0a0a] w-80 h-[600px] rounded-[3rem] border-[12px] border-stone-800 overflow-hidden flex flex-col shadow-[0_0_80px_rgba(0,0,0,0.8)]"
-            >
-              <div className="h-7 bg-stone-800 w-1/3 mx-auto rounded-b-2xl mb-2" />
-              <div className="px-4 py-3 border-b border-white/10 flex items-center gap-3 bg-stone-900/50">
-                <CharacterAvatar
-                  seed={viewingPhone.name}
-                  className="w-10 h-10 rounded-full border border-stone-700"
-                />
-                <div>
-                  <p className="text-white font-bold text-xs leading-none mb-1">
-                    {viewingPhone.name}
-                  </p>
-                  <p className="text-[9px] text-green-500 font-mono uppercase tracking-tighter">
-                    Secure Link Active
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex-1 px-4 overflow-y-auto space-y-6 flex flex-col pt-4 scrollbar-hide bg-[#0f0f0f]">
-                {viewingPhone.subpoenaData.messages?.map((log, i) => {
-                  const isFromSuspect = log.from === viewingPhone.name;
-                  return (
-                    <div
-                      key={i}
-                      className={`flex flex-col max-w-[85%] ${
-                        isFromSuspect
-                          ? "self-end items-end"
-                          : "self-start items-start"
-                      }`}
-                    >
-                      <span className="text-[9px] font-black uppercase text-stone-500 mb-1 px-1">
-                        {log.from}
-                      </span>
-                      <div
-                        className={`p-3 rounded-2xl text-xs ${
-                          isFromSuspect
-                            ? "bg-amber-600 text-black font-bold rounded-tr-none"
-                            : "bg-stone-800 text-stone-200 rounded-tl-none border border-stone-700"
-                        }`}
-                      >
-                        {log.text}
-                      </div>
-                      <span className="text-[8px] font-mono text-stone-600 mt-1 px-1">
-                        {log.time}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-              <button
-                onClick={() => setViewingPhone(null)}
-                className="mx-8 my-6 p-3 bg-red-900/20 text-red-500 border border-red-900/30 rounded-xl font-black uppercase text-[10px]"
-              >
-                Terminate Link
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* SUSPECT DETAIL MODAL */}
-      <AnimatePresence>
-        {selectedSuspect && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-50 flex items-center justify-center p-12 bg-black/70 backdrop-blur-sm"
-          >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              className="bg-[#fdf6e3] w-full max-w-2xl shadow-2xl border-2 border-stone-800 overflow-hidden flex flex-col"
-            >
-              <div className="p-8 flex gap-8">
-                <div className="space-y-4">
-                  <CharacterAvatar
-                    seed={selectedSuspect.name}
-                    className="w-48 h-48 border-4 border-stone-800 shadow-lg"
-                  />
-                  {unlockedRecords.includes(selectedSuspect.name) ? (
-                    <button
-                      onClick={() => setViewingPhone(selectedSuspect)}
-                      className="w-full bg-amber-600 text-black py-3 px-4 font-black uppercase text-xs hover:bg-amber-500 transition-colors"
-                    >
-                      Access Logs
-                    </button>
-                  ) : failedActions.includes(
-                      `subpoena-${selectedSuspect.name}`
-                    ) ? (
-                    <div className="w-full bg-red-900/20 text-red-600 py-3 px-4 font-black uppercase text-[10px] text-center border border-red-900/50">
-                      Unable to file a subpoena
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => handleSubpoena(selectedSuspect.name)}
-                      disabled={!!pendingSubpoenas[selectedSuspect.name]}
-                      className="w-full bg-stone-900 text-amber-500 py-3 px-4 font-black uppercase text-xs disabled:opacity-50"
-                    >
-                      {pendingSubpoenas[selectedSuspect.name]
-                        ? "Warrant Pending..."
-                        : "Request Subpoena"}
-                    </button>
-                  )}
-                </div>
-                <div className="flex-1 space-y-6">
-                  <h2 className="text-4xl font-black uppercase tracking-tighter text-stone-900">
-                    {selectedSuspect.name}
-                  </h2>
-                  <div className="space-y-4 text-sm">
-                    <div className="bg-stone-200/50 p-3 border-l-4 border-stone-800">
-                      <p className="text-[10px] font-bold text-stone-500 uppercase mb-1 tracking-widest">
-                        Alibi
-                      </p>
-                      <p className="italic">
-                        "{selectedSuspect.alibi || "No alibi recorded."}"
-                      </p>
-                    </div>
-                    <p>
-                      <strong>Relation:</strong>{" "}
-                      {selectedSuspect.relationToVictim}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <button
-                onClick={() => setSelectedSuspect(null)}
-                className="w-full bg-stone-200 border-t-2 border-stone-800 py-4 font-black uppercase text-sm hover:bg-stone-300"
-              >
-                Close File
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* LEFT NAVIGATION */}
-      <div className="w-64 flex flex-col pt-10 bg-[#0f172a] border-r border-black/50">
-        <div className="px-6 mb-8 text-stone-500 text-[10px] uppercase tracking-[0.3em] font-bold">
-          Case Navigation
-        </div>
-        {["briefing", "victim", "suspects", "evidence"].map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab as any)}
-            className={`text-left px-6 py-4 uppercase tracking-widest text-xs border-l-4 transition-all ${
-              activeTab === tab
-                ? "bg-white/5 border-amber-600 text-white"
-                : "border-transparent text-stone-500"
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
+  // UI Components
+  const DifficultyBadge = () => {
+    const config = {
+      easy: {
+        label: "Junior",
+        color: "bg-green-100 text-green-800 border-green-200",
+      },
+      medium: {
+        label: "Lead",
+        color: "bg-amber-100 text-amber-800 border-amber-200",
+      },
+      hard: {
+        label: "Expert",
+        color: "bg-red-100 text-red-800 border-red-200",
+      },
+    };
+    return (
+      <div
+        className={`px-3 py-1 rounded-full text-sm font-medium border ${config[difficulty].color}`}
+      >
+        {config[difficulty].label} Level
       </div>
+    );
+  };
 
-      {/* CENTER STAGE */}
-      <div className="flex-1 bg-[#fdf6e3] overflow-y-auto relative shadow-inner">
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/felt.png')]" />
-        <div className="p-16 relative z-10">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+  const StatusIndicator = ({
+    type,
+    label,
+    value,
+    active = true,
+  }: {
+    type: "timer" | "count" | "status";
+    label: string;
+    value: string | number;
+    active?: boolean;
+  }) => (
+    <div
+      className={`p-3 rounded-lg border ${
+        active ? "bg-white border-stone-200" : "bg-stone-50 border-stone-100"
+      }`}
+    >
+      <div className="text-sm text-stone-600 mb-1">{label}</div>
+      <div className="text-xl font-semibold text-stone-900">{value}</div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-stone-50 text-stone-900">
+      {/* Top Navigation Bar */}
+      <header className="sticky top-0 z-40 bg-white border-b border-stone-200 px-6 py-4">
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
+          <div className="flex items-center gap-8">
+            <div>
+              <h1 className="text-xl font-bold text-stone-900">
+                Case #{currentCase.caseNumber}
+              </h1>
+              <p className="text-sm text-stone-600">{currentCase.title}</p>
+            </div>
+            <DifficultyBadge />
+          </div>
+
+          <div className="flex items-center gap-6">
+            <div className="text-sm text-stone-600">
+              Det.{" "}
+              <span className="font-semibold text-stone-900">
+                {localStorage.getItem("userName") || "Unknown"}
+              </span>
+            </div>
+            <button
+              onClick={() => setIsAccusing(true)}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              aria-label="Make accusation"
             >
+              File Accusation
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Investigation Dashboard */}
+      <main className="max-w-7xl mx-auto px-6 py-8">
+        {/* Case Navigation Tabs */}
+        <nav className="mb-8" role="tablist" aria-label="Case sections">
+          <div className="flex gap-2 border-b border-stone-200">
+            {[
+              { id: "briefing", label: "Case Briefing", icon: "📋" },
+              { id: "victim", label: "Victim Profile", icon: "🕵️" },
+              { id: "suspects", label: "Suspects", icon: "👤" },
+              { id: "evidence", label: "Evidence", icon: "🔍" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                role="tab"
+                aria-selected={activeTab === tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`flex items-center gap-2 px-4 py-3 -mb-px border-b-2 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                  activeTab === tab.id
+                    ? "border-blue-600 text-blue-700 font-medium"
+                    : "border-transparent text-stone-600 hover:text-stone-900 hover:border-stone-300"
+                }`}
+              >
+                <span className="text-lg">{tab.icon}</span>
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </nav>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Primary Content Area */}
+          <div className="lg:col-span-2 space-y-8">
+            <AnimatePresence mode="wait">
               {activeTab === "briefing" && (
-                <div className="max-w-prose space-y-8">
-                  <p className="text-amber-700 font-bold uppercase text-xs tracking-widest">
-                    Initial Docket // {currentCase.caseNumber}
-                  </p>
-                  <h2 className="text-5xl font-black uppercase tracking-tighter">
-                    {currentCase.title}
+                <motion.div
+                  key="briefing"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="bg-white rounded-xl border border-stone-200 p-8"
+                >
+                  <h2 className="text-2xl font-bold text-stone-900 mb-6">
+                    Case Briefing
                   </h2>
-                  <p className="text-2xl leading-relaxed italic border-l-4 border-stone-300 pl-6 text-stone-800">
-                    {currentCase.briefing.description}
-                  </p>
-                  <div className="flex gap-4">
-                    <div className="inline-block p-4 border-2 border-red-900 text-red-900 bg-red-900/5 uppercase text-xs font-bold">
-                      Classification: {currentCase.crimeType}
-                    </div>
-                    <div className="inline-block p-4 border-2 border-stone-900 text-stone-900 bg-stone-900/5 uppercase text-xs font-bold">
-                      Difficulty: {difficulty}
+                  <div className="prose prose-stone max-w-none">
+                    <p className="text-lg text-stone-700 leading-relaxed">
+                      {currentCase.briefing.description}
+                    </p>
+                  </div>
+                  <div className="mt-8 pt-6 border-t border-stone-200">
+                    <div className="flex flex-wrap gap-4">
+                      <StatusIndicator
+                        type="status"
+                        label="Crime Type"
+                        value={currentCase.crimeType}
+                      />
+                      <StatusIndicator
+                        type="count"
+                        label="Suspects"
+                        value={currentCase.suspects.length}
+                      />
+                      <StatusIndicator
+                        type="count"
+                        label="Witnesses"
+                        value={currentCase.witnesses.length}
+                      />
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {activeTab === "victim" && (
-                <div className="space-y-8">
-                  <div className="flex items-center space-x-6 border-b-4 border-stone-900 pb-4">
+                <motion.div
+                  key="victim"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="bg-white rounded-xl border border-stone-200 p-8"
+                >
+                  <div className="flex items-start gap-8 mb-8">
                     <CharacterAvatar
                       seed={currentCase.victim.name}
-                      className="w-24 h-24 rounded-sm rotate-[-2deg] border-2 border-stone-800 shadow-lg"
+                      className="w-32 h-32 rounded-lg border-2 border-stone-300"
                     />
-                    <h3 className="text-4xl font-black uppercase tracking-tighter">
-                      Post-Mortem: {currentCase.victim.name}
-                    </h3>
-                  </div>
-                  <div className="grid grid-cols-2 gap-12">
-                    <div className="space-y-6">
-                      {[
-                        { label: "Age", val: currentCase.victim.age },
-                        { label: "Job", val: currentCase.victim.job },
-                        {
-                          label: "Est. TOD",
-                          val: currentCase.victim.timeOfDeath,
-                        },
-                      ].map((stat, i) => (
-                        <div key={i} className="border-b border-stone-300 pb-2">
-                          <p className="text-[10px] uppercase font-bold text-stone-400 tracking-widest">
-                            {stat.label}
-                          </p>
-                          <p className="text-xl font-bold text-stone-900">
-                            {stat.val}
-                          </p>
-                        </div>
-                      ))}
+                    <div className="flex-1">
+                      <h2 className="text-2xl font-bold text-stone-900 mb-2">
+                        {currentCase.victim.name}
+                      </h2>
+                      <p className="text-stone-600">
+                        {currentCase.victim.job}, {currentCase.victim.age}
+                      </p>
+                      <div className="mt-4 text-sm text-stone-500">
+                        Time of death: {currentCase.victim.timeOfDeath}
+                      </div>
                     </div>
-                    <div className="bg-stone-200/50 p-6 border-2 border-dashed border-stone-400">
-                      <h4 className="font-black mb-4 uppercase text-xs text-stone-600 underline">
-                        Verified Routine
-                      </h4>
-                      <ul className="text-sm space-y-3 font-mono">
-                        {currentCase.victim.routine.map((line, i) => (
-                          <li key={i}>» {line}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {activeTab === "suspects" && (
-                <div className="space-y-10">
-                  <h3 className="text-4xl font-black uppercase tracking-tighter border-b-4 border-stone-900 pb-2">
-                    Persons of Interest
-                  </h3>
-                  <div className="grid grid-cols-3 gap-8">
-                    {currentCase.suspects.map((s) => (
-                      <div
-                        key={s.id}
-                        onClick={() => setSelectedSuspect(s)}
-                        className="bg-white p-4 border border-stone-300 cursor-pointer hover:border-amber-600 transition-all shadow-sm"
-                      >
-                        <CharacterAvatar
-                          seed={s.name}
-                          className="w-full aspect-square grayscale hover:grayscale-0 transition-all mb-4"
-                        />
-                        <h4 className="text-center font-black uppercase text-sm">
-                          {s.name}
-                        </h4>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {activeTab === "evidence" && (
-                <div className="space-y-12">
-                  <div className="flex justify-between items-end border-b-4 border-stone-900 pb-2">
-                    <h3 className="text-4xl font-black uppercase tracking-tighter">
-                      Evidence Locker
-                    </h3>
-                    {forensicTimer !== null && forensicTimer > 0 && (
-                      <div className="text-right">
-                        <p className="text-[9px] font-black text-amber-600 uppercase tracking-widest">
-                          Lab Backlog
-                        </p>
-                        <p className="text-xl font-mono font-bold text-amber-700">
-                          {forensicTimer}s
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="grid grid-cols-2 gap-6">
-                    {currentCase.evidence.map((item) => (
-                      <div
-                        key={item.id}
-                        className="bg-white p-6 border border-stone-300 shadow-sm relative"
-                      >
-                        <span className="absolute top-0 right-0 bg-stone-800 text-white px-2 py-1 text-[10px] font-mono">
-                          {item.id}
-                        </span>
-                        <h4 className="text-xl font-bold uppercase mb-2 text-stone-950">
-                          {item.name}
-                        </h4>
-                        <p
-                          className={`text-sm italic transition-all duration-1000 ${
-                            item.type === "Forensic" && (forensicTimer ?? 0) > 0
-                              ? "blur-md opacity-30"
-                              : "text-stone-700"
-                          }`}
-                        >
-                          "{item.description}"
-                        </p>
-                      </div>
-                    ))}
                   </div>
 
                   <div>
-                    <h4 className="text-xs font-black uppercase tracking-[0.3em] text-stone-400 mb-6 underline">
-                      Digital Intercepts
-                    </h4>
-                    <div className="grid grid-cols-3 gap-4 min-h-[64px]">
-                      {unlockedRecords.map((name) => (
-                        <button
-                          key={name}
-                          onClick={() =>
-                            setViewingPhone(
-                              currentCase.suspects.find(
-                                (s) => s.name === name
-                              ) || null
-                            )
-                          }
-                          className="h-16 px-4 bg-amber-600/10 border border-amber-600 text-amber-900 font-black uppercase text-[10px] flex items-center justify-between hover:bg-amber-600/20 transition-all"
+                    <h3 className="text-lg font-semibold text-stone-900 mb-4">
+                      Verified Daily Routine
+                    </h3>
+                    <div className="space-y-3">
+                      {currentCase.victim.routine.map((line, i) => (
+                        <div
+                          key={i}
+                          className="flex items-start gap-3 p-3 bg-stone-50 rounded-lg"
                         >
-                          <span className="truncate">
-                            {name.split(" ")[0]}'s Phone
-                          </span>
-                          <span>VIEW →</span>
-                        </button>
+                          <div className="w-6 h-6 rounded-full bg-stone-800 text-white flex items-center justify-center text-xs font-medium">
+                            {i + 1}
+                          </div>
+                          <p className="text-stone-700 flex-1">{line}</p>
+                        </div>
                       ))}
-                      {unlockedRecords.length === 0 && (
-                        <p className="col-span-3 h-16 flex items-center text-stone-400 italic text-sm">
-                          Waiting for warrant approval...
-                        </p>
-                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {activeTab === "suspects" && (
+                <motion.div
+                  key="suspects"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="bg-white rounded-xl border border-stone-200 p-8"
+                >
+                  <div className="flex items-center justify-between mb-8">
+                    <h2 className="text-2xl font-bold text-stone-900">
+                      Persons of Interest
+                    </h2>
+                    <div className="text-sm text-stone-600">
+                      {currentCase.suspects.length} individuals
                     </div>
                   </div>
 
-                  <div className="pt-8 border-t-2 border-stone-200">
-                    <h4 className="text-xs font-black uppercase tracking-[0.3em] text-stone-400 mb-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {currentCase.suspects.map((suspect) => (
+                      <button
+                        key={suspect.id}
+                        onClick={() => setSelectedSuspect(suspect)}
+                        className="text-left p-6 rounded-lg border border-stone-200 hover:border-stone-300 hover:bg-stone-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        aria-label={`View details for ${suspect.name}`}
+                      >
+                        <div className="flex items-start gap-4">
+                          <CharacterAvatar
+                            seed={suspect.name}
+                            className="w-16 h-16 rounded-lg border border-stone-300"
+                          />
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-stone-900 mb-1">
+                              {suspect.name}
+                            </h3>
+                            <p className="text-sm text-stone-600 mb-3">
+                              {suspect.relationToVictim}
+                            </p>
+                            <div className="text-sm text-blue-600 font-medium">
+                              Review dossier →
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {activeTab === "evidence" && (
+                <motion.div
+                  key="evidence"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="space-y-8"
+                >
+                  {/* Evidence Section */}
+                  <div className="bg-white rounded-xl border border-stone-200 p-8">
+                    <div className="flex items-center justify-between mb-8">
+                      <h2 className="text-2xl font-bold text-stone-900">
+                        Physical Evidence
+                      </h2>
+                      {forensicTimer !== null && forensicTimer > 0 && (
+                        <div className="flex items-center gap-3 px-4 py-2 bg-amber-50 rounded-lg border border-amber-200">
+                          <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
+                          <div className="text-sm font-medium text-amber-800">
+                            Forensic analysis: {forensicTimer}s
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {currentCase.evidence.map((item) => (
+                        <div
+                          key={item.id}
+                          className="p-6 rounded-lg border border-stone-200"
+                        >
+                          <div className="flex items-start justify-between mb-4">
+                            <h3 className="font-semibold text-stone-900">
+                              {item.name}
+                            </h3>
+                            <span className="px-2 py-1 text-xs font-medium bg-stone-100 text-stone-700 rounded">
+                              {item.type}
+                            </span>
+                          </div>
+                          <p
+                            className={`text-stone-700 ${
+                              item.type === "Forensic" &&
+                              (forensicTimer ?? 0) > 0
+                                ? "blur-sm"
+                                : ""
+                            }`}
+                          >
+                            {item.description}
+                          </p>
+                          {item.type === "Forensic" &&
+                            (forensicTimer ?? 0) > 0 && (
+                              <div className="mt-3 text-sm text-amber-600 font-medium">
+                                Laboratory analysis in progress...
+                              </div>
+                            )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Witness Statements */}
+                  <div className="bg-white rounded-xl border border-stone-200 p-8">
+                    <h2 className="text-2xl font-bold text-stone-900 mb-8">
                       Witness Statements
-                    </h4>
-                    <div className="flex flex-wrap gap-6">
-                      {currentCase.witnesses.map((w, idx) => {
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {currentCase.witnesses.map((witness, idx) => {
                         const interviewed = interviewedWitnesses.includes(
-                          w.role
+                          witness.role
                         );
                         return (
                           <div
                             key={idx}
-                            className="group relative flex items-center space-x-4 px-4 py-3 bg-stone-200/50 border border-stone-300 min-w-[240px]"
+                            className="p-6 rounded-lg border border-stone-200"
                           >
-                            {interviewed && <InterviewStamp />}
-                            <CharacterAvatar
-                              seed={w.role}
-                              className="w-12 h-12 rounded-full border-stone-800"
-                            />
-                            <div className="font-mono text-sm font-bold uppercase">
-                              {w.role}
+                            <div className="flex items-start justify-between mb-4">
+                              <div className="flex items-center gap-3">
+                                <CharacterAvatar
+                                  seed={witness.role}
+                                  className="w-12 h-12 rounded-lg"
+                                />
+                                <div>
+                                  <h3 className="font-semibold text-stone-900">
+                                    {witness.role}
+                                  </h3>
+                                  <div
+                                    className={`text-xs font-medium px-2 py-1 rounded ${
+                                      interviewed
+                                        ? "bg-green-100 text-green-800"
+                                        : "bg-stone-100 text-stone-700"
+                                    }`}
+                                  >
+                                    {interviewed ? "Interviewed" : "Pending"}
+                                  </div>
+                                </div>
+                              </div>
+                              {!interviewed && (
+                                <button
+                                  onClick={() =>
+                                    handleInterview(
+                                      witness.role,
+                                      witness.statement
+                                    )
+                                  }
+                                  className="px-3 py-1 text-sm font-medium bg-stone-800 text-white rounded hover:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2"
+                                >
+                                  Interview
+                                </button>
+                              )}
                             </div>
-                            {!interviewed && (
-                              <button
-                                onClick={() =>
-                                  handleInterview(w.role, w.statement)
-                                }
-                                className="absolute inset-0 bg-stone-900/90 text-white opacity-0 group-hover:opacity-100 flex items-center justify-center font-black uppercase text-[10px] transition-opacity"
-                              >
-                                Conduct Interview
-                              </button>
+                            {interviewed ? (
+                              <div className="p-4 bg-stone-50 rounded-lg">
+                                <p className="text-stone-700 italic">
+                                  "{witnessTestimonies[witness.role]}"
+                                </p>
+                              </div>
+                            ) : (
+                              <p className="text-stone-500 italic">
+                                Statement not recorded
+                              </p>
                             )}
                           </div>
                         );
                       })}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
+            </AnimatePresence>
+          </div>
 
-      {/* RIGHT SIDEBAR */}
-      <div className="w-72 flex flex-col p-8 bg-[#0a0a0a] border-l border-black text-xs uppercase tracking-tighter text-stone-500">
-        <div className="border-b border-white/5 pb-6 mb-6">
-          <p className="font-bold mb-1">Assigned Investigator</p>
-          <p className="text-amber-500 font-black text-lg italic tracking-normal">
-            Det. {localStorage.getItem("userName") || "Unknown"}
-          </p>
-        </div>
+          {/* Investigation Sidebar */}
+          <div className="space-y-8">
+            {/* Active Tasks */}
+            <div className="bg-white rounded-xl border border-stone-200 p-6">
+              <h3 className="text-lg font-semibold text-stone-900 mb-6">
+                Active Tasks
+              </h3>
+              <div className="space-y-4">
+                {/* Pending Subpoenas */}
+                {Object.keys(pendingSubpoenas).length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-stone-700 mb-3">
+                      Subpoena Processing
+                    </h4>
+                    <div className="space-y-3">
+                      {Object.entries(pendingSubpoenas).map(([name, time]) => (
+                        <div
+                          key={name}
+                          className="flex items-center justify-between p-3 bg-blue-50 rounded-lg"
+                        >
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                            <span className="text-sm font-medium text-stone-900">
+                              {name.split(" ")[0]}
+                            </span>
+                          </div>
+                          <span className="text-lg font-semibold text-blue-700">
+                            {time}s
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
-        <div className="flex-1 overflow-y-auto space-y-4">
-          <p className="text-stone-600 font-bold border-b border-white/5 pb-2">
-            Case Progress
-          </p>
-          {interviewedWitnesses.map((role) => (
-            <motion.div
-              initial={{ opacity: 0, x: 5 }}
-              animate={{ opacity: 1, x: 0 }}
-              key={role}
-              className="p-3 bg-stone-900 border-l-2 border-amber-600"
-            >
-              <p className="text-amber-500 font-black text-[9px] mb-1">
-                {role}
-              </p>
-              <p className="text-stone-300 normal-case italic leading-tight">
-                "{witnessTestimonies[role] || "Awaiting Statement..."}"
-              </p>
-            </motion.div>
-          ))}
-          {Object.entries(pendingSubpoenas).map(([name, time]) => (
-            <div
-              key={name}
-              className="p-3 bg-red-950/20 border border-red-900/40"
-            >
-              <p className="text-red-500 font-bold">
-                {name.split(" ")[0]}'s Subpoena
-              </p>
-              <p className="text-xl font-mono text-red-600 animate-pulse">
-                {time}s
-              </p>
+                {/* Unlocked Phone Records */}
+                {unlockedRecords.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-stone-700 mb-3">
+                      Available Records
+                    </h4>
+                    <div className="space-y-2">
+                      {unlockedRecords.map((name) => (
+                        <button
+                          key={name}
+                          onClick={() => {
+                            const suspect = currentCase.suspects.find(
+                              (s) => s.name === name
+                            );
+                            if (suspect) setViewingPhone(suspect);
+                          }}
+                          className="w-full text-left p-3 rounded-lg border border-stone-200 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="font-medium text-stone-900">
+                              {name}
+                            </span>
+                            <span className="text-sm text-blue-600">
+                              Review →
+                            </span>
+                          </div>
+                          <div className="text-xs text-stone-500 mt-1">
+                            Phone records
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* No Active Tasks */}
+                {Object.keys(pendingSubpoenas).length === 0 &&
+                  unlockedRecords.length === 0 && (
+                    <div className="text-center py-6">
+                      <div className="text-3xl mb-3">📋</div>
+                      <p className="text-sm text-stone-600">No active tasks</p>
+                      <p className="text-xs text-stone-500 mt-1">
+                        Begin your investigation
+                      </p>
+                    </div>
+                  )}
+              </div>
             </div>
-          ))}
-        </div>
 
-        <div className="mt-auto pt-6 border-t border-white/10">
-          <button
-            onClick={() => setIsAccusing(true)}
-            className="w-full py-4 bg-red-700 hover:bg-red-600 text-white font-black uppercase text-xs tracking-[0.2em] shadow-[0_0_20px_rgba(185,28,28,0.2)] transition-all active:scale-95"
-          >
-            Draft Accusation
-          </button>
+            {/* Case Timeline */}
+            <div className="bg-white rounded-xl border border-stone-200 p-6">
+              <h3 className="text-lg font-semibold text-stone-900 mb-6">
+                Investigation Status
+              </h3>
+              <div className="space-y-6">
+                <div>
+                  <div className="text-sm text-stone-600 mb-2">
+                    Evidence Collected
+                  </div>
+                  <div className="text-2xl font-bold text-stone-900">
+                    {currentCase.evidence.length} items
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-stone-600 mb-2">
+                    Witnesses Interviewed
+                  </div>
+                  <div className="text-2xl font-bold text-stone-900">
+                    {interviewedWitnesses.length} of{" "}
+                    {currentCase.witnesses.length}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm text-stone-600 mb-2">
+                    Phone Records
+                  </div>
+                  <div className="text-2xl font-bold text-stone-900">
+                    {unlockedRecords.length} unlocked
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </main>
+
+      {/* Modals */}
+      <AnimatePresence>
+        {/* Suspect Dossier Modal */}
+        {selectedSuspect && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+            onClick={() => setSelectedSuspect(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Suspect dossier: ${selectedSuspect.name}`}
+            >
+              <div className="sticky top-0 bg-white border-b border-stone-200 p-6 flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-stone-900">
+                  Suspect Dossier
+                </h2>
+                <button
+                  onClick={() => setSelectedSuspect(null)}
+                  className="p-2 hover:bg-stone-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
+                  aria-label="Close dossier"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div className="lg:col-span-1 space-y-6">
+                    <div className="space-y-4">
+                      <CharacterAvatar
+                        seed={selectedSuspect.name}
+                        className="w-full aspect-square rounded-xl border-2 border-stone-300"
+                      />
+                      <div className="text-center">
+                        <h3 className="text-xl font-bold text-stone-900">
+                          {selectedSuspect.name}
+                        </h3>
+                        <p className="text-stone-600">
+                          {selectedSuspect.relationToVictim}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      {unlockedRecords.includes(selectedSuspect.name) ? (
+                        <button
+                          onClick={() => {
+                            setViewingPhone(selectedSuspect);
+                            setSelectedSuspect(null);
+                          }}
+                          className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        >
+                          Review Phone Records
+                        </button>
+                      ) : failedActions.includes(
+                          `subpoena-${selectedSuspect.name}`
+                        ) ? (
+                        <div className="p-4 bg-red-50 rounded-lg border border-red-200 text-center">
+                          <div className="text-red-700 font-medium">
+                            No records available
+                          </div>
+                          <div className="text-sm text-red-600 mt-1">
+                            Cannot issue subpoena
+                          </div>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => handleSubpoena(selectedSuspect.name)}
+                          disabled={!!pendingSubpoenas[selectedSuspect.name]}
+                          className={`w-full py-3 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                            pendingSubpoenas[selectedSuspect.name]
+                              ? "bg-stone-300 text-stone-500 cursor-not-allowed"
+                              : "bg-stone-800 text-white hover:bg-stone-900 focus:ring-stone-500"
+                          }`}
+                        >
+                          {pendingSubpoenas[selectedSuspect.name]
+                            ? `Processing... ${
+                                pendingSubpoenas[selectedSuspect.name]
+                              }s`
+                            : "Request Phone Subpoena"}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-2">
+                    <div className="mb-8">
+                      <h4 className="text-lg font-semibold text-stone-900 mb-4">
+                        Alibi
+                      </h4>
+                      <div className="p-6 bg-stone-50 rounded-xl border border-stone-200">
+                        <p className="text-stone-700 italic text-lg">
+                          "{selectedSuspect.alibi || "No alibi provided."}"
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Phone Records Modal */}
+        {viewingPhone && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70"
+            onClick={() => setViewingPhone(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              className="relative bg-stone-900 text-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Phone records: ${viewingPhone.name}`}
+            >
+              <div className="sticky top-0 bg-stone-800 border-b border-stone-700 p-6 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <CharacterAvatar
+                    seed={viewingPhone.name}
+                    className="w-10 h-10 rounded-lg"
+                  />
+                  <div>
+                    <h2 className="font-bold text-lg">{viewingPhone.name}</h2>
+                    <p className="text-sm text-stone-400">
+                      Phone Records - Subpoena Approved
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setViewingPhone(null)}
+                  className="p-2 hover:bg-stone-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
+                  aria-label="Close records"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="p-6 max-h-[60vh] overflow-y-auto">
+                {viewingPhone.subpoenaData.messages?.map((log, i) => {
+                  const isFromSuspect = log.from === viewingPhone.name;
+                  return (
+                    <div
+                      key={i}
+                      className={`mb-4 ${
+                        isFromSuspect ? "text-right" : "text-left"
+                      }`}
+                    >
+                      <div
+                        className={`inline-block p-4 rounded-xl max-w-[85%] ${
+                          isFromSuspect
+                            ? "bg-blue-600 text-white"
+                            : "bg-stone-800 text-stone-200"
+                        }`}
+                      >
+                        <div className="text-xs font-medium text-stone-400 mb-1">
+                          {log.from}
+                        </div>
+                        <p className="mb-2">{log.text}</p>
+                        <div className="text-xs text-stone-500">{log.time}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Accusation Modal */}
+        {isAccusing && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
+            onClick={() => setIsAccusing(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              className="relative bg-white rounded-2xl max-w-2xl w-full"
+              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-label="File official accusation"
+            >
+              <div className="p-8">
+                {verdict === "pending" ? (
+                  <>
+                    <div className="text-center mb-8">
+                      <h2 className="text-2xl font-bold text-stone-900 mb-2">
+                        File Official Accusation
+                      </h2>
+                      <p className="text-stone-600">
+                        Select the suspect you believe committed the crime
+                      </p>
+                    </div>
+
+                    <div className="space-y-4 mb-8">
+                      {currentCase.suspects.map((suspect) => (
+                        <button
+                          key={suspect.id}
+                          onClick={() => submitAccusation(suspect.id)}
+                          className="w-full p-4 rounded-lg border border-stone-200 hover:border-red-300 hover:bg-red-50 text-left focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                        >
+                          <div className="flex items-center gap-4">
+                            <CharacterAvatar
+                              seed={suspect.name}
+                              className="w-12 h-12 rounded-lg"
+                            />
+                            <div>
+                              <div className="font-semibold text-stone-900">
+                                {suspect.name}
+                              </div>
+                              <div className="text-sm text-stone-600">
+                                {suspect.relationToVictim}
+                              </div>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() => setIsAccusing(false)}
+                      className="w-full py-3 border border-stone-300 rounded-lg font-medium hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2"
+                    >
+                      Cancel
+                    </button>
+                  </>
+                ) : verdict === "correct" ? (
+                  <div className="text-center py-8">
+                    <div className="text-5xl text-green-600 mb-6">✓</div>
+                    <h3 className="text-2xl font-bold text-stone-900 mb-4">
+                      Case Closed
+                    </h3>
+                    <div className="mb-8">
+                      <p className="text-stone-700 italic">
+                        "{currentCase.solution?.closingStatement}"
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => window.location.reload()}
+                      className="w-full py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                    >
+                      Investigate Next Case
+                    </button>
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <div className="text-5xl text-red-600 mb-6">✗</div>
+                    <h3 className="text-2xl font-bold text-stone-900 mb-4">
+                      Incorrect Accusation
+                    </h3>
+                    <div className="mb-8">
+                      <p className="text-stone-700">
+                        The evidence does not support this accusation. The
+                        investigation continues.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setVerdict("pending");
+                        setIsAccusing(false);
+                      }}
+                      className="w-full py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                    >
+                      Continue Investigation
+                    </button>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

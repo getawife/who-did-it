@@ -1700,5 +1700,342 @@
         "closingStatement": "Silas Vane used a fiber-optic endoscope threaded through the wall to watch the Treasurer open the safe. He recorded the combination, returned later to take the private keys, and then used a custom script to drain the funds into fake supplier accounts."
       }
     }
+  ],
+  [
+    {
+      "id": "case-927h",
+      "caseNumber": "927-H",
+      "title": "The Silent Autopsy",
+      "difficulty": "hard",
+      "crimeType": "Homicide / Medical Tampering",
+      "briefing": {
+        "description": "A forensic pathologist was found dead in his own morgue during an overnight shift. Cause of death appears to be a massive allergic reaction, but his medical records show no allergies.",
+        "warning": "Pay attention to procedural habits."
+      },
+      "victim": {
+        "name": "Dr. Samuel Iqbal",
+        "age": 46,
+        "job": "Forensic Pathologist",
+        "timeOfDeath": "02:10",
+        "modeOfDeath": "Anaphylactic shock.",
+        "routine": [
+          "21:00 - Begins overnight autopsy review.",
+          "23:30 - Break in staff lounge.",
+          "02:10 - Found collapsed beside autopsy table."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-27",
+          "role": "Night Orderly",
+          "statement": "I just clean floors. Doctors do doctor things. I don’t touch their tools.",
+          "reliability": "Medium"
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-69",
+          "name": "Ayesha Rahman",
+          "connection": "Medical Examiner",
+          "alibi": "At home. Phone records confirm.",
+          "relationToVictim": "Professional rivalry over a high-profile case.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "18:30",
+                "from": "Ayesha",
+                "text": "He keeps cutting corners. It will catch up to him."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-70",
+          "name": "Victor Han",
+          "connection": "Lab Technician",
+          "alibi": "Processing samples.",
+          "relationToVictim": "Recently reprimanded by Dr. Iqbal."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-31",
+          "name": "Latex Powder Residue",
+          "description": "Trace latex protein found inside nitrile gloves.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-70",
+        "closingStatement": "Victor Han dusted nitrile gloves with latex powder, knowing Dr. Iqbal reused gloves during solo autopsies. The exposure triggered a fatal allergic reaction that appeared spontaneous."
+      }
+    },
+
+    {
+      "id": "case-928h",
+      "caseNumber": "928-H",
+      "title": "Cold Call",
+      "difficulty": "hard",
+      "crimeType": "Homicide / Psychological Manipulation",
+      "briefing": {
+        "description": "A suicide hotline operator died after jumping from her apartment. Evidence suggests she was manipulated into believing she had committed a crime.",
+        "warning": "The murder weapon is information."
+      },
+      "victim": {
+        "name": "Elena Kovács",
+        "age": 34,
+        "job": "Crisis Hotline Operator",
+        "timeOfDeath": "23:40",
+        "modeOfDeath": "Fatal fall.",
+        "routine": [
+          "18:00 - Starts shift.",
+          "22:50 - Receives final call.",
+          "23:40 - Death."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-28",
+          "role": "Neighbor",
+          "statement": "She was crying… or laughing? Hard to tell.",
+          "reliability": "Medium"
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-71",
+          "name": "Daniel Pierce",
+          "connection": "Former Caller",
+          "alibi": "Gaming online.",
+          "relationToVictim": "Blamed her for a failed intervention.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "21:10",
+                "from": "Daniel",
+                "text": "What if *you* ruined someone’s life?"
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-72",
+          "name": "Marta Iliev",
+          "connection": "Supervisor",
+          "alibi": "At home.",
+          "relationToVictim": "Threatened termination."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-32",
+          "name": "Voice Modulator App",
+          "description": "Installed on Daniel Pierce’s phone.",
+          "type": "Digital"
+        }
+      ],
+      "solution": {
+        "killerId": "s-71",
+        "closingStatement": "Daniel Pierce used voice modulation and insider details to impersonate law enforcement, convincing Elena she was responsible for a death."
+      }
+    },
+    {
+      "id": "case-928h",
+      "caseNumber": "928-H",
+      "title": "Cold Call",
+      "difficulty": "hard",
+      "crimeType": "Homicide / Psychological Manipulation",
+      "briefing": {
+        "description": "A suicide hotline operator jumped from her apartment after receiving a disturbing phone call.",
+        "warning": "The weapon is belief."
+      },
+      "victim": {
+        "name": "Elena Kovács",
+        "age": 34,
+        "job": "Crisis Hotline Operator",
+        "timeOfDeath": "23:40",
+        "modeOfDeath": "Fatal fall.",
+        "routine": [
+          "18:00 - Shift starts.",
+          "22:50 - Final call.",
+          "23:40 - Death."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-28",
+          "role": "Neighbor",
+          "statement": "She looked terrified.",
+          "reliability": "Medium"
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-71",
+          "name": "Daniel Pierce",
+          "connection": "Former caller",
+          "alibi": "Online gaming.",
+          "relationToVictim": "Blamed her for failed intervention.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "21:10",
+                "from": "Daniel",
+                "text": "What if YOU caused a death?"
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-72",
+          "name": "Marta Iliev",
+          "connection": "Supervisor",
+          "alibi": "At home.",
+          "relationToVictim": "Threatened termination."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-32",
+          "name": "Voice Modulation App",
+          "description": "Installed on Daniel Pierce’s phone.",
+          "type": "Digital"
+        }
+      ],
+      "solution": {
+        "killerId": "s-71",
+        "closingStatement": "Daniel impersonated authorities using voice modulation to convince Elena she was criminally liable."
+      }
+    },
+
+    {
+      "id": "case-929h",
+      "caseNumber": "929-H",
+      "title": "Dead Frequency",
+      "difficulty": "hard",
+      "crimeType": "Homicide / Signal Interference",
+      "briefing": {
+        "description": "A radio host died live on air from apparent electrocution.",
+        "warning": "Sound can be lethal."
+      },
+      "victim": {
+        "name": "Marcus Bell",
+        "age": 51,
+        "job": "Radio Host",
+        "timeOfDeath": "09:05",
+        "modeOfDeath": "Cardiac arrest.",
+        "routine": ["08:00 - Morning broadcast.", "09:05 - Collapse on air."]
+      },
+      "witnesses": [
+        {
+          "id": "w-29",
+          "role": "Producer",
+          "statement": "The equipment just… spiked.",
+          "reliability": "Medium"
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-73",
+          "name": "Liam O’Connell",
+          "connection": "Sound Engineer",
+          "alibi": "In control booth.",
+          "relationToVictim": "Public humiliation on air.",
+          "subpoenaData": {
+            "messages": [
+              {
+                "time": "07:40",
+                "from": "Liam",
+                "text": "Today’s show will be shocking."
+              }
+            ]
+          }
+        },
+        {
+          "id": "s-74",
+          "name": "Nadia El-Sayed",
+          "connection": "Station Manager",
+          "alibi": "Meeting.",
+          "relationToVictim": "Contract dispute."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-33",
+          "name": "Modified Ground Wire",
+          "description": "Rewired to route current through microphone.",
+          "type": "Physical"
+        }
+      ],
+      "solution": {
+        "killerId": "s-73",
+        "closingStatement": "Liam rerouted grounding so vocal spikes sent current through the mic."
+      }
+    },
+
+    {
+      "id": "case-930h",
+      "caseNumber": "930-H",
+      "title": "The Empty Cradle",
+      "difficulty": "hard",
+      "crimeType": "Infanticide / Negligent Homicide",
+      "briefing": {
+        "description": "A newborn died in a private maternity ward despite normal vitals.",
+        "warning": "Look at monitoring gaps."
+      },
+      "victim": {
+        "name": "Baby Noah Alvarez",
+        "age": 0,
+        "job": "Infant",
+        "timeOfDeath": "03:15",
+        "modeOfDeath": "Respiratory failure.",
+        "routine": [
+          "01:00 - Feeding.",
+          "02:00 - Monitoring shift change.",
+          "03:15 - Death."
+        ]
+      },
+      "witnesses": [
+        {
+          "id": "w-30",
+          "role": "Nurse",
+          "statement": "Everything was normal.",
+          "reliability": "Low"
+        }
+      ],
+      "suspects": [
+        {
+          "id": "s-75",
+          "name": "Clara Jensen",
+          "connection": "Night Nurse",
+          "alibi": "On duty.",
+          "relationToVictim": "Medication error history.",
+          "subpoenaData": {
+            "messages": [
+              { "time": "22:00", "from": "Clara", "text": "No alarms tonight." }
+            ]
+          }
+        },
+        {
+          "id": "s-76",
+          "name": "Miguel Alvarez",
+          "connection": "Father",
+          "alibi": "Sleeping in ward.",
+          "relationToVictim": "None."
+        }
+      ],
+      "evidence": [
+        {
+          "id": "e-34",
+          "name": "Disabled Oxygen Alarm",
+          "description": "Alarm volume set to zero.",
+          "type": "Forensic"
+        }
+      ],
+      "solution": {
+        "killerId": "s-75",
+        "closingStatement": "Clara muted alarms to cover negligence during medication rounds."
+      }
+    }
   ]
 ]
