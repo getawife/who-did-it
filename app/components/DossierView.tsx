@@ -47,26 +47,22 @@ export default function DossierView({ difficulty }: DossierProps) {
     "pending"
   );
 
-  // Game logic (unchanged)
   useEffect(() => {
     const collections = {
       easy: easyCases,
       medium: mediumCases,
       hard: hardCases,
     };
+
     const selectedCollection = collections[difficulty];
-    const randomNumber = Math.floor(Math.random() * 192) + 909;
-    const randomID = randomNumber.toString();
-    const foundCase = selectedCollection.find(
-      (c) => c.id === `case-${randomID}h`
-    ) as Case;
-    if (foundCase) setCurrentCase(foundCase);
-    else {
-      const fallbackIndex = Math.floor(
-        Math.random() * selectedCollection.length
-      );
-      setCurrentCase(selectedCollection[fallbackIndex] as Case);
-    }
+
+    // Flatten the array if it's nested
+    const flatCollection =
+      difficulty === "hard" ? selectedCollection.flat() : selectedCollection;
+
+    // Simply pick a random case from the collection
+    const randomIndex = Math.floor(Math.random() * flatCollection.length);
+    setCurrentCase(flatCollection[randomIndex] as Case);
   }, [difficulty]);
 
   useEffect(() => {
@@ -894,7 +890,7 @@ export default function DossierView({ difficulty }: DossierProps) {
                       onClick={() => window.location.reload()}
                       className="w-full py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                     >
-                      Investigate Next Case
+                      Go home
                     </button>
                   </div>
                 ) : (

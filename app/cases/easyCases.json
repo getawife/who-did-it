@@ -4,7 +4,7 @@
     "caseNumber": "402-B",
     "title": "The Clockmaker's Final Second",
     "difficulty": "easy",
-    "crimeType": "Extreme Homicide",
+    "crimeType": "Homicide",
     "briefing": {
       "description": "Elias Thorne was found slumped over his workbench in a room locked from the inside. There is a chilling surgical precision to the scene; the victim's heart has been removed with no traces of blood on the floor or his clothes. The only sound in the room was the frantic ticking of a hundred clocks.",
       "warning": "This case involves graphic descriptions of surgical mutilation and psychological distress."
@@ -92,7 +92,1201 @@
     ],
     "solution": {
       "killerId": "s-1",
-      "closingStatement": "Julian Vane confessed after being presented with the phone records..."
+      "closingStatement": "Julian Vane confessed after being presented with the phone records. He entered through the back door while Thorne was winding the clocks, incapacitated him, and performed the surgical mutilation out of revenge for being fired."
+    }
+  },
+  {
+    "id": "case-403b",
+    "caseNumber": "403-B",
+    "title": "The Missing Cookies",
+    "difficulty": "easy",
+    "crimeType": "Theft",
+    "briefing": {
+      "description": "Mrs. Jenkins' freshly baked cookies disappeared from her kitchen windowsill. The window was open, and muddy footprints lead from the garden to the street.",
+      "warning": "Look for obvious clues and follow the trail."
+    },
+    "victim": {
+      "name": "Agatha Jenkins",
+      "age": 72,
+      "sex": "Female",
+      "job": "Retired Baker",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "14:00 - Bakes cookies",
+        "14:30 - Places cookies on windowsill to cool",
+        "15:00 - Takes afternoon nap",
+        "15:30 - Discovers cookies missing"
+      ],
+      "otherInfo": "Known for the best chocolate chip cookies in the neighborhood."
+    },
+    "witnesses": [
+      {
+        "id": "w-2",
+        "role": "Neighbor",
+        "statement": "I saw a young boy running down the street with something in his hands around 15:15.",
+        "reliability": "High - Has clear view of the street from her porch."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-3",
+        "name": "Tommy Miller",
+        "connection": "Neighborhood Kid",
+        "alibi": "Said he was at the park all afternoon.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "14:45",
+              "from": "Tommy",
+              "text": "Mom says Mrs. Jenkins' cookies are cooling now!"
+            }
+          ]
+        },
+        "relationToVictim": "Often plays in Mrs. Jenkins' garden.",
+        "additionalInfo": "Has a sweet tooth and loves cookies."
+      },
+      {
+        "id": "s-4",
+        "name": "Mr. Wilson",
+        "connection": "Next-door neighbor",
+        "alibi": "Watching TV in his living room.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "15:10",
+              "from": "Mr. Wilson",
+              "text": "Those cookies smell amazing from here!"
+            }
+          ]
+        },
+        "relationToVictim": "Friendly neighbors for 20 years.",
+        "additionalInfo": "On a strict diet but loves sweets."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-3",
+        "name": "Muddy Footprints",
+        "description": "Small sneaker prints leading from the garden to the sidewalk.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-4",
+        "name": "Chocolate Smudge",
+        "description": "Chocolate found on the windowsill, matching Mrs. Jenkins' cookie recipe.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-3",
+      "closingStatement": "Tommy Miller admitted to taking the cookies when confronted with the shoe prints matching his sneakers. He climbed through the garden, took the cookies from the windowsill, and ran home."
+    }
+  },
+  {
+    "id": "case-404b",
+    "caseNumber": "404-B",
+    "title": "The Broken Window",
+    "difficulty": "easy",
+    "crimeType": "Vandalism",
+    "briefing": {
+      "description": "The front window of Mr. Chen's antique shop was shattered overnight. A baseball was found inside the shop among the broken glass.",
+      "warning": "Check for obvious connections between the evidence and suspects."
+    },
+    "victim": {
+      "name": "David Chen",
+      "age": 48,
+      "sex": "Male",
+      "job": "Antique Shop Owner",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "20:00 - Closes shop",
+        "20:30 - Goes home",
+        "22:00 - Receives security alarm notification",
+        "22:15 - Returns to find broken window"
+      ],
+      "otherInfo": "Recently had arguments with local kids about playing ball near his shop."
+    },
+    "witnesses": [
+      {
+        "id": "w-3",
+        "role": "Night Guard",
+        "statement": "I heard glass breaking around 21:45 and saw someone running away. It was dark, but they were wearing a red jacket.",
+        "reliability": "Medium - It was dark and the guard is elderly."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-5",
+        "name": "Jake Peterson",
+        "connection": "Local Teenager",
+        "alibi": "Said he was at home doing homework.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "20:00",
+              "from": "Jake",
+              "text": "Mr. Chen yelled at us again today for playing catch."
+            },
+            {
+              "time": "21:30",
+              "from": "Jake",
+              "text": "Let's get back at that old man!"
+            }
+          ]
+        },
+        "relationToVictim": "Mr. Chen frequently scolded him for playing near the shop.",
+        "additionalInfo": "Plays on the local baseball team."
+      },
+      {
+        "id": "s-6",
+        "name": "Sam Wilson",
+        "connection": "Jake's Friend",
+        "alibi": "With Jake, supposedly doing homework together.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "21:40",
+              "from": "Sam",
+              "text": "My red jacket is ready. Meet at the usual spot."
+            }
+          ]
+        },
+        "relationToVictim": "Also scolded by Mr. Chen multiple times.",
+        "additionalInfo": "Owns a red baseball jacket."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-5",
+        "name": "Baseball",
+        "description": "Standard baseball found among the broken glass. Has initials 'J.P.' written on it.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-6",
+        "name": "Red Thread",
+        "description": "Small red thread caught on the broken window frame.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-5",
+      "closingStatement": "Jake Peterson admitted he threw the baseball that broke the window when shown the ball with his initials. He was angry about being scolded earlier that day."
+    }
+  },
+  {
+    "id": "case-405b",
+    "caseNumber": "405-B",
+    "title": "The Stolen Bicycle",
+    "difficulty": "easy",
+    "crimeType": "Theft",
+    "briefing": {
+      "description": "A brand new bicycle was stolen from outside the library. Security cameras were not working, but a witness saw someone riding away on a similar bike.",
+      "warning": "Look for the most obvious suspect with access and motive."
+    },
+    "victim": {
+      "name": "Sarah Johnson",
+      "age": 16,
+      "sex": "Female",
+      "job": "High School Student",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "15:00 - Arrives at library",
+        "15:05 - Parks bike outside",
+        "17:00 - Comes out to find bike missing",
+        "17:05 - Reports theft"
+      ],
+      "otherInfo": "Just received the bike as a birthday gift two days ago."
+    },
+    "witnesses": [
+      {
+        "id": "w-4",
+        "role": "Librarian",
+        "statement": "I saw a teenager in a green hoodie riding a shiny blue bike away from the library around 16:30.",
+        "reliability": "High - Has good eyesight and was at the front desk."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-7",
+        "name": "Mike Rodriguez",
+        "connection": "Classmate",
+        "alibi": "Said he was at the skate park all afternoon.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "14:30",
+              "from": "Mike",
+              "text": "Sarah's new bike is so cool. Wish I had one like that."
+            },
+            {
+              "time": "16:25",
+              "from": "Mike",
+              "text": "Library bike is unattended. Easy target."
+            }
+          ]
+        },
+        "relationToVictim": "Often jealous of Sarah's new things.",
+        "additionalInfo": "Owns a green hoodie and has been in trouble for petty theft before."
+      },
+      {
+        "id": "s-8",
+        "name": "Alex Chen",
+        "connection": "Another Student",
+        "alibi": "Studying in the library's quiet room.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "15:30",
+              "from": "Alex",
+              "text": "Saw Sarah's bike outside. Looks expensive."
+            }
+          ]
+        },
+        "relationToVictim": "Borrowed Sarah's old bike once and returned it damaged.",
+        "additionalInfo": "Has a part-time job at a bike shop."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-7",
+        "name": "Cut Lock",
+        "description": "Bolt cutters were used to cut the bike lock. Tool marks match standard bolt cutters.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-8",
+        "name": "Green Fiber",
+        "description": "Green fabric fiber found on the broken bike rack.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-7",
+      "closingStatement": "Mike Rodriguez was caught riding Sarah's bike near his home. The green fiber matched his hoodie, and bolt cutters were found in his backpack."
+    }
+  },
+  {
+    "id": "case-406b",
+    "caseNumber": "406-B",
+    "title": "The Graffiti Artist",
+    "difficulty": "easy",
+    "crimeType": "Vandalism",
+    "briefing": {
+      "description": "The side of the community center was spray-painted overnight with colorful graffiti. The signature tag 'SK8R' was left at the bottom.",
+      "warning": "Check for matching tags and known artists in the area."
+    },
+    "victim": {
+      "name": "Community Center",
+      "age": 0,
+      "sex": "N/A",
+      "job": "Public Facility",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "21:00 - Closes for the night",
+        "07:00 - Janitor arrives and discovers graffiti",
+        "07:30 - Police notified"
+      ],
+      "otherInfo": "This is the third graffiti incident in the neighborhood this month."
+    },
+    "witnesses": [
+      {
+        "id": "w-5",
+        "role": "Night Watchman",
+        "statement": "I heard spray cans shaking around midnight but couldn't see who it was from my post.",
+        "reliability": "Medium - Hearing is good but vision was limited by darkness."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-9",
+        "name": "Kevin Lee",
+        "connection": "Local Skateboarder",
+        "alibi": "Said he was sleeping at home.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "23:45",
+              "from": "Kevin",
+              "text": "The wall is perfect for my new piece. Going out tonight."
+            }
+          ]
+        },
+        "relationToVictim": "Was banned from the community center skate park for disruptive behavior.",
+        "additionalInfo": "Known to tag 'SK8R' on his skateboard and notebook."
+      },
+      {
+        "id": "s-10",
+        "name": "Jamal Williams",
+        "connection": "Art Student",
+        "alibi": "Working on a project at home.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "22:30",
+              "from": "Jamal",
+              "text": "Need more spray paint for my project."
+            }
+          ]
+        },
+        "relationToVictim": "Takes art classes at the community center.",
+        "additionalInfo": "Has colorful spray paint stains on his shoes."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-9",
+        "name": "Spray Paint Can",
+        "description": "Empty red spray paint can found in nearby bushes. Fingerprints wiped clean.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-10",
+        "name": "Skateboard Tracks",
+        "description": "Wheel marks from a skateboard in the dirt near the wall.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-9",
+      "closingStatement": "Kevin Lee confessed when shown photos of his 'SK8R' tag matching the graffiti. He was angry about being banned from the skate park and wanted revenge."
+    }
+  },
+  {
+    "id": "case-407b",
+    "caseNumber": "407-B",
+    "title": "The Lunch Money Thief",
+    "difficulty": "easy",
+    "crimeType": "Theft",
+    "briefing": {
+      "description": "A student's lunch money was stolen from their backpack during gym class. The money was in a distinctive blue envelope with the student's name on it.",
+      "warning": "Look for who had access to the locker room during class."
+    },
+    "victim": {
+      "name": "Emma Garcia",
+      "age": 14,
+      "sex": "Female",
+      "job": "Middle School Student",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "10:30 - Gym class starts",
+        "10:35 - Leaves backpack in locker room",
+        "11:30 - Returns to find money missing",
+        "11:35 - Reports theft to teacher"
+      ],
+      "otherInfo": "Emma's mother gave her $20 for a class field trip."
+    },
+    "witnesses": [
+      {
+        "id": "w-6",
+        "role": "Gym Teacher",
+        "statement": "I saw a student return to the locker room briefly around 10:45, claiming they forgot their water bottle.",
+        "reliability": "High - Teacher has good memory for student movements."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-11",
+        "name": "Liam O'Connor",
+        "connection": "Classmate",
+        "alibi": "Said he was in the bathroom during that time.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "10:15",
+              "from": "Liam",
+              "text": "Saw Emma put money in her backpack. Blue envelope."
+            },
+            {
+              "time": "10:50",
+              "from": "Liam",
+              "text": "Got what I needed. Easy."
+            }
+          ]
+        },
+        "relationToVictim": "Owed money to another student and needed to pay it back.",
+        "additionalInfo": "Has been in trouble for taking things without permission before."
+      },
+      {
+        "id": "s-12",
+        "name": "Chloe Bennett",
+        "connection": "Classmate",
+        "alibi": "Was in gym class the whole time.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "09:30",
+              "from": "Chloe",
+              "text": "Wish I had money for the field trip too."
+            }
+          ]
+        },
+        "relationToVictim": "Friends with Emma but recently had an argument.",
+        "additionalInfo": "Her family is having financial difficulties."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-11",
+        "name": "Blue Envelope",
+        "description": "Empty blue envelope found in the trash can near Liam's locker.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-12",
+        "name": "Security Camera",
+        "description": "Camera shows Liam entering locker room at 10:44 and leaving at 10:47.",
+        "type": "Digital"
+      }
+    ],
+    "solution": {
+      "killerId": "s-11",
+      "closingStatement": "Liam O'Connor was caught with the $20 in his pocket. Security footage showed him entering the locker room during gym class, and the empty envelope was found in his trash."
+    }
+  },
+  {
+    "id": "case-408b",
+    "caseNumber": "408-B",
+    "title": "The Library Book Vanishes",
+    "difficulty": "easy",
+    "crimeType": "Theft",
+    "briefing": {
+      "description": "A rare first edition book disappeared from the library's display case. The glass was not broken, suggesting the case was opened with a key.",
+      "warning": "Consider who has access to the display case keys."
+    },
+    "victim": {
+      "name": "City Library",
+      "age": 0,
+      "sex": "N/A",
+      "job": "Public Library",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "18:00 - Library closes",
+        "18:30 - Night guard makes rounds",
+        "08:00 - Librarian discovers book missing",
+        "08:15 - Police notified"
+      ],
+      "otherInfo": "The book was valued at $5,000 and was part of a special collection."
+    },
+    "witnesses": [
+      {
+        "id": "w-7",
+        "role": "Night Cleaner",
+        "statement": "I saw someone in the rare books room around 19:00, but thought it was a staff member working late.",
+        "reliability": "Medium - Only saw a silhouette from a distance."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-13",
+        "name": "Mr. Harris",
+        "connection": "Head Librarian",
+        "alibi": "Said he was at home with family.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "17:45",
+              "from": "Mr. Harris",
+              "text": "Display case key is in my desk drawer. Easy access."
+            }
+          ]
+        },
+        "relationToVictim": "Responsible for the rare book collection.",
+        "additionalInfo": "Has been researching book values online recently."
+      },
+      {
+        "id": "s-14",
+        "name": "Sarah Jenkins",
+        "connection": "Library Volunteer",
+        "alibi": "Studying at a coffee shop.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "18:15",
+              "from": "Sarah",
+              "text": "That first edition would pay off my student loans."
+            }
+          ]
+        },
+        "relationToVictim": "Has access to staff areas during volunteer hours.",
+        "additionalInfo": "Studying literature in college and knows book values."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-13",
+        "name": "Key Log",
+        "description": "Record shows the display case key was signed out at 17:50 by Mr. Harris.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-14",
+        "name": "Online Listing",
+        "description": "The missing book was listed for sale online by an account linked to Mr. Harris.",
+        "type": "Digital"
+      }
+    ],
+    "solution": {
+      "killerId": "s-13",
+      "closingStatement": "Mr. Harris confessed when confronted with the key log and online listing. He took the book to sell it online, planning to blame it on a break-in."
+    }
+  },
+  {
+    "id": "case-409b",
+    "caseNumber": "409-B",
+    "title": "The Garden Vandal",
+    "difficulty": "easy",
+    "crimeType": "Vandalism",
+    "briefing": {
+      "description": "Mrs. Wilson's prize-winning rose garden was trampled overnight. Footprints in the mud lead to the neighbor's yard.",
+      "warning": "Follow the footprints and check for motives."
+    },
+    "victim": {
+      "name": "Margaret Wilson",
+      "age": 68,
+      "sex": "Female",
+      "job": "Retired Gardener",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "20:00 - Waters garden",
+        "21:00 - Goes to bed",
+        "07:00 - Discovers damaged garden",
+        "07:30 - Calls police"
+      ],
+      "otherInfo": "Her roses won first prize at the county fair last month."
+    },
+    "witnesses": [
+      {
+        "id": "w-8",
+        "role": "Neighbor",
+        "statement": "I heard dogs barking around midnight and saw someone running through the yards.",
+        "reliability": "High - Awake due to insomnia, has clear view of the street."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-15",
+        "name": "Robert Miller",
+        "connection": "Next-door Neighbor",
+        "alibi": "Said he was watching TV all night.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "19:30",
+              "from": "Robert",
+              "text": "Those roses block my view. Need to do something about them."
+            }
+          ]
+        },
+        "relationToVictim": "Complained about the roses blocking sunlight to his vegetable garden.",
+        "additionalInfo": "Boot prints in his shed match those in the garden."
+      },
+      {
+        "id": "s-16",
+        "name": "Teenage Vandals",
+        "connection": "Local Teens",
+        "alibi": "Unknown - no specific alibi provided.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "21:00",
+              "from": "Unknown",
+              "text": "Let's mess up that fancy garden tonight."
+            }
+          ]
+        },
+        "relationToVictim": "No direct connection.",
+        "additionalInfo": "There have been other vandalism incidents in the neighborhood."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-15",
+        "name": "Boot Prints",
+        "description": "Distinctive work boot prints in the mud, size 10.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-16",
+        "name": "Garden Tool",
+        "description": "A shovel with fresh mud on it found in Robert's shed.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-15",
+      "closingStatement": "Robert Miller admitted to trampling the roses when his boot prints matched exactly. He was angry that the rose bushes were shading his vegetable garden."
+    }
+  },
+  {
+    "id": "case-410b",
+    "caseNumber": "410-B",
+    "title": "The Missing Pet",
+    "difficulty": "easy",
+    "crimeType": "Pet Theft",
+    "briefing": {
+      "description": "A family's prized show cat disappeared from their backyard. The gate was left open, and cat treats were scattered on the ground.",
+      "warning": "Look for someone with knowledge of the cat's habits and value."
+    },
+    "victim": {
+      "name": "The Peterson Family",
+      "age": 0,
+      "sex": "N/A",
+      "job": "Cat Owners",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "16:00 - Let cat out in backyard",
+        "17:00 - Check on cat",
+        "17:30 - Discover cat missing",
+        "18:00 - Call police"
+      ],
+      "otherInfo": "The cat is a rare breed worth over $3,000 and has won several shows."
+    },
+    "witnesses": [
+      {
+        "id": "w-9",
+        "role": "Neighbor's Child",
+        "statement": "I saw a lady with a cat carrier near the Peterson's house around 16:30.",
+        "reliability": "Medium - Child is young but observant."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-17",
+        "name": "Linda Carter",
+        "connection": "Cat Show Competitor",
+        "alibi": "Said she was at home grooming her own cats.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "15:30",
+              "from": "Linda",
+              "text": "That Persian would complete my collection. Worth a lot too."
+            }
+          ]
+        },
+        "relationToVictim": "Competes against the Petersons in cat shows.",
+        "additionalInfo": "Recently lost to the Peterson's cat at the last show."
+      },
+      {
+        "id": "s-18",
+        "name": "Pet Sitter",
+        "connection": "Former Pet Sitter",
+        "alibi": "Was supposed to be at another job.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "16:00",
+              "from": "Pet Sitter",
+              "text": "Know the cat's routine. Easy to grab during backyard time."
+            }
+          ]
+        },
+        "relationToVictim": "Used to care for the cat when family was away.",
+        "additionalInfo": "Was fired for being unreliable."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-17",
+        "name": "Cat Carrier",
+        "description": "A cat carrier found in Linda's car with the same brand of treats inside.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-18",
+        "name": "Security Camera",
+        "description": "Neighbor's camera shows Linda's car parked near the Peterson house at 16:28.",
+        "type": "Digital"
+      }
+    ],
+    "solution": {
+      "killerId": "s-17",
+      "closingStatement": "Linda Carter was found with the cat at her home. Security footage showed her car at the scene, and the cat treats in her carrier matched those used to lure the cat."
+    }
+  },
+  {
+    "id": "case-411b",
+    "caseNumber": "411-B",
+    "title": "The Candy Store Robbery",
+    "difficulty": "easy",
+    "crimeType": "Theft",
+    "briefing": {
+      "description": "The local candy store was robbed after hours. The cash register was forced open, and candy was scattered everywhere.",
+      "warning": "Look for sweet tooths with financial problems."
+    },
+    "victim": {
+      "name": "Sweet Treats Candy Store",
+      "age": 0,
+      "sex": "N/A",
+      "job": "Retail Store",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "20:00 - Store closes",
+        "20:30 - Owner leaves",
+        "21:15 - Alarm triggered",
+        "21:20 - Police arrive"
+      ],
+      "otherInfo": "The store keeps about $500 in the register overnight."
+    },
+    "witnesses": [
+      {
+        "id": "w-10",
+        "role": "Delivery Driver",
+        "statement": "I saw a teenager hanging around the back of the store around 20:45. He was wearing a hoodie.",
+        "reliability": "High - Driver makes nightly deliveries in the area."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-19",
+        "name": "Benny Russo",
+        "connection": "Former Employee",
+        "alibi": "Said he was at the arcade all night.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "19:30",
+              "from": "Benny",
+              "text": "Know where they hide the spare key. Easy money tonight."
+            }
+          ]
+        },
+        "relationToVictim": "Was fired for giving away free candy to friends.",
+        "additionalInfo": "Owes money to several people."
+      },
+      {
+        "id": "s-20",
+        "name": "Local Gang",
+        "connection": "Known Troublemakers",
+        "alibi": "No specific alibi.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "20:00",
+              "from": "Unknown",
+              "text": "Candy store is an easy target. Small cash."
+            }
+          ]
+        },
+        "relationToVictim": "Have robbed other small businesses in the area.",
+        "additionalInfo": "Usually target places with minimal security."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-19",
+        "name": "Screwdriver",
+        "description": "Screwdriver found near the register with Benny's fingerprints.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-20",
+        "name": "Candy Wrapper",
+        "description": "Rare imported candy wrapper found at the scene - Benny's favorite kind.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-19",
+      "closingStatement": "Benny Russo was caught with candy from the store in his backpack. His fingerprints were on the screwdriver used to pry open the register."
+    }
+  },
+  {
+    "id": "case-412b",
+    "caseNumber": "412-B",
+    "title": "The Park Bench Theft",
+    "difficulty": "easy",
+    "crimeType": "Theft",
+    "briefing": {
+      "description": "An elderly man's wallet was stolen while he napped on a park bench. His bag was cut open with a sharp blade.",
+      "warning": "Look for someone who frequents the park and has a history of petty theft."
+    },
+    "victim": {
+      "name": "Mr. Henderson",
+      "age": 78,
+      "sex": "Male",
+      "job": "Retired",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "14:00 - Arrives at park",
+        "14:30 - Falls asleep on bench",
+        "15:00 - Wakes up to find wallet gone",
+        "15:15 - Reports theft"
+      ],
+      "otherInfo": "Mr. Henderson visits the park every afternoon for his nap."
+    },
+    "witnesses": [
+      {
+        "id": "w-11",
+        "role": "Park Gardener",
+        "statement": "I saw a young man in a gray sweatshirt sitting near Mr. Henderson around 14:45. He left quickly.",
+        "reliability": "High - Gardener works in the park daily and knows regulars."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-21",
+        "name": "Derek Smith",
+        "connection": "Park Regular",
+        "alibi": "Said he was feeding the ducks.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "14:00",
+              "from": "Derek",
+              "text": "Old man Henderson is here with his fat wallet again."
+            }
+          ]
+        },
+        "relationToVictim": "Has been seen watching Mr. Henderson multiple times.",
+        "additionalInfo": "Has two prior convictions for pickpocketing."
+      },
+      {
+        "id": "s-22",
+        "name": "Jessica Miles",
+        "connection": "Jogger",
+        "alibi": "Said she was jogging through the park.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "14:30",
+              "from": "Jessica",
+              "text": "Saw Henderson sleeping. Easy target."
+            }
+          ]
+        },
+        "relationToVictim": "No direct connection.",
+        "additionalInfo": "Recently lost her job and has financial problems."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-21",
+        "name": "Cut Bag",
+        "description": "Mr. Henderson's bag has a clean cut, made by a sharp blade.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-22",
+        "name": "Pocket Knife",
+        "description": "A pocket knife found in Derek's pocket matches the cut marks on the bag.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-21",
+      "closingStatement": "Derek Smith was found with Mr. Henderson's wallet. The pocket knife in his possession matched the cut on the bag, and the gardener identified him as the man near the bench."
+    }
+  },
+  {
+    "id": "case-413b",
+    "caseNumber": "413-B",
+    "title": "The School Locker Break-in",
+    "difficulty": "easy",
+    "crimeType": "Theft",
+    "briefing": {
+      "description": "A student's locker was broken into during lunch period. A new smartphone and cash were stolen.",
+      "warning": "Check who knew the combination and had opportunity."
+    },
+    "victim": {
+      "name": "Carlos Martinez",
+      "age": 15,
+      "sex": "Male",
+      "job": "High School Student",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "11:30 - Goes to lunch",
+        "11:35 - Leaves backpack in locker",
+        "12:15 - Returns to find locker open and items missing",
+        "12:20 - Reports to school office"
+      ],
+      "otherInfo": "Carlos just got the new phone for his birthday last week."
+    },
+    "witnesses": [
+      {
+        "id": "w-12",
+        "role": "Hall Monitor",
+        "statement": "I saw someone at Carlos' locker around 11:50. They were wearing a baseball cap so I couldn't see their face.",
+        "reliability": "Medium - Saw the person but not clearly enough to identify."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-23",
+        "name": "Tyler Jones",
+        "connection": "Classmate",
+        "alibi": "Said he was in the cafeteria the whole time.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "11:00",
+              "from": "Tyler",
+              "text": "Carlos showed me his new phone. Left his locker combo written in his notebook."
+            },
+            {
+              "time": "11:45",
+              "from": "Tyler",
+              "text": "Locker is open. Easy grab during lunch."
+            }
+          ]
+        },
+        "relationToVictim": "Recently had an argument with Carlos.",
+        "additionalInfo": "Has been bragging about wanting the same phone."
+      },
+      {
+        "id": "s-24",
+        "name": "Ryan Chen",
+        "connection": "Friend",
+        "alibi": "Was in the library studying.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "10:30",
+              "from": "Ryan",
+              "text": "Carlos told me his locker combination yesterday."
+            }
+          ]
+        },
+        "relationToVictim": "Good friends with Carlos.",
+        "additionalInfo": "Has financial difficulties at home."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-23",
+        "name": "Baseball Cap",
+        "description": "A baseball cap found near the lockers matches one Tyler owns.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-24",
+        "name": "Phone GPS",
+        "description": "Carlos' phone was tracked to Tyler's house using Find My Phone.",
+        "type": "Digital"
+      }
+    ],
+    "solution": {
+      "killerId": "s-23",
+      "closingStatement": "Tyler Jones was caught with Carlos' phone at his house. GPS tracking led police there, and his baseball cap was found at the scene."
+    }
+  },
+  {
+    "id": "case-414b",
+    "caseNumber": "414-B",
+    "title": "The Car Scratch",
+    "difficulty": "easy",
+    "crimeType": "Vandalism",
+    "briefing": {
+      "description": "A brand new car was scratched with a key while parked on the street. Deep scratches spell out 'JERK' on the driver's side door.",
+      "warning": "Look for someone with a grudge against the car owner."
+    },
+    "victim": {
+      "name": "Mr. Thompson",
+      "age": 42,
+      "sex": "Male",
+      "job": "Accountant",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "19:00 - Parks car on street",
+        "19:30 - Goes inside house",
+        "22:00 - Goes out to get something from car",
+        "22:05 - Discovers scratches"
+      ],
+      "otherInfo": "Mr. Thompson recently had an argument with a neighbor about parking spots."
+    },
+    "witnesses": [
+      {
+        "id": "w-13",
+        "role": "Dog Walker",
+        "statement": "I saw someone near Mr. Thompson's car around 20:30. It was dark, but they were wearing a dark jacket.",
+        "reliability": "Medium - It was dark, so identification is difficult."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-25",
+        "name": "Mr. Rodriguez",
+        "connection": "Neighbor",
+        "alibi": "Said he was watching TV.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "18:30",
+              "from": "Mr. Rodriguez",
+              "text": "Thompson took my parking spot again. That jerk needs a lesson."
+            }
+          ]
+        },
+        "relationToVictim": "Ongoing argument about parking spaces.",
+        "additionalInfo": "Has key scratches on his own keyring that match the car's paint."
+      },
+      {
+        "id": "s-26",
+        "name": "Teen Vandals",
+        "connection": "Local Teens",
+        "alibi": "Unknown.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "20:00",
+              "from": "Unknown",
+              "text": "Nice car on Oak Street. Let's mess it up."
+            }
+          ]
+        },
+        "relationToVictim": "No direct connection.",
+        "additionalInfo": "There have been random vandalism incidents in the area."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-25",
+        "name": "Security Footage",
+        "description": "Neighbor's doorbell camera shows Mr. Rodriguez near the car at 20:28.",
+        "type": "Digital"
+      },
+      {
+        "id": "e-26",
+        "name": "Paint Match",
+        "description": "Paint from Mr. Thompson's car found under Mr. Rodriguez's fingernails.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-25",
+      "closingStatement": "Mr. Rodriguez confessed when shown the doorbell footage. He was angry about the parking spot dispute and scratched the car with his keys."
+    }
+  },
+  {
+    "id": "case-415b",
+    "caseNumber": "415-B",
+    "title": "The Pool Party Prank",
+    "difficulty": "easy",
+    "crimeType": "Vandalism",
+    "briefing": {
+      "description": "Someone poured bright green dye into a family's swimming pool during a party, ruining the water and staining the pool liner.",
+      "warning": "Look for someone with access to the pool and a motive for revenge."
+    },
+    "victim": {
+      "name": "The Johnson Family",
+      "age": 0,
+      "sex": "N/A",
+      "job": "Homeowners",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "19:00 - Pool party starts",
+        "21:00 - Guests mostly inside for cake",
+        "21:30 - Someone notices green pool",
+        "21:45 - Party ends, police called"
+      ],
+      "otherInfo": "The Johnsons were celebrating their daughter's graduation."
+    },
+    "witnesses": [
+      {
+        "id": "w-14",
+        "role": "Party Guest",
+        "statement": "I saw Mark Jenkins going toward the pool area around 20:45 carrying a backpack.",
+        "reliability": "High - Sober and observant guest."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-27",
+        "name": "Mark Jenkins",
+        "connection": "Neighbor's Son",
+        "alibi": "Said he was getting drinks from the kitchen.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "19:30",
+              "from": "Mark",
+              "text": "They didn't invite me to the party after what happened last year."
+            },
+            {
+              "time": "20:30",
+              "from": "Mark",
+              "text": "Green dye in my backpack. Perfect for the pool."
+            }
+          ]
+        },
+        "relationToVictim": "Wasn't invited to the party due to bad behavior at last year's event.",
+        "additionalInfo": "Works at a store that sells pool chemicals and dyes."
+      },
+      {
+        "id": "s-28",
+        "name": "Lisa Carter",
+        "connection": "Family Friend",
+        "alibi": "Was talking with other guests.",
+        "isSubpoenaed": false,
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "20:00",
+              "from": "Lisa",
+              "text": "The Johnsons are so showy with their perfect pool."
+            }
+          ]
+        },
+        "relationToVictim": "Jealous of the Johnson's new pool.",
+        "additionalInfo": "Recently had an argument with Mrs. Johnson."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-27",
+        "name": "Empty Dye Container",
+        "description": "Empty container of green pool dye found in bushes near the pool.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-28",
+        "name": "Green Stains",
+        "description": "Green dye stains on Mark's backpack and shoes.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-27",
+      "closingStatement": "Mark Jenkins admitted to the prank when shown the dye stains on his belongings. He was angry about not being invited to the party and wanted revenge."
     }
   }
 ]

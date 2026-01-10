@@ -82,5 +82,1192 @@
       "killerId": "s-3",
       "closingStatement": "Leo Vance used his knowledge of the ventilation system to pump toxins into the greenhouse, knowing Thorne's inhaler had been moved to prevent him from surviving the initial attack."
     }
+  },
+  {
+    "id": "case-773m",
+    "caseNumber": "773-M",
+    "title": "The Midnight Manuscript",
+    "difficulty": "medium",
+    "crimeType": "Intellectual Property Theft",
+    "briefing": {
+      "description": "Author Elena Vance's unpublished manuscript was stolen from her home office. The safe was opened with the correct combination, and her computer was accessed with her password. Nothing else was taken, suggesting the thief knew exactly what they wanted.",
+      "warning": "Look for someone with access to both the safe combination and computer password."
+    },
+    "victim": {
+      "name": "Elena Vance",
+      "age": 38,
+      "job": "Bestselling Author",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "20:00 - Dinner with friends",
+        "22:00 - Returns home",
+        "22:30 - Works on manuscript",
+        "23:45 - Goes to bed",
+        "08:00 - Discovers theft"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-3",
+        "role": "Housekeeper",
+        "statement": "I saw a car parked down the street around 23:00, but I didn't think anything of it. I was tired and went to bed early.",
+        "reliability": "Medium - Not very observant that night."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-5",
+        "name": "Marcus Thorne",
+        "connection": "Literary Agent",
+        "alibi": "At a publishing event until midnight.",
+        "relationToVictim": "Elena was planning to leave his agency for a competitor.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "21:30",
+              "from": "Marcus",
+              "text": "If she leaves, at least I'll have the manuscript to sell myself."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-6",
+        "name": "Clara Reed",
+        "connection": "Personal Assistant",
+        "alibi": "Visiting family in another city.",
+        "relationToVictim": "Elena was about to fire her for incompetence.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "19:00",
+              "from": "Clara",
+              "text": "I know the safe combo and her computer password. Easy access."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-7",
+        "name": "David Chen",
+        "connection": "Rival Author",
+        "alibi": "Working on his own book at home.",
+        "relationToVictim": "Elena's new book would directly compete with his upcoming release."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-5",
+        "name": "Keylogger Software",
+        "description": "Found on Elena's computer, installed two weeks ago. Captured all keystrokes including safe combination.",
+        "type": "Digital"
+      },
+      {
+        "id": "e-6",
+        "name": "Partial Fingerprint",
+        "description": "On the safe handle, matches Clara's right thumb.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-6",
+      "closingStatement": "Clara Reed installed keylogger software to steal Elena's passwords and safe combination. She knew she was being fired and stole the manuscript to sell it herself as revenge."
+    }
+  },
+  {
+    "id": "case-774m",
+    "caseNumber": "774-M",
+    "title": "The Poisoned Pen",
+    "difficulty": "medium",
+    "crimeType": "Attempted Murder",
+    "briefing": {
+      "description": "Editor Arthur Finch collapsed during a book signing after using a fountain pen provided by the bookstore. He survived but was hospitalized with severe nicotine poisoning. The pen's ink cartridge had been tampered with.",
+      "warning": "Consider who had access to the pen before the event."
+    },
+    "victim": {
+      "name": "Arthur Finch",
+      "age": 52,
+      "job": "Editor-in-Chief",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "Nicotine poisoning (survived)",
+      "routine": [
+        "18:00 - Arrives at bookstore",
+        "18:30 - Book signing begins",
+        "19:15 - Uses provided fountain pen",
+        "19:30 - Collapses"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-4",
+        "role": "Bookstore Manager",
+        "statement": "I prepared the signing table myself. The pen was in its box until 18:00 when I placed it on the table.",
+        "reliability": "High"
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-8",
+        "name": "Lydia Vance",
+        "connection": "Rejected Author",
+        "alibi": "In the audience at the signing.",
+        "relationToVictim": "Arthur rejected her manuscript three times.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "17:00",
+              "from": "Lydia",
+              "text": "He'll sign his last contract with that pen tonight."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-9",
+        "name": "Michael Stone",
+        "connection": "Competing Editor",
+        "alibi": "At a different literary event.",
+        "relationToVictim": "Arthur's magazine was putting Michael's publication out of business."
+      },
+      {
+        "id": "s-10",
+        "name": "Sarah Jenkins",
+        "connection": "Bookstore Employee",
+        "alibi": "Working in the stockroom during setup.",
+        "relationToVictim": "Arthur had criticized her store's selection publicly.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "16:30",
+              "from": "Sarah",
+              "text": "The special ink is ready. He'll get what he deserves."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-7",
+        "name": "Tampered Ink Cartridge",
+        "description": "The fountain pen's ink contained concentrated liquid nicotine.",
+        "type": "Forensic"
+      },
+      {
+        "id": "e-8",
+        "name": "Security Footage",
+        "description": "Shows Sarah Jenkins handling the pen box alone in the stockroom at 16:45.",
+        "type": "Digital"
+      }
+    ],
+    "solution": {
+      "killerId": "s-10",
+      "closingStatement": "Sarah Jenkins tampered with the ink cartridge while alone in the stockroom. She was angry about Arthur's public criticism of her bookstore and wanted to teach him a lesson."
+    }
+  },
+  {
+    "id": "case-775m",
+    "caseNumber": "775-M",
+    "title": "The Artful Dodger",
+    "difficulty": "medium",
+    "crimeType": "Art Theft",
+    "briefing": {
+      "description": "A valuable painting was stolen from a gallery during a power outage that lasted exactly 3 minutes. The security system rebooted after the outage, showing no signs of tampering.",
+      "warning": "Consider how someone could plan around a brief power loss."
+    },
+    "victim": {
+      "name": "Gallery Monet",
+      "age": 0,
+      "job": "Art Gallery",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "21:00 - Gallery closes",
+        "21:30 - Night guard begins rounds",
+        "22:15 - Power outage occurs",
+        "22:18 - Power restored",
+        "22:30 - Painting discovered missing"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-5",
+        "role": "Night Guard",
+        "statement": "When the lights went out, I went to check the fuse box. I heard movement in the main gallery but saw no one when I returned.",
+        "reliability": "Medium - Was distracted by the outage."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-11",
+        "name": "Julian Black",
+        "connection": "Security System Installer",
+        "alibi": "At home watching TV.",
+        "relationToVictim": "Recently fired by the gallery for overcharging.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "20:00",
+              "from": "Julian",
+              "text": "The system has a 3-minute reboot delay after power loss. Plenty of time."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-12",
+        "name": "Isabella Rossi",
+        "connection": "Art Restorer",
+        "alibi": "Working late in her studio.",
+        "relationToVictim": "The gallery refused to hire her for restoration work."
+      },
+      {
+        "id": "s-13",
+        "name": "Carlos Mendez",
+        "connection": "Electrician",
+        "alibi": "On call for emergency repairs.",
+        "relationToVictim": "Knows the gallery's electrical system intimately.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "21:45",
+              "from": "Carlos",
+              "text": "Main breaker trips at 22:15 sharp. Be ready."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-9",
+        "name": "Tripped Breaker",
+        "description": "Main circuit breaker shows signs of being manually tripped, not a power grid failure.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-10",
+        "name": "Tool Marks",
+        "description": "Scratches on the painting's frame match tools from Carlos's electrical kit.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-13",
+      "closingStatement": "Carlos Mendez manually tripped the main breaker at exactly 22:15, knowing the security system would take 3 minutes to reboot. He used that time to remove the painting, using his knowledge of the electrical system to create the perfect distraction."
+    }
+  },
+  {
+    "id": "case-776m",
+    "caseNumber": "776-M",
+    "title": "The Silent Partner",
+    "difficulty": "medium",
+    "crimeType": "Corporate Espionage",
+    "briefing": {
+      "description": "A tech startup's prototype designs were leaked to a competitor. The files were copied from the CEO's encrypted laptop while he was in a meeting. The office security system shows no unauthorized access.",
+      "warning": "Consider remote access methods and insider knowledge."
+    },
+    "victim": {
+      "name": "NeuraTech Inc.",
+      "age": 0,
+      "job": "Technology Startup",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "09:00 - CEO arrives",
+        "10:00 - Board meeting begins",
+        "11:30 - Meeting ends",
+        "11:45 - CEO discovers files copied"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-6",
+        "role": "Receptionist",
+        "statement": "I saw the IT manager going into the server room during the meeting, but that's normal for him.",
+        "reliability": "High"
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-14",
+        "name": "Raj Patel",
+        "connection": "IT Manager",
+        "alibi": "In server room maintaining systems.",
+        "relationToVictim": "Recently denied a raise and stock options.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "09:30",
+              "from": "Raj",
+              "text": "Remote access is set up. Files will copy during the meeting."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-15",
+        "name": "Megan Zhou",
+        "connection": "Lead Developer",
+        "alibi": "Working from home that day.",
+        "relationToVictim": "Unhappy about being passed over for promotion."
+      },
+      {
+        "id": "s-16",
+        "name": "David Kim",
+        "connection": "Competitor's CEO",
+        "alibi": "In his own office all morning.",
+        "relationToVictim": "Standing to gain millions from the stolen designs.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "10:15",
+              "from": "David",
+              "text": "Make sure the transfer is clean. No traces."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-11",
+        "name": "Remote Access Logs",
+        "description": "Logs show the CEO's laptop was accessed remotely from the server room IP at 10:30.",
+        "type": "Digital"
+      },
+      {
+        "id": "e-12",
+        "name": "Encrypted USB",
+        "description": "Found in Raj's desk drawer, containing the stolen files.",
+        "type": "Physical"
+      }
+    ],
+    "solution": {
+      "killerId": "s-14",
+      "closingStatement": "Raj Patel used his IT access to remotely copy the files from the CEO's laptop during the board meeting. He was angry about being denied a raise and planned to sell the designs to a competitor."
+    }
+  },
+  {
+    "id": "case-777m",
+    "caseNumber": "777-M",
+    "title": "The Fatal Reception",
+    "difficulty": "medium",
+    "crimeType": "Poisoning",
+    "briefing": {
+      "description": "A wedding guest died after drinking champagne during the toast. The champagne bottle was opened in front of everyone, but only one glass was poisoned.",
+      "warning": "Consider how a single glass could be targeted in a public setting."
+    },
+    "victim": {
+      "name": "Victor Graves",
+      "age": 55,
+      "job": "Investment Banker",
+      "timeOfDeath": "20:45",
+      "modeOfDeath": "Cyanide poisoning.",
+      "routine": [
+        "19:00 - Wedding reception begins",
+        "20:30 - Toast announced",
+        "20:40 - Champagne served",
+        "20:45 - Victor collapses"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-7",
+        "role": "Waitstaff",
+        "statement": "I poured all the glasses from the same bottle. I don't understand how only one was poisoned.",
+        "reliability": "Medium - Nervous and confused."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-17",
+        "name": "Eleanor Thorne",
+        "connection": "Business Partner",
+        "alibi": "Standing next to Victor during the toast.",
+        "relationToVictim": "Victor was cutting her out of a lucrative deal.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "19:30",
+              "from": "Eleanor",
+              "text": "His glass has a small chip on the stem. Easy to identify."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-18",
+        "name": "Marcus Reed",
+        "connection": "Victim's Nephew",
+        "alibi": "Helping with seating arrangements.",
+        "relationToVictim": "Victor had just written him out of his will."
+      },
+      {
+        "id": "s-19",
+        "name": "Clara Finch",
+        "connection": "Catering Manager",
+        "alibi": "Supervising kitchen staff.",
+        "relationToVictim": "Victor had complained about her service and refused to pay the full bill.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "20:00",
+              "from": "Clara",
+              "text": "The special champagne flute is on tray three. Don't mix them up."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-13",
+        "name": "Chipped Champagne Flute",
+        "description": "Victor's glass has a distinctive chip on the stem, different from all other glasses.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-14",
+        "name": "Cyanide Residue",
+        "description": "Found only in the chipped glass, not in the bottle or other glasses.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-17",
+      "closingStatement": "Eleanor Thorne pre-poisoned a specific champagne glass with a chipped stem before the toast. She made sure that glass was served to Victor, knowing he wouldn't notice the chip in the excitement of the toast."
+    }
+  },
+  {
+    "id": "case-778m",
+    "caseNumber": "778-M",
+    "title": "The Locked Room Burglary",
+    "difficulty": "medium",
+    "crimeType": "Burglary",
+    "briefing": {
+      "description": "Jewelry worth $250,000 was stolen from a home's wall safe. The safe was locked, the house alarm was armed, and all windows and doors were secured from the inside.",
+      "warning": "Consider alternative entry points beyond doors and windows."
+    },
+    "victim": {
+      "name": "Margaret Sterling",
+      "age": 65,
+      "job": "Retired Socialite",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "18:00 - Leaves for theater",
+        "18:15 - Arms security system",
+        "22:30 - Returns home",
+        "22:45 - Discovers burglary"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-8",
+        "role": "Neighbor",
+        "statement": "I saw a plumbing van parked outside earlier that day, but I thought it was scheduled maintenance.",
+        "reliability": "High - Observant neighbor."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-20",
+        "name": "Jack O'Malley",
+        "connection": "Plumber",
+        "alibi": "On another job across town.",
+        "relationToVictim": "Had worked in the house two days earlier to fix a leak.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "16:00",
+              "from": "Jack",
+              "text": "The access panel in the master bathroom is loose. Easy entry."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-21",
+        "name": "Lisa Chen",
+        "connection": "House Cleaner",
+        "alibi": "Visiting her sister.",
+        "relationToVictim": "Recently fired by Margaret for suspected theft."
+      },
+      {
+        "id": "s-22",
+        "name": "Robert Vance",
+        "connection": "Security System Installer",
+        "alibi": "On vacation.",
+        "relationToVictim": "Knew the security system's vulnerabilities.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "17:30",
+              "from": "Robert",
+              "text": "System has a 30-second delay on the bathroom window sensor."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-15",
+        "name": "Loose Access Panel",
+        "description": "Bathroom access panel for plumbing was recently pried open from the outside.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-16",
+        "name": "Tool Marks",
+        "description": "Marks on the safe match tools from Jack's plumbing kit.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-20",
+      "closingStatement": "Jack O'Malley used his knowledge of the house's plumbing access to enter through a bathroom panel he had left loose during his previous repair. He bypassed the window sensor during its 30-second delay period."
+    }
+  },
+  {
+    "id": "case-779m",
+    "caseNumber": "779-M",
+    "title": "The Digital Ghost",
+    "difficulty": "medium",
+    "crimeType": "Identity Theft",
+    "briefing": {
+      "description": "A CEO's identity was used to authorize fraudulent wire transfers totaling $500,000. The bank's biometric verification system was bypassed, and the transfers originated from the CEO's own office computer.",
+      "warning": "Consider how biometric security can be compromised without physical presence."
+    },
+    "victim": {
+      "name": "Alexander Thorne",
+      "age": 48,
+      "job": "CEO of Thorne Industries",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "09:00 - Arrives at office",
+        "10:00 - Meeting with board",
+        "11:00 - Returns to office",
+        "11:30 - Discovers unauthorized transfers"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-9",
+        "role": "Executive Assistant",
+        "statement": "I saw IT staff in Alexander's office earlier that morning, but they're often there for maintenance.",
+        "reliability": "Medium"
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-23",
+        "name": "Dr. Nina Petrova",
+        "connection": "IT Security Director",
+        "alibi": "Working from the server room.",
+        "relationToVictim": "Alexander had rejected her proposed security upgrades as too expensive.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "08:30",
+              "from": "Nina",
+              "text": "Fingerprint scanner can be fooled with a high-res photo and gelatin."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-24",
+        "name": "Marcus Lee",
+        "connection": "CFO",
+        "alibi": "In his own office all morning.",
+        "relationToVictim": "Financial disagreements with Alexander about company direction."
+      },
+      {
+        "id": "s-25",
+        "name": "Sarah Jenkins",
+        "connection": "Disgruntled Employee",
+        "alibi": "Called in sick that day.",
+        "relationToVictim": "Recently laid off with minimal severance.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "09:45",
+              "from": "Sarah",
+              "text": "Remote access is active. Transfer funds during the board meeting."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-17",
+        "name": "Gelatin Mold",
+        "description": "Found in the trash near the CEO's office, contains a fingerprint impression.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-18",
+        "name": "Remote Access Software",
+        "description": "Installed on CEO's computer two days prior, logged in from Sarah's home IP.",
+        "type": "Digital"
+      }
+    ],
+    "solution": {
+      "killerId": "s-25",
+      "closingStatement": "Sarah Jenkins used a gelatin mold of Alexander's fingerprint (obtained from a discarded glass) to bypass biometric security. She remotely accessed his computer during the board meeting when she knew he wouldn't be there."
+    }
+  },
+  {
+    "id": "case-780m",
+    "caseNumber": "780-M",
+    "title": "The Fatal Floral Arrangement",
+    "difficulty": "medium",
+    "crimeType": "Poisoning",
+    "briefing": {
+      "description": "A allergy sufferer died after receiving a floral delivery. The flowers themselves weren't toxic, but something in the arrangement triggered a fatal reaction.",
+      "warning": "Consider how ordinary items can be made dangerous for specific individuals."
+    },
+    "victim": {
+      "name": "Benjamin Crane",
+      "age": 42,
+      "job": "Hotel Manager",
+      "timeOfDeath": "14:20",
+      "modeOfDeath": "Anaphylactic shock.",
+      "routine": [
+        "13:00 - Returns to office from lunch",
+        "13:30 - Floral delivery arrives",
+        "14:00 - Begins sneezing and having difficulty breathing",
+        "14:20 - Collapses"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-10",
+        "role": "Receptionist",
+        "statement": "The flowers smelled strongly of lilies. Benjamin was allergic, but he always took his antihistamines.",
+        "reliability": "High"
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-26",
+        "name": "Victoria Thorne",
+        "connection": "Business Rival",
+        "alibi": "In a meeting across town.",
+        "relationToVictim": "Benjamin's hotel was putting her smaller hotel out of business.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "12:00",
+              "from": "Victoria",
+              "text": "Make sure the pollen is extra concentrated. His medicine won't help."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-27",
+        "name": "David Park",
+        "connection": "Florist",
+        "alibi": "Making deliveries all afternoon.",
+        "relationToVictim": "Benjamin had complained about previous arrangements and refused to pay."
+      },
+      {
+        "id": "s-28",
+        "name": "Clara Reed",
+        "connection": "Ex-Wife",
+        "alibi": "At her yoga class.",
+        "relationToVictim": "Standing to inherit his life insurance policy.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "11:30",
+              "from": "Clara",
+              "text": "The allergy pills in his desk have been replaced with placebos."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-19",
+        "name": "Tainted Antihistamines",
+        "description": "Benjamin's emergency antihistamines in his desk were replaced with sugar pills.",
+        "type": "Forensic"
+      },
+      {
+        "id": "e-20",
+        "name": "Pollen Analysis",
+        "description": "The lilies in the arrangement had been dusted with concentrated pollen from Benjamin's specific allergen.",
+        "type": "Forensic"
+      }
+    ],
+    "solution": {
+      "killerId": "s-26",
+      "closingStatement": "Victoria Thorne arranged for lilies dusted with concentrated pollen from Benjamin's specific allergen to be delivered. She also replaced his emergency antihistamines with sugar pills, ensuring he would have a fatal reaction."
+    }
+  },
+  {
+    "id": "case-781m",
+    "caseNumber": "781-M",
+    "title": "The Phantom Hacker",
+    "difficulty": "medium",
+    "crimeType": "Corporate Sabotage",
+    "briefing": {
+      "description": "A company's financial database was corrupted during a system update, causing millions in losses. The update was verified as clean, and only three people had the necessary access levels.",
+      "warning": "Consider timing and authorization levels rather than technical hacking."
+    },
+    "victim": {
+      "name": "Global Finance Corp",
+      "age": 0,
+      "job": "Financial Institution",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "20:00 - Scheduled system maintenance begins",
+        "21:30 - Update package deployed",
+        "22:00 - Database corruption detected",
+        "22:15 - System shut down"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-11",
+        "role": "Night Operations Manager",
+        "statement": "I saw the lead developer working late, which was unusual for him on maintenance night.",
+        "reliability": "Medium - Not sure of exact times."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-29",
+        "name": "Dr. Alex Chen",
+        "connection": "Lead Developer",
+        "alibi": "Working from home, remote access logs confirm.",
+        "relationToVictim": "Recently demoted after a project failure.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "19:45",
+              "from": "Alex",
+              "text": "The corrupted data patch is ready. It'll activate during the update."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-30",
+        "name": "Mira Patel",
+        "connection": "System Administrator",
+        "alibi": "On-site supervising maintenance.",
+        "relationToVictim": "Had warned management about security vulnerabilities they ignored."
+      },
+      {
+        "id": "s-31",
+        "name": "Robert Sterling",
+        "connection": "Competitor's Employee",
+        "alibi": "Out of country on business.",
+        "relationToVictim": "His company stood to gain clients from the sabotage.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "20:30",
+              "from": "Robert",
+              "text": "Make sure the damage looks like an accident, not an attack."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-21",
+        "name": "Corrupted Update File",
+        "description": "One file in the update package was modified 30 minutes before deployment.",
+        "type": "Digital"
+      },
+      {
+        "id": "e-22",
+        "name": "Access Logs",
+        "description": "Show Alex Chen accessed the update server at exactly 19:45 from his home IP.",
+        "type": "Digital"
+      }
+    ],
+    "solution": {
+      "killerId": "s-29",
+      "closingStatement": "Alex Chen used his remote access to modify an update file 30 minutes before deployment. The corrupted file was designed to activate during the system update, causing maximum damage while making it look like a technical failure."
+    }
+  },
+  {
+    "id": "case-782m",
+    "caseNumber": "782-M",
+    "title": "The Vanishing Formula",
+    "difficulty": "medium",
+    "crimeType": "Industrial Espionage",
+    "briefing": {
+      "description": "A pharmaceutical company's new drug formula was stolen from a secure lab. The theft occurred during a fire drill when the lab was briefly unguarded.",
+      "warning": "Consider how emergencies can be manipulated for criminal purposes."
+    },
+    "victim": {
+      "name": "BioPharma Inc.",
+      "age": 0,
+      "job": "Pharmaceutical Company",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "10:00 - Morning research session",
+        "10:30 - Fire alarm sounds",
+        "10:35 - Lab evacuated",
+        "10:45 - All clear given",
+        "10:50 - Formula discovered missing"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-12",
+        "role": "Lab Technician",
+        "statement": "I was the last one out. I'm sure I locked the secure drawer where the formula was kept.",
+        "reliability": "Medium - Rushed during evacuation."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-32",
+        "name": "Dr. Lena Zhou",
+        "connection": "Research Scientist",
+        "alibi": "In the evacuation area with everyone else.",
+        "relationToVictim": "Was about to be fired for unethical research practices.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "09:45",
+              "from": "Lena",
+              "text": "Fire drill at 10:30. The drawer lock code is 7382."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-33",
+        "name": "Marcus Kane",
+        "connection": "Security Head",
+        "alibi": "Coordinating the evacuation.",
+        "relationToVictim": "His brother works for a competing pharmaceutical company."
+      },
+      {
+        "id": "s-34",
+        "name": "Sarah Kim",
+        "connection": "IT Specialist",
+        "alibi": "Working in server room during drill.",
+        "relationToVictim": "Recently denied a promotion.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "10:25",
+              "from": "Sarah",
+              "text": "Security cameras loop for 5 minutes during fire alarms. Perfect timing."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-23",
+        "name": "Camera Loop Footage",
+        "description": "Security footage shows a 5-minute loop during the evacuation, hiding activity in the lab.",
+        "type": "Digital"
+      },
+      {
+        "id": "s-33",
+        "name": "Lock Code",
+        "description": "The secure drawer's lock code was found written on a note in Lena's locker.",
+        "type": "Physical"
+      }
+    ],
+    "solution": {
+      "killerId": "s-32",
+      "closingStatement": "Dr. Lena Zhou triggered a false fire alarm and used the evacuation as cover. She knew the security cameras would loop during alarms and had obtained the drawer lock code beforehand. She returned to the lab during the chaos to steal the formula."
+    }
+  },
+  {
+    "id": "case-783m",
+    "caseNumber": "783-M",
+    "title": "The Fatal Fitness",
+    "difficulty": "medium",
+    "crimeType": "Homicide",
+    "briefing": {
+      "description": "A fitness influencer died during a live-streamed workout. The heart rate monitor showed normal readings until seconds before collapse, but the autopsy revealed digitalis poisoning.",
+      "warning": "Consider how poison could be administered during a public workout."
+    },
+    "victim": {
+      "name": "Jake 'Iron' Williams",
+      "age": 32,
+      "job": "Fitness Influencer",
+      "timeOfDeath": "19:15",
+      "modeOfDeath": "Digitalis poisoning causing cardiac arrest.",
+      "routine": [
+        "18:30 - Live stream begins",
+        "19:00 - High-intensity interval training",
+        "19:10 - Drinks from water bottle",
+        "19:15 - Collapses on camera"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-13",
+        "role": "Camera Operator",
+        "statement": "I saw his assistant hand him the water bottle. It was the same one he always uses.",
+        "reliability": "High"
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-35",
+        "name": "Mia Rodriguez",
+        "connection": "Personal Assistant",
+        "alibi": "Operating the camera during the stream.",
+        "relationToVictim": "Jake was planning to fire her and hire someone cheaper.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "17:30",
+              "from": "Mia",
+              "text": "The special 'energy mix' is in his bottle. He'll drink it during HIIT."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-36",
+        "name": "Carlos Vega",
+        "connection": "Business Partner",
+        "alibi": "Watching the stream from his office.",
+        "relationToVictim": "Jake was backing out of their supplement line deal."
+      },
+      {
+        "id": "s-37",
+        "name": "Lisa Chen",
+        "connection": "Rival Influencer",
+        "alibi": "Doing her own live stream at the same time.",
+        "relationToVictim": "Jake had exposed her use of performance-enhancing drugs.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "18:00",
+              "from": "Lisa",
+              "text": "His downfall will be live for everyone to see."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-25",
+        "name": "Tainted Water Bottle",
+        "description": "Traces of digitalis found in the squeeze nozzle of Jake's water bottle.",
+        "type": "Forensic"
+      },
+      {
+        "id": "e-26",
+        "name": "Purchase Receipt",
+        "description": "Mia purchased digitalis-containing foxglove plants from a garden center two days prior.",
+        "type": "Physical"
+      }
+    ],
+    "solution": {
+      "killerId": "s-35",
+      "closingStatement": "Mia Rodriguez injected digitalis extract into the squeeze nozzle of Jake's water bottle. She knew he would drink from it during high-intensity exercise when his heart would be most vulnerable to the poison's effects."
+    }
+  },
+  {
+    "id": "case-784m",
+    "caseNumber": "784-M",
+    "title": "The Silent Auction",
+    "difficulty": "medium",
+    "crimeType": "Art Fraud",
+    "briefing": {
+      "description": "A valuable painting sold at auction was discovered to be a forgery. The switch occurred between authentication and the auction itself.",
+      "warning": "Consider who had access during transportation and storage."
+    },
+    "victim": {
+      "name": "Auction House Royal",
+      "age": 0,
+      "job": "Auction House",
+      "timeOfDeath": "N/A",
+      "modeOfDeath": "N/A",
+      "routine": [
+        "14:00 - Painting authenticated",
+        "15:30 - Transported to auction house",
+        "16:00 - Placed in secure storage",
+        "19:00 - Auction begins",
+        "19:30 - Forgery discovered"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-14",
+        "role": "Security Guard",
+        "statement": "I saw the art handler taking longer than usual with the crate, but he said he was checking for damage.",
+        "reliability": "Medium - Not an art expert."
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-38",
+        "name": "Thomas Reed",
+        "connection": "Art Handler",
+        "alibi": "With the painting during transport.",
+        "relationToVictim": "Has gambling debts and recently made large deposits.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "13:30",
+              "from": "Thomas",
+              "text": "The replica is perfect. Switch during the crate inspection."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-39",
+        "name": "Isabella Marino",
+        "connection": "Art Authenticator",
+        "alibi": "At a conference during the auction.",
+        "relationToVictim": "Her authentication career would be ruined if the forgery was discovered."
+      },
+      {
+        "id": "s-40",
+        "name": "Victor Chen",
+        "connection": "Collector",
+        "alibi": "Bidding at the auction.",
+        "relationToVictim": "Had previously tried to buy the painting privately and been refused.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "15:00",
+              "from": "Victor",
+              "text": "Make sure the switch is clean. I want the real one."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-27",
+        "name": "Tool Marks",
+        "description": "Crate shows signs of being opened and resealed with different tools than standard.",
+        "type": "Physical"
+      },
+      {
+        "id": "e-28",
+        "name": "Bank Records",
+        "description": "Thomas received a $50,000 deposit the day after the auction from an offshore account.",
+        "type": "Digital"
+      }
+    ],
+    "solution": {
+      "killerId": "s-38",
+      "closingStatement": "Thomas Reed switched the authentic painting with a forgery during transport, using the crate inspection as cover. He sold the original to a private collector and planned to disappear with the money before the forgery was discovered."
+    }
+  },
+  {
+    "id": "case-785m",
+    "caseNumber": "785-M",
+    "title": "The Digital Will",
+    "difficulty": "medium",
+    "crimeType": "Fraud",
+    "briefing": {
+      "description": "A billionaire's digital will was altered hours before his natural death, disinheriting his family in favor of his nurse. The digital signature was verified, but timing suggests manipulation.",
+      "warning": "Consider how digital documents can be altered with proper access."
+    },
+    "victim": {
+      "name": "Harold Sterling",
+      "age": 82,
+      "job": "Retired Industrialist",
+      "timeOfDeath": "04:30",
+      "modeOfDeath": "Natural causes (heart failure).",
+      "routine": [
+        "22:00 - Takes evening medication",
+        "23:00 - Nurse helps him to bed",
+        "03:00 - Night check by nurse",
+        "04:30 - Found deceased by morning nurse"
+      ]
+    },
+    "witnesses": [
+      {
+        "id": "w-15",
+        "role": "Day Nurse",
+        "statement": "Harold was weak but coherent when I left at 20:00. He mentioned updating his will soon.",
+        "reliability": "High"
+      }
+    ],
+    "suspects": [
+      {
+        "id": "s-41",
+        "name": "Eleanor Vance",
+        "connection": "Night Nurse",
+        "alibi": "On duty all night.",
+        "relationToVictim": "Sole beneficiary in the altered will.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "21:30",
+              "from": "Eleanor",
+              "text": "His fingerprint is needed for the biometric verification. Get it while he sleeps."
+            }
+          ]
+        }
+      },
+      {
+        "id": "s-42",
+        "name": "Marcus Thorne",
+        "connection": "Estranged Son",
+        "alibi": "Out of town on business.",
+        "relationToVictim": "Was primary beneficiary in the original will."
+      },
+      {
+        "id": "s-43",
+        "name": "David Chen",
+        "connection": "Estate Lawyer",
+        "alibi": "At home with family.",
+        "relationToVictim": "Would lose management of the estate if the family was disinherited.",
+        "subpoenaData": {
+          "messages": [
+            {
+              "time": "20:45",
+              "from": "David",
+              "text": "The will update portal has a vulnerability if accessed from his home network."
+            }
+          ]
+        }
+      }
+    ],
+    "evidence": [
+      {
+        "id": "e-29",
+        "name": "Access Logs",
+        "description": "Show the will was modified at 02:15 from Harold's home computer, using biometric verification.",
+        "type": "Digital"
+      },
+      {
+        "id": "e-30",
+        "name": "Fingerprint Mold",
+        "description": "A gelatin fingerprint mold of Harold's thumb found in Eleanor's locker.",
+        "type": "Physical"
+      }
+    ],
+    "solution": {
+      "killerId": "s-41",
+      "closingStatement": "Eleanor Vance used a gelatin mold of Harold's fingerprint (taken while he slept) to bypass biometric security on his computer. She altered the will at 02:15 when she knew he wouldn't wake up, making herself the sole beneficiary."
+    }
   }
 ]
