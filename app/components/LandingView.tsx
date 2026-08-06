@@ -1,4 +1,3 @@
-// CombinedLandingView.tsx - Single unified flow
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,7 +12,7 @@ const handDrawn = Short_Stack({
 interface CombinedLandingProps {
   onStartGame: (
     difficulty: "easy" | "medium" | "hard",
-    userName: string
+    userName: string,
   ) => void;
 }
 
@@ -225,7 +224,7 @@ export default function CombinedLandingView({
                       key={level.id}
                       onClick={() =>
                         setSelectedDifficulty(
-                          level.id as "easy" | "medium" | "hard"
+                          level.id as "easy" | "medium" | "hard",
                         )
                       }
                       className={`w-full p-6 rounded-xl border-2 text-left transition-all ${
@@ -298,8 +297,8 @@ export default function CombinedLandingView({
                     step === s
                       ? "bg-blue-600"
                       : ["name", "warning", "difficulty"].indexOf(step) >= i
-                      ? "bg-stone-400"
-                      : "bg-stone-200"
+                        ? "bg-stone-400"
+                        : "bg-stone-200"
                   }`}
                 />
                 {i < 2 && (
