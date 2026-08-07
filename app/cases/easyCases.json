@@ -45,12 +45,14 @@
             {
               "time": "21:45",
               "from": "Unknown",
-              "text": "Is the old man alone?"
+              "text": "Is the old man alone?",
+              "id": "msg-s-1-1"
             },
             {
               "time": "22:05",
               "from": "Julian Vane",
-              "text": "He's winding the clocks. I'm going in the back way now."
+              "text": "He's winding the clocks. I'm going in the back way now.",
+              "id": "msg-s-1-2"
             }
           ]
         },
@@ -68,7 +70,8 @@
             {
               "time": "19:20",
               "from": "Elias Thorne",
-              "text": "Don't come here again, Marcus. The inheritance is settled."
+              "text": "Don't come here again, Marcus. The inheritance is settled.",
+              "id": "msg-s-2-1"
             }
           ]
         },
@@ -92,6 +95,11 @@
     ],
     "solution": {
       "killerId": "s-1",
+      "requiredProof": {
+        "meansId": "e-1",
+        "opportunityId": "w-1",
+        "motiveId": "msg-s-1-1"
+      },
       "closingStatement": "Julian Vane confessed after being presented with the phone records. He entered through the back door while Thorne was winding the clocks, incapacitated him, and performed the surgical mutilation out of revenge for being fired."
     }
   },
@@ -140,7 +148,8 @@
             {
               "time": "14:45",
               "from": "Tommy",
-              "text": "Mom says Mrs. Jenkins' cookies are cooling now!"
+              "text": "Mom says Mrs. Jenkins' cookies are cooling now!",
+              "id": "msg-s-3-1"
             }
           ]
         },
@@ -158,7 +167,8 @@
             {
               "time": "15:10",
               "from": "Mr. Wilson",
-              "text": "Those cookies smell amazing from here!"
+              "text": "Those cookies smell amazing from here!",
+              "id": "msg-s-4-1"
             }
           ]
         },
@@ -182,6 +192,11 @@
     ],
     "solution": {
       "killerId": "s-3",
+      "requiredProof": {
+        "meansId": "e-3",
+        "opportunityId": "w-2",
+        "motiveId": "msg-s-3-1"
+      },
       "closingStatement": "Tommy Miller admitted to taking the cookies when confronted with the shoe prints matching his sneakers. He climbed through the garden, took the cookies from the windowsill, and ran home."
     }
   },
@@ -230,12 +245,14 @@
             {
               "time": "20:00",
               "from": "Jake",
-              "text": "Mr. Chen yelled at us again today for playing catch."
+              "text": "Mr. Chen yelled at us again today for playing catch.",
+              "id": "msg-s-5-1"
             },
             {
               "time": "21:30",
               "from": "Jake",
-              "text": "Let's get back at that old man!"
+              "text": "Let's get back at that old man!",
+              "id": "msg-s-5-2"
             }
           ]
         },
@@ -253,7 +270,8 @@
             {
               "time": "21:40",
               "from": "Sam",
-              "text": "My red jacket is ready. Meet at the usual spot."
+              "text": "My red jacket is ready. Meet at the usual spot.",
+              "id": "msg-s-6-1"
             }
           ]
         },
@@ -277,6 +295,11 @@
     ],
     "solution": {
       "killerId": "s-5",
+      "requiredProof": {
+        "meansId": "e-5",
+        "opportunityId": "w-3",
+        "motiveId": "msg-s-5-1"
+      },
       "closingStatement": "Jake Peterson admitted he threw the baseball that broke the window when shown the ball with his initials. He was angry about being scolded earlier that day."
     }
   },
@@ -325,12 +348,14 @@
             {
               "time": "14:30",
               "from": "Mike",
-              "text": "Sarah's new bike is so cool. Wish I had one like that."
+              "text": "Sarah's new bike is so cool. Wish I had one like that.",
+              "id": "msg-s-7-1"
             },
             {
               "time": "16:25",
               "from": "Mike",
-              "text": "Library bike is unattended. Easy target."
+              "text": "Library bike is unattended. Easy target.",
+              "id": "msg-s-7-2"
             }
           ]
         },
@@ -348,7 +373,8 @@
             {
               "time": "15:30",
               "from": "Alex",
-              "text": "Saw Sarah's bike outside. Looks expensive."
+              "text": "Saw Sarah's bike outside. Looks expensive.",
+              "id": "msg-s-8-1"
             }
           ]
         },
@@ -372,6 +398,11 @@
     ],
     "solution": {
       "killerId": "s-7",
+      "requiredProof": {
+        "meansId": "e-7",
+        "opportunityId": "w-4",
+        "motiveId": "msg-s-7-1"
+      },
       "closingStatement": "Mike Rodriguez was caught riding Sarah's bike near his home. The green fiber matched his hoodie, and bolt cutters were found in his backpack."
     }
   },
@@ -419,7 +450,8 @@
             {
               "time": "23:45",
               "from": "Kevin",
-              "text": "The wall is perfect for my new piece. Going out tonight."
+              "text": "The wall is perfect for my new piece. Going out tonight.",
+              "id": "msg-s-9-1"
             }
           ]
         },
@@ -437,7 +469,8 @@
             {
               "time": "22:30",
               "from": "Jamal",
-              "text": "Need more spray paint for my project."
+              "text": "Need more spray paint for my project.",
+              "id": "msg-s-10-1"
             }
           ]
         },
@@ -461,6 +494,11 @@
     ],
     "solution": {
       "killerId": "s-9",
+      "requiredProof": {
+        "meansId": "e-9",
+        "opportunityId": "w-5",
+        "motiveId": "msg-s-9-1"
+      },
       "closingStatement": "Kevin Lee confessed when shown photos of his 'SK8R' tag matching the graffiti. He was angry about being banned from the skate park and wanted revenge."
     }
   },
@@ -509,12 +547,14 @@
             {
               "time": "10:15",
               "from": "Liam",
-              "text": "Saw Emma put money in her backpack. Blue envelope."
+              "text": "Saw Emma put money in her backpack. Blue envelope.",
+              "id": "msg-s-11-1"
             },
             {
               "time": "10:50",
               "from": "Liam",
-              "text": "Got what I needed. Easy."
+              "text": "Got what I needed. Easy.",
+              "id": "msg-s-11-2"
             }
           ]
         },
@@ -532,7 +572,8 @@
             {
               "time": "09:30",
               "from": "Chloe",
-              "text": "Wish I had money for the field trip too."
+              "text": "Wish I had money for the field trip too.",
+              "id": "msg-s-12-1"
             }
           ]
         },
@@ -556,6 +597,11 @@
     ],
     "solution": {
       "killerId": "s-11",
+      "requiredProof": {
+        "meansId": "e-11",
+        "opportunityId": "w-6",
+        "motiveId": "msg-s-11-1"
+      },
       "closingStatement": "Liam O'Connor was caught with the $20 in his pocket. Security footage showed him entering the locker room during gym class, and the empty envelope was found in his trash."
     }
   },
@@ -604,7 +650,8 @@
             {
               "time": "17:45",
               "from": "Mr. Harris",
-              "text": "Display case key is in my desk drawer. Easy access."
+              "text": "Display case key is in my desk drawer. Easy access.",
+              "id": "msg-s-13-1"
             }
           ]
         },
@@ -622,7 +669,8 @@
             {
               "time": "18:15",
               "from": "Sarah",
-              "text": "That first edition would pay off my student loans."
+              "text": "That first edition would pay off my student loans.",
+              "id": "msg-s-14-1"
             }
           ]
         },
@@ -646,6 +694,11 @@
     ],
     "solution": {
       "killerId": "s-13",
+      "requiredProof": {
+        "meansId": "e-13",
+        "opportunityId": "w-7",
+        "motiveId": "msg-s-13-1"
+      },
       "closingStatement": "Mr. Harris confessed when confronted with the key log and online listing. He took the book to sell it online, planning to blame it on a break-in."
     }
   },
@@ -694,7 +747,8 @@
             {
               "time": "19:30",
               "from": "Robert",
-              "text": "Those roses block my view. Need to do something about them."
+              "text": "Those roses block my view. Need to do something about them.",
+              "id": "msg-s-15-1"
             }
           ]
         },
@@ -712,7 +766,8 @@
             {
               "time": "21:00",
               "from": "Unknown",
-              "text": "Let's mess up that fancy garden tonight."
+              "text": "Let's mess up that fancy garden tonight.",
+              "id": "msg-s-16-1"
             }
           ]
         },
@@ -736,6 +791,11 @@
     ],
     "solution": {
       "killerId": "s-15",
+      "requiredProof": {
+        "meansId": "e-15",
+        "opportunityId": "w-8",
+        "motiveId": "msg-s-15-1"
+      },
       "closingStatement": "Robert Miller admitted to trampling the roses when his boot prints matched exactly. He was angry that the rose bushes were shading his vegetable garden."
     }
   },
@@ -784,7 +844,8 @@
             {
               "time": "15:30",
               "from": "Linda",
-              "text": "That Persian would complete my collection. Worth a lot too."
+              "text": "That Persian would complete my collection. Worth a lot too.",
+              "id": "msg-s-17-1"
             }
           ]
         },
@@ -802,7 +863,8 @@
             {
               "time": "16:00",
               "from": "Pet Sitter",
-              "text": "Know the cat's routine. Easy to grab during backyard time."
+              "text": "Know the cat's routine. Easy to grab during backyard time.",
+              "id": "msg-s-18-1"
             }
           ]
         },
@@ -826,6 +888,11 @@
     ],
     "solution": {
       "killerId": "s-17",
+      "requiredProof": {
+        "meansId": "e-17",
+        "opportunityId": "w-9",
+        "motiveId": "msg-s-17-1"
+      },
       "closingStatement": "Linda Carter was found with the cat at her home. Security footage showed her car at the scene, and the cat treats in her carrier matched those used to lure the cat."
     }
   },
@@ -874,7 +941,8 @@
             {
               "time": "19:30",
               "from": "Benny",
-              "text": "Know where they hide the spare key. Easy money tonight."
+              "text": "Know where they hide the spare key. Easy money tonight.",
+              "id": "msg-s-19-1"
             }
           ]
         },
@@ -892,7 +960,8 @@
             {
               "time": "20:00",
               "from": "Unknown",
-              "text": "Candy store is an easy target. Small cash."
+              "text": "Candy store is an easy target. Small cash.",
+              "id": "msg-s-20-1"
             }
           ]
         },
@@ -916,6 +985,11 @@
     ],
     "solution": {
       "killerId": "s-19",
+      "requiredProof": {
+        "meansId": "e-19",
+        "opportunityId": "w-10",
+        "motiveId": "msg-s-19-1"
+      },
       "closingStatement": "Benny Russo was caught with candy from the store in his backpack. His fingerprints were on the screwdriver used to pry open the register."
     }
   },
@@ -964,7 +1038,8 @@
             {
               "time": "14:00",
               "from": "Derek",
-              "text": "Old man Henderson is here with his fat wallet again."
+              "text": "Old man Henderson is here with his fat wallet again.",
+              "id": "msg-s-21-1"
             }
           ]
         },
@@ -982,7 +1057,8 @@
             {
               "time": "14:30",
               "from": "Jessica",
-              "text": "Saw Henderson sleeping. Easy target."
+              "text": "Saw Henderson sleeping. Easy target.",
+              "id": "msg-s-22-1"
             }
           ]
         },
@@ -1006,6 +1082,11 @@
     ],
     "solution": {
       "killerId": "s-21",
+      "requiredProof": {
+        "meansId": "e-21",
+        "opportunityId": "w-11",
+        "motiveId": "msg-s-21-1"
+      },
       "closingStatement": "Derek Smith was found with Mr. Henderson's wallet. The pocket knife in his possession matched the cut on the bag, and the gardener identified him as the man near the bench."
     }
   },
@@ -1054,12 +1135,14 @@
             {
               "time": "11:00",
               "from": "Tyler",
-              "text": "Carlos showed me his new phone. Left his locker combo written in his notebook."
+              "text": "Carlos showed me his new phone. Left his locker combo written in his notebook.",
+              "id": "msg-s-23-1"
             },
             {
               "time": "11:45",
               "from": "Tyler",
-              "text": "Locker is open. Easy grab during lunch."
+              "text": "Locker is open. Easy grab during lunch.",
+              "id": "msg-s-23-2"
             }
           ]
         },
@@ -1077,7 +1160,8 @@
             {
               "time": "10:30",
               "from": "Ryan",
-              "text": "Carlos told me his locker combination yesterday."
+              "text": "Carlos told me his locker combination yesterday.",
+              "id": "msg-s-24-1"
             }
           ]
         },
@@ -1101,6 +1185,11 @@
     ],
     "solution": {
       "killerId": "s-23",
+      "requiredProof": {
+        "meansId": "e-23",
+        "opportunityId": "w-12",
+        "motiveId": "msg-s-23-1"
+      },
       "closingStatement": "Tyler Jones was caught with Carlos' phone at his house. GPS tracking led police there, and his baseball cap was found at the scene."
     }
   },
@@ -1149,7 +1238,8 @@
             {
               "time": "18:30",
               "from": "Mr. Rodriguez",
-              "text": "Thompson took my parking spot again. That jerk needs a lesson."
+              "text": "Thompson took my parking spot again. That jerk needs a lesson.",
+              "id": "msg-s-25-1"
             }
           ]
         },
@@ -1167,7 +1257,8 @@
             {
               "time": "20:00",
               "from": "Unknown",
-              "text": "Nice car on Oak Street. Let's mess it up."
+              "text": "Nice car on Oak Street. Let's mess it up.",
+              "id": "msg-s-26-1"
             }
           ]
         },
@@ -1191,6 +1282,11 @@
     ],
     "solution": {
       "killerId": "s-25",
+      "requiredProof": {
+        "meansId": "e-25",
+        "opportunityId": "w-13",
+        "motiveId": "msg-s-25-1"
+      },
       "closingStatement": "Mr. Rodriguez confessed when shown the doorbell footage. He was angry about the parking spot dispute and scratched the car with his keys."
     }
   },
@@ -1239,12 +1335,14 @@
             {
               "time": "19:30",
               "from": "Mark",
-              "text": "They didn't invite me to the party after what happened last year."
+              "text": "They didn't invite me to the party after what happened last year.",
+              "id": "msg-s-27-1"
             },
             {
               "time": "20:30",
               "from": "Mark",
-              "text": "Green dye in my backpack. Perfect for the pool."
+              "text": "Green dye in my backpack. Perfect for the pool.",
+              "id": "msg-s-27-2"
             }
           ]
         },
@@ -1262,7 +1360,8 @@
             {
               "time": "20:00",
               "from": "Lisa",
-              "text": "The Johnsons are so showy with their perfect pool."
+              "text": "The Johnsons are so showy with their perfect pool.",
+              "id": "msg-s-28-1"
             }
           ]
         },
@@ -1286,6 +1385,11 @@
     ],
     "solution": {
       "killerId": "s-27",
+      "requiredProof": {
+        "meansId": "e-27",
+        "opportunityId": "w-14",
+        "motiveId": "msg-s-27-1"
+      },
       "closingStatement": "Mark Jenkins admitted to the prank when shown the dye stains on his belongings. He was angry about not being invited to the party and wanted revenge."
     }
   }

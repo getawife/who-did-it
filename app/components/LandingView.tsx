@@ -27,7 +27,9 @@ export default function CombinedLandingView({
 
   const handleStartGame = () => {
     if (selectedDifficulty && userName.trim()) {
-      localStorage.setItem("userName", userName.trim());
+      try {
+        localStorage.setItem("userName", userName.trim());
+      } catch {}
       onStartGame(selectedDifficulty, userName.trim());
     }
   };
@@ -113,6 +115,7 @@ function NameStep({ userName, onUserNameChange, onNext }: NameStepProps) {
         </div>
 
         <button
+          type="button"
           onClick={onNext}
           disabled={!isNameValid}
           className={`w-full py-3 rounded-lg font-semibold transition-colors ${
@@ -188,12 +191,14 @@ function WarningStep({
 
         <div className="flex gap-4">
           <button
+            type="button"
             onClick={onBack}
             className="flex-1 py-3 border-2 border-stone-300 rounded-lg font-semibold text-stone-700 hover:bg-stone-50 transition-colors cursor-pointer"
           >
             Back
           </button>
           <button
+            type="button"
             onClick={onNext}
             disabled={!agreed}
             className={`flex-1 py-3 rounded-lg font-semibold transition-colors ${
@@ -267,9 +272,6 @@ function DifficultyStep({
           <h1 className="text-3xl font-bold text-stone-900 mb-3">
             Select Case Difficulty
           </h1>
-          <p className="text-stone-600">
-            Choose your investigation protocol level
-          </p>
         </div>
 
         <div className="space-y-4 mb-8">
@@ -278,6 +280,7 @@ function DifficultyStep({
             return (
               <button
                 key={level.id}
+                type="button"
                 onClick={() => onSelectDifficulty(level.id)}
                 className={`w-full p-6 rounded-xl border-2 text-left transition-all cursor-pointer ${
                   level.color
@@ -312,12 +315,14 @@ function DifficultyStep({
 
         <div className="space-y-4">
           <button
+            type="button"
             onClick={onBack}
             className="w-full py-3 border-2 border-stone-300 rounded-lg font-semibold text-stone-700 hover:bg-stone-50 transition-colors cursor-pointer"
           >
             Back
           </button>
           <button
+            type="button"
             onClick={onStart}
             disabled={!selectedDifficulty}
             className={`w-full py-3 rounded-lg font-semibold transition-colors ${

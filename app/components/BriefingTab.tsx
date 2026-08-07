@@ -1,9 +1,5 @@
 "use client";
 
-import { Short_Stack } from "next/font/google";
-
-const handDrawn = Short_Stack({ weight: "400", subsets: ["latin"] });
-
 interface BriefingTabProps {
   description: string;
   crimeType: string;
@@ -18,9 +14,7 @@ export default function BriefingTab({
   witnessesCount,
 }: BriefingTabProps) {
   return (
-    <div
-      className={`${handDrawn.className} bg-white rounded-2xl border border-stone-200 p-8 shadow-xl space-y-6`}
-    >
+    <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-xl space-y-6">
       <div className="inline-block bg-stone-800 text-white px-3 py-1 rounded-lg text-sm font-semibold tracking-wide">
         Case Overview
       </div>

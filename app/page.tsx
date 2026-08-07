@@ -8,13 +8,13 @@ import DossierView from "./components/DossierView";
 export default function Home() {
   const [gameState, setGameState] = useState<"setup" | "playing">("setup");
   const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard">(
-    "medium"
+    "medium",
   );
   const [userName, setUserName] = useState("");
 
   const handleStartGame = (
     selectedDifficulty: "easy" | "medium" | "hard",
-    name: string
+    name: string,
   ) => {
     setDifficulty(selectedDifficulty);
     setUserName(name);
@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-stone-50">
+    <main className="min-h-screen">
       <AnimatePresence mode="wait">
         {gameState === "setup" && (
           <CombinedLandingView onStartGame={handleStartGame} />

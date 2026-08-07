@@ -21,7 +21,7 @@ export default function CharacterAvatar({ seed, className }: AvatarProps) {
     <img
       src={avatar}
       alt={`${seed} avatar`}
-      className={`border-2 border-stone-800 bg-[#fdf6e3] shadow-sm ${className}`}
+      className={`border-2 border-stone-800 bg-[#fdf6e3] shadow-sm ${className || ""}`}
     />
   );
 }

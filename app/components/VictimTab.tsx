@@ -37,9 +37,7 @@ export default function VictimTab({ victim }: VictimProps) {
       </div>
 
       <div>
-        <h3 className="text-xl font-bold text-stone-900 mb-4">
-          Verified Timeline
-        </h3>
+        <h3 className="text-xl font-bold text-stone-900 mb-4">Timeline</h3>
         <div className="space-y-3">
           {victim.routine.map((line, i) => (
             <div
