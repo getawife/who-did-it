@@ -1,7 +1,5 @@
-// SuspectsTab.tsx
 "use client";
 
-import React from "react";
 import CharacterAvatar from "./CharacterAvatar";
 import { Short_Stack } from "next/font/google";
 
@@ -26,7 +24,7 @@ export default function SuspectsTab({
           <button
             key={suspect.id}
             onClick={() => onSelect(suspect)}
-            className="p-5 rounded-xl border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50/50 transition-all text-left flex items-center gap-4 group"
+            className="p-5 rounded-xl border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50/50 transition-all text-left flex items-center gap-4 group cursor-pointer"
           >
             <CharacterAvatar
               seed={suspect.name}

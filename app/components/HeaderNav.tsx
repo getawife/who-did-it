@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Short_Stack } from "next/font/google";
+import CharacterAvatar from "./CharacterAvatar";
 
 const handDrawn = Short_Stack({ weight: "400", subsets: ["latin"] });
 
@@ -30,10 +31,14 @@ export default function HeaderNav({
   difficulty,
   onOpenAccusation,
 }: HeaderNavProps) {
-  const userName =
-    typeof window !== "undefined"
-      ? localStorage.getItem("userName") || "Unknown"
-      : "Unknown";
+  const [userName, setUserName] = useState("Unknown");
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("userName");
+    if (storedName) {
+      setUserName(storedName);
+    }
+  }, []);
 
   return (
     <header
@@ -55,15 +60,22 @@ export default function HeaderNav({
         </div>
 
         <div className="flex items-center gap-6">
-          <div className="text-stone-700 font-medium">
-            Det.{" "}
-            <span className="text-blue-600 underline underline-offset-4 decoration-2">
-              {userName}
-            </span>
+          <div className="flex items-center gap-3">
+            <CharacterAvatar
+              seed={userName}
+              className="w-10 h-10 rounded-full overflow-hidden object-cover"
+            />
+            <div className="text-stone-700 font-medium">
+              Det.{" "}
+              <span className="text-blue-600 underline underline-offset-4 decoration-2">
+                {userName}
+              </span>
+            </div>
           </div>
+
           <button
             onClick={onOpenAccusation}
-            className="px-5 py-2.5 bg-red-500 hover:bg-red-600 active:scale-95 text-white rounded-xl font-bold shadow-md hover:shadow-lg transition-all"
+            className="px-5 py-2.5 bg-red-500 hover:bg-red-600 active:scale-95 text-white rounded-xl font-bold shadow-md hover:shadow-lg transition-all cursor-pointer"
           >
             File Accusation 🚨
           </button>

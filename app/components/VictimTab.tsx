@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import CharacterAvatar from "./CharacterAvatar";
 import { Short_Stack } from "next/font/google";
 

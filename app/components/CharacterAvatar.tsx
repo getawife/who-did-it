@@ -13,8 +13,7 @@ export default function CharacterAvatar({ seed, className }: AvatarProps) {
   const avatar = useMemo(() => {
     return createAvatar(croodles, {
       seed: seed,
-      // We can customize properties to match a "noir" or "sketchy" vibe
-      backgroundColor: ["fdf6e3"], // Match our paper color
+      backgroundColor: ["fdf6e3"],
     }).toDataUri();
   }, [seed]);
 

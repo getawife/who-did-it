@@ -121,7 +121,6 @@ export default function DossierView({
       />
 
       <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* Playful Pill Navigation */}
         <nav className="mb-8 flex gap-3 overflow-x-auto pb-2">
           {[
             { id: "briefing", label: "Briefing", icon: "📋" },
@@ -132,9 +131,9 @@ export default function DossierView({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold transition-all ${
+              className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold transition-all cursor-pointer ${
                 activeTab === tab.id
-                  ? "bg-blue-600 text-white shadow-lg scale-105"
+                  ? "bg-blue-600 text-white scale-105"
                   : "bg-white border border-stone-200 text-stone-600 hover:bg-stone-50"
               }`}
             >
@@ -144,7 +143,6 @@ export default function DossierView({
           ))}
         </nav>
 
-        {/* Tab Views */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -183,7 +181,6 @@ export default function DossierView({
         </AnimatePresence>
       </main>
 
-      {/* Suspect Modal */}
       {selectedSuspect && (
         <div className="fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-stone-200 space-y-4">
@@ -208,7 +205,6 @@ export default function DossierView({
         </div>
       )}
 
-      {/* Accusation Modal */}
       {isAccusing && (
         <div className="fixed inset-0 bg-stone-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl border border-stone-200 space-y-6">
@@ -234,7 +230,6 @@ export default function DossierView({
         </div>
       )}
 
-      {/* Verdict Screen */}
       {verdict !== "pending" && (
         <div className="fixed inset-0 bg-stone-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full p-8 text-center space-y-6 shadow-2xl border border-stone-200">

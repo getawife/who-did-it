@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Short_Stack } from "next/font/google";
 
 const handDrawn = Short_Stack({ weight: "400", subsets: ["latin"] });

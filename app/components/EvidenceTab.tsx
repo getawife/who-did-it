@@ -1,7 +1,5 @@
-// EvidenceTab.tsx
 "use client";
 
-import React from "react";
 import CharacterAvatar from "./CharacterAvatar";
 import { Short_Stack } from "next/font/google";
 
@@ -17,7 +15,6 @@ export default function EvidenceTab({
 }: any) {
   return (
     <div className={`${handDrawn.className} space-y-8`}>
-      {/* Physical Evidence */}
       <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-xl">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-stone-900">
@@ -51,7 +48,6 @@ export default function EvidenceTab({
         </div>
       </div>
 
-      {/* Witness Statements */}
       <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-xl">
         <h2 className="text-2xl font-bold text-stone-900 mb-6">
           Witness Statements
@@ -75,7 +71,7 @@ export default function EvidenceTab({
                   {!isInterviewed && (
                     <button
                       onClick={() => onInterview(w.role, w.statement)}
-                      className="px-3 py-1.5 bg-stone-900 text-white rounded-lg text-xs font-bold hover:bg-stone-800"
+                      className="px-3 py-1.5 bg-stone-900 text-white rounded-lg text-xs font-bold hover:bg-stone-800 cursor-pointer"
                     >
                       Question
                     </button>
