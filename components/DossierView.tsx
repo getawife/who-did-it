@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Short_Stack } from "next/font/google";
-import easyCases from "@/app/cases/easyCases.json";
-import mediumCases from "@/app/cases/mediumCases.json";
-import hardCases from "@/app/cases/hardCases.json";
+import easyCases from "@/cases/easyCases.json";
+import mediumCases from "@/cases/mediumCases.json";
+import hardCases from "@/cases/hardCases.json";
 
 import HeaderNav from "./HeaderNav";
 import BriefingTab from "./BriefingTab";
@@ -13,7 +13,12 @@ import VictimTab from "./VictimTab";
 import SuspectsTab from "./SuspectsTab";
 import EvidenceTab from "./EvidenceTab";
 import NotebookDrawer, { Clue } from "./NotebookDrawer";
+import CharacterAvatar from "./CharacterAvatar";
+
 const handDrawn = Short_Stack({ weight: "400", subsets: ["latin"] });
+
+type Difficulty = "easy" | "medium" | "hard";
+
 const FORENSIC_DELAYS: Record<Difficulty, number> = {
   easy: 10,
   medium: 30,
@@ -49,6 +54,7 @@ interface Witness {
 interface EvidenceItem {
   id: string;
   name: string;
+  type: string;
   description?: string;
 }
 
@@ -60,12 +66,12 @@ interface Victim {
 }
 
 interface Solution {
-  killerId: string;
+  killerId: string | number;
   closingStatement?: string;
   requiredProof: {
-    meansId: string;
-    opportunityId: string;
-    motiveId: string;
+    meansId: string | number;
+    opportunityId: string | number;
+    motiveId: string | number;
   };
 }
 
@@ -84,19 +90,6 @@ interface Case {
 }
 
 type TabType = "briefing" | "victim" | "suspects" | "evidence";
-type Difficulty = "easy" | "medium" | "hard";
-
-interface ActionCosts {
-  interview: number;
-  forensics: number;
-  subpoena: number;
-}
-
-const ACTION_COSTS: Record<Difficulty, ActionCosts> = {
-  easy: { interview: 0, forensics: 0, subpoena: 0 },
-  medium: { interview: 1, forensics: 2, subpoena: 2 },
-  hard: { interview: 2, forensics: 3, subpoena: 3 },
-};
 
 interface DropdownOption {
   id: string;
@@ -207,6 +200,7 @@ export default function DossierView({
   const [verdict, setVerdict] = useState<"pending" | "correct" | "incorrect">(
     "pending",
   );
+  const [daFeedback, setDaFeedback] = useState<string>("");
   const [clues, setClues] = useState<Clue[]>([]);
 
   const [unlockedClues, setUnlockedClues] = useState<{
@@ -223,17 +217,25 @@ export default function DossierView({
   const [selectedMeans, setSelectedMeans] = useState("");
   const [selectedOpportunity, setSelectedOpportunity] = useState("");
   const [selectedMotive, setSelectedMotive] = useState("");
-  const [accusationError, setAccusationError] = useState<string | null>(null);
+  const [formValidationMessage, setFormValidationMessage] = useState<
+    string | null
+  >(null);
 
   const unlockClue = useCallback(
-    (type: "evidence" | "statements" | "messages", id: string) => {
+    (type: "evidence" | "statements" | "messages", id: string | number) => {
+      const stringId = String(id);
       setUnlockedClues((prev) => {
-        if (prev[type].includes(id)) return prev;
-        return { ...prev, [type]: [...prev[type], id] };
+        if (prev[type].includes(stringId)) return prev;
+        return { ...prev, [type]: [...prev[type], stringId] };
       });
     },
     [],
   );
+
+  const closeAccusationModal = () => {
+    setIsAccusing(false);
+    setFormValidationMessage(null);
+  };
 
   useEffect(() => {
     const collections = {
@@ -271,21 +273,11 @@ export default function DossierView({
       ];
       setClues(initialClues);
 
-      if (currentCase.evidence) {
-        currentCase.evidence.forEach((item) => {
-          unlockClue("evidence", item.id);
-        });
-      }
-
-      if (currentCase.suspects) {
-        currentCase.suspects.forEach((s) => {
-          if (!s.isSubpoenaed && s.subpoenaData?.messages) {
-            s.subpoenaData.messages.forEach((msg) => {
-              unlockClue("messages", msg.id);
-            });
-          }
-        });
-      }
+      setUnlockedClues({
+        evidence: (currentCase.evidence || []).map((e) => String(e.id)),
+        statements: [],
+        messages: [],
+      });
 
       if (difficulty === "easy") {
         setTimeRemainingMinutes(
@@ -301,7 +293,7 @@ export default function DossierView({
         );
       }
     }
-  }, [currentCase, difficulty, unlockClue]);
+  }, [currentCase, difficulty]);
 
   useEffect(() => {
     if (timeRemainingMinutes === null || timeRemainingMinutes <= 0) return;
@@ -322,16 +314,16 @@ export default function DossierView({
       }));
 
       const witnessObj = currentCase?.witnesses.find((w) => w.role === role);
-      if (witnessObj?.id) {
-        unlockClue("statements", witnessObj.id);
-      }
+      const witnessId = witnessObj?.id || witnessObj?.role || role;
+
+      unlockClue("statements", witnessId);
 
       setClues((prev) => [
         ...prev,
         {
           id: `interview-${role}-${Date.now()}`,
-          title: `Witness Interview: ${role}`,
-          description: statement || "No statement provided.",
+          title: `Witness Testimony: ${role}`,
+          description: statement ?? "No statement provided.",
           category: "witness",
           timestamp: "Just now",
         },
@@ -343,6 +335,7 @@ export default function DossierView({
     const suspectData = currentCase?.suspects.find(
       (s) => s.name === suspectName,
     );
+
     if (suspectData?.subpoenaData?.messages) {
       suspectData.subpoenaData.messages.forEach((msg) => {
         unlockClue("messages", msg.id);
@@ -353,17 +346,20 @@ export default function DossierView({
       ...prevClues,
       {
         id: `subpoena-${suspectName}-${Date.now()}`,
-        title: `Subpoena Unlocked: ${suspectName}`,
-        description: `Official records obtained for ${suspectName}.`,
+        title: `Subpoena Obtained: ${suspectName}`,
+        description: `Official phone records & messages obtained for ${suspectName}.`,
         category: "timeline",
         timestamp: "Just now",
       },
     ]);
   };
 
+  const extractRawId = (prefixedId: string) =>
+    prefixedId.replace(/^(evidence|witness|message)-/, "");
+
   const handleAccusationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setAccusationError(null);
+    setFormValidationMessage(null);
 
     if (
       !accusedSuspect ||
@@ -371,18 +367,29 @@ export default function DossierView({
       !selectedOpportunity ||
       !selectedMotive
     ) {
-      setAccusationError("You must select proof for all four fields.");
+      setFormValidationMessage(
+        "Please select evidence for all four required fields.",
+      );
       return;
     }
 
     const solution = currentCase?.solution;
     const requiredProof = solution?.requiredProof;
 
-    const isSuspectCorrect = accusedSuspect === solution?.killerId;
-    const isMeansCorrect = selectedMeans === requiredProof?.meansId;
+    const rawMeansId = extractRawId(selectedMeans);
+    const rawOpportunityId = extractRawId(selectedOpportunity);
+    const rawMotiveId = extractRawId(selectedMotive);
+
+    const isSuspectCorrect =
+      String(accusedSuspect) === String(solution?.killerId);
+    const isMeansCorrect =
+      String(rawMeansId) === String(requiredProof?.meansId);
     const isOpportunityCorrect =
-      selectedOpportunity === requiredProof?.opportunityId;
-    const isMotiveCorrect = selectedMotive === requiredProof?.motiveId;
+      String(rawOpportunityId) === String(requiredProof?.opportunityId);
+    const isMotiveCorrect =
+      String(rawMotiveId) === String(requiredProof?.motiveId);
+
+    setIsAccusing(false);
 
     if (
       isSuspectCorrect &&
@@ -391,26 +398,32 @@ export default function DossierView({
       isMotiveCorrect
     ) {
       setVerdict("correct");
-      setIsAccusing(false);
+      setDaFeedback(
+        solution?.closingStatement ||
+          "Solid work, Detective! Your theory and proof held up cleanly in court. We got a conviction.",
+      );
     } else {
+      setVerdict("incorrect");
       if (!isSuspectCorrect) {
-        setAccusationError(
-          "The District Attorney rejected the warrant: You accused the wrong suspect.",
+        setDaFeedback(
+          "I can't take this to court. You brought us the wrong suspect entirely—the real killer is walking free.",
         );
       } else if (!isMeansCorrect) {
-        setAccusationError(
-          "The District Attorney says: You have the right suspect, but your proof of means/weapon is incorrect.",
+        setDaFeedback(
+          "You brought the right suspect, but your proof regarding the weapon or means fell apart under defense cross-examination.",
         );
       } else if (!isOpportunityCorrect) {
-        setAccusationError(
-          "The District Attorney says: You identified the right suspect, but your proof of opportunity/timeline is flawed.",
+        setDaFeedback(
+          "You identified the right suspect, but your timeline and proof of opportunity were easily torn apart by the defense.",
         );
       } else if (!isMotiveCorrect) {
-        setAccusationError(
-          "The District Attorney says: You have the suspect and weapon, but your proof of motive is unconvincing.",
+        setDaFeedback(
+          "We have the right suspect and weapon, but your proof of motive wasn't convincing enough to establish intent to the jury.",
         );
       } else {
-        setAccusationError("Insufficient evidence to secure a conviction.");
+        setDaFeedback(
+          "The evidence wasn't strong enough to secure a conviction.",
+        );
       }
     }
   };
@@ -426,20 +439,21 @@ export default function DossierView({
 
   const suspectOptions: DropdownOption[] = (currentCase.suspects || []).map(
     (s) => ({
-      id: s.id,
+      id: String(s.id),
       label: `${s.name} (${s.role || s.relationToVictim || "Suspect"})`,
     }),
   );
 
-  const availableWitnesses = (currentCase.witnesses || []).filter((w) =>
-    unlockedClues.statements.includes(w.id),
-  );
+  const availableWitnesses = (currentCase.witnesses || []).filter((w) => {
+    const witnessKey = String(w.id || w.role);
+    return unlockedClues.statements.includes(witnessKey);
+  });
 
   const availableMessages: Array<Message & { suspectName: string }> = [];
   (currentCase.suspects || []).forEach((s) => {
     if (s.subpoenaData?.messages) {
       s.subpoenaData.messages.forEach((msg) => {
-        if (unlockedClues.messages.includes(msg.id)) {
+        if (unlockedClues.messages.includes(String(msg.id))) {
           availableMessages.push({ ...msg, suspectName: s.name });
         }
       });
@@ -448,18 +462,18 @@ export default function DossierView({
 
   const allClueOptions: DropdownOption[] = [
     ...(currentCase.evidence || [])
-      .filter((e) => unlockedClues.evidence.includes(e.id))
+      .filter((e) => unlockedClues.evidence.includes(String(e.id)))
       .map((e) => ({
-        id: e.id,
+        id: `evidence-${e.id}`,
         label: `[Evidence] ${e.name}`,
       })),
     ...availableWitnesses.map((w) => ({
-      id: w.id,
+      id: `witness-${w.id || w.role}`,
       label: `[Witness] ${w.role}: "${w.statement.slice(0, 35)}..."`,
     })),
     ...availableMessages.map((msg) => ({
-      id: msg.id,
-      label: `[Text - ${msg.suspectName}] ${msg.time}: "${msg.text.slice(0, 35)}..."`,
+      id: `message-${msg.id}`,
+      label: `[Subpoena Text - ${msg.suspectName}] ${msg.time}: "${msg.text.slice(0, 35)}..."`,
     })),
   ];
 
@@ -503,7 +517,7 @@ export default function DossierView({
           </nav>
 
           {timeRemainingMinutes !== null && (
-            <div className="bg-white shadow-sm px-5 py-2.5 rounded-2xl flex items-center gap-3 ">
+            <div className="bg-white shadow-sm px-5 py-2.5 rounded-2xl flex items-center gap-3">
               <div>
                 <p className="text-xs uppercase font-extrabold text-black">
                   Shift Hours Remaining
@@ -549,7 +563,7 @@ export default function DossierView({
                       {
                         id: `suspect-${suspect.id}`,
                         title: `Suspect Alibi: ${suspect.name}`,
-                        description: suspect.alibi,
+                        description: suspect.alibi ?? "No alibi provided.",
                         category: "witness",
                         timestamp: "Just now",
                       },
@@ -562,7 +576,7 @@ export default function DossierView({
               <EvidenceTab
                 evidence={currentCase.evidence}
                 witnesses={currentCase.witnesses}
-                forensicTimer={timeRemainingMinutes}
+                forensicDelay={FORENSIC_DELAYS[difficulty]}
                 interviewedWitnesses={interviewedWitnesses}
                 witnessTestimonies={witnessTestimonies}
                 onInterview={handleInterview}
@@ -604,7 +618,7 @@ export default function DossierView({
               </h2>
               <button
                 type="button"
-                onClick={() => setIsAccusing(false)}
+                onClick={closeAccusationModal}
                 className="text-stone-400 font-bold hover:text-stone-700 cursor-pointer"
                 aria-label="Close accusation modal"
               >
@@ -661,16 +675,16 @@ export default function DossierView({
                 />
               </div>
 
-              {accusationError && (
+              {formValidationMessage && (
                 <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs font-bold">
-                  {accusationError}
+                  {formValidationMessage}
                 </div>
               )}
 
               <div className="flex justify-end gap-3 pt-3">
                 <button
                   type="button"
-                  onClick={() => setIsAccusing(false)}
+                  onClick={closeAccusationModal}
                   className="px-5 py-2.5 rounded-xl font-bold bg-stone-200 hover:bg-stone-300 transition-colors cursor-pointer"
                 >
                   Review Case
@@ -689,20 +703,36 @@ export default function DossierView({
 
       {verdict !== "pending" && (
         <div className="fixed inset-0 bg-stone-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-8 text-center space-y-6 shadow-2xl border border-stone-200">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl border border-stone-200 space-y-6">
             <h2
-              className={`text-4xl font-extrabold ${
+              className={`text-4xl font-extrabold text-center ${
                 verdict === "correct" ? "text-green-600" : "text-red-600"
               }`}
             >
-              {verdict === "correct" ? "Case Solved!" : "Wrong Suspect!"}
+              {verdict === "correct" ? "Case Solved!" : "Verdict: Acquitted!"}
             </h2>
-            <p className="text-stone-700 text-lg">
-              {verdict === "correct"
-                ? currentCase.solution?.closingStatement ||
-                  "Great job, Detective! You cracked the case."
-                : "The real culprit got away due to lack of evidence."}
-            </p>
+
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-6 bg-stone-50 p-6 rounded-2xl border border-stone-200">
+              <div className="flex-shrink-0 text-center">
+                <CharacterAvatar
+                  seed="District Attorney DA"
+                  className="w-24 h-24 rounded-full object-cover"
+                />
+                <p className="mt-2 text-xs font-extrabold uppercase tracking-wider text-stone-500">
+                  District Attorney
+                </p>
+              </div>
+
+              <div className="flex-1 space-y-2">
+                <p className="text-xs font-extrabold uppercase text-blue-600">
+                  DA Statement
+                </p>
+                <p className="text-stone-800 text-base leading-relaxed italic">
+                  &ldquo;{daFeedback}&rdquo;
+                </p>
+              </div>
+            </div>
+
             <button
               type="button"
               onClick={() => window.location.reload()}

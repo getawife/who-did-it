@@ -45,9 +45,7 @@ export default function HeaderNav({
       if (storedName) {
         setUserName(storedName);
       }
-    } catch {
-      // Local storage access error fallback
-    }
+    } catch {}
   }, []);
 
   const config = DIFFICULTY_CONFIG[difficulty] || DIFFICULTY_CONFIG.easy;

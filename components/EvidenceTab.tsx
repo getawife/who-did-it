@@ -6,32 +6,34 @@ import { Short_Stack } from "next/font/google";
 
 const handDrawn = Short_Stack({ weight: "400", subsets: ["latin"] });
 
-interface EvidenceItem {
+export interface EvidenceItem {
   id: string;
   name: string;
   type: string;
   description?: string;
+  [key: string]: any;
 }
 
-interface QAItem {
+export interface QAItem {
   question: string;
   answer: string;
 }
 
-interface WitnessItem {
+export interface WitnessItem {
   id?: string;
   role: string;
   statement?: string;
   qna?: string | QAItem[];
+  [key: string]: any;
 }
 
-interface EvidenceTabProps {
+export interface EvidenceTabProps {
   evidence?: EvidenceItem[];
   witnesses?: WitnessItem[];
   forensicDelay?: number;
   interviewedWitnesses?: string[];
   witnessTestimonies?: Record<string, string>;
-  onInterview: (role: string, statement: string) => void;
+  onInterview?: (role: string, statement: string) => void;
 }
 
 function parseWitnessQnA(witnessData: WitnessItem): QAItem[] {
@@ -79,7 +81,6 @@ export default function EvidenceTab({
   const [isTypingQuestion, setIsTypingQuestion] = useState(false);
   const [isTypingAnswer, setIsTypingAnswer] = useState(false);
 
-  // Dedicated forensic countdown state
   const [localForensicTime, setLocalForensicTime] =
     useState<number>(forensicDelay);
 
@@ -104,9 +105,12 @@ export default function EvidenceTab({
     setTypedQuestion("");
     setTypedAnswer("");
     setIsTypingQuestion(true);
+    setIsTypingAnswer(false);
 
     let qIndex = 0;
+    let aInterval: NodeJS.Timeout | null = null;
     const qText = currentPair.question;
+    const aText = currentPair.answer;
 
     const qInterval = setInterval(() => {
       if (qIndex < qText.length) {
@@ -118,14 +122,12 @@ export default function EvidenceTab({
         setIsTypingAnswer(true);
 
         let aIndex = 0;
-        const aText = currentPair.answer;
-
-        const aInterval = setInterval(() => {
+        aInterval = setInterval(() => {
           if (aIndex < aText.length) {
             setTypedAnswer(aText.slice(0, aIndex + 1));
             aIndex++;
           } else {
-            clearInterval(aInterval);
+            if (aInterval) clearInterval(aInterval);
             setIsTypingAnswer(false);
           }
         }, 20);
@@ -134,6 +136,7 @@ export default function EvidenceTab({
 
     return () => {
       clearInterval(qInterval);
+      if (aInterval) clearInterval(aInterval);
     };
   }, [activeWitness, currentQAIndex]);
 
@@ -146,7 +149,7 @@ export default function EvidenceTab({
     if (currentQAIndex < qaPairs.length - 1) {
       setCurrentQAIndex((prev) => prev + 1);
     } else {
-      if (activeWitness) {
+      if (activeWitness && onInterview) {
         const fullStatement = qaPairs
           .map((p) => `Q: ${p.question}\nA: ${p.answer}`)
           .join("\n");
@@ -162,14 +165,13 @@ export default function EvidenceTab({
 
   return (
     <div className={`${handDrawn.className} space-y-8 relative`}>
-      {/* PHYSICAL EVIDENCE CARD */}
       <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-xl">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-stone-900">
             Physical Evidence
           </h2>
           {hasForensicItem && localForensicTime > 0 && (
-            <span className="px-4 py-2 bg-amber-100 text-amber-800 border border-amber-300 rounded-xl text-xs font-semibold animate-pulse">
+            <span className="px-4 py-2 bg-amber-100 text-amber-800 border border-amber-300 rounded-xl text-xs font-semibold">
               Forensic Available in ({localForensicTime}s)
             </span>
           )}
@@ -235,7 +237,7 @@ export default function EvidenceTab({
                   <div className="flex items-center gap-3">
                     <CharacterAvatar
                       seed={w.role}
-                      className="w-10 h-10 rounded-lg"
+                      className="w-10 h-10 rounded-lg shrink-0"
                     />
                     <span className="font-bold text-stone-900">{w.role}</span>
                   </div>
@@ -267,6 +269,7 @@ export default function EvidenceTab({
                   {!isInterviewed && (
                     <div className="flex justify-center pt-2">
                       <button
+                        type="button"
                         onClick={() => handleStartInterview(w)}
                         className="px-6 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-md"
                       >
@@ -307,6 +310,7 @@ export default function EvidenceTab({
               <div className="flex justify-end pt-2">
                 {!isTypingQuestion && !isTypingAnswer && (
                   <button
+                    type="button"
                     onClick={handleContinue}
                     className="px-6 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-md"
                   >
@@ -318,7 +322,7 @@ export default function EvidenceTab({
               </div>
             </div>
 
-            <div className="flex-shrink-0 flex flex-col items-center">
+            <div className="shrink-0 flex flex-col items-center">
               <CharacterAvatar
                 seed={activeWitness.role}
                 className="w-24 h-24 rounded-2xl shadow-md border-2 border-stone-200"

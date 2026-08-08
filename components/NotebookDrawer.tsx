@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export interface Clue {
   id: string;
   title: string;
-  description: string;
+  description?: string;
   category: "evidence" | "witness" | "timeline";
   timestamp: string;
 }

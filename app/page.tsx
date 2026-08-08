@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import CombinedLandingView from "./components/LandingView";
-import DossierView from "./components/DossierView";
+import CombinedLandingView from "../components/LandingView";
+import DossierView from "../components/DossierView";
 
 export default function Home() {
   const [gameState, setGameState] = useState<"setup" | "playing">("setup");
