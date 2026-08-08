@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import CharacterAvatar from "./CharacterAvatar";
 import { Short_Stack } from "next/font/google";
 
@@ -23,6 +23,7 @@ export interface WitnessItem {
   id?: string;
   role: string;
   statement?: string;
+  reliability?: string;
   qna?: string | QAItem[];
   [key: string]: any;
 }
@@ -84,6 +85,34 @@ export default function EvidenceTab({
   const [localForensicTime, setLocalForensicTime] =
     useState<number>(forensicDelay);
 
+  const typewriterAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const audio = new Audio("/audio/Typewriter.mp3");
+    audio.volume = 0.2;
+    audio.loop = true; // Loop audio as long as typing continues
+    typewriterAudioRef.current = audio;
+
+    return () => {
+      audio.pause();
+    };
+  }, []);
+
+  const playAudio = () => {
+    if (typewriterAudioRef.current) {
+      if (typewriterAudioRef.current.paused) {
+        typewriterAudioRef.current.play().catch(() => {});
+      }
+    }
+  };
+
+  const stopAudio = () => {
+    if (typewriterAudioRef.current) {
+      typewriterAudioRef.current.pause();
+      typewriterAudioRef.current.currentTime = 0;
+    }
+  };
+
   useEffect(() => {
     setLocalForensicTime(forensicDelay);
   }, [forensicDelay]);
@@ -108,35 +137,40 @@ export default function EvidenceTab({
     setIsTypingAnswer(false);
 
     let qIndex = 0;
-    let aInterval: NodeJS.Timeout | null = null;
+    let aIndex = 0;
+    let typingState: "question" | "answer" | "done" = "question";
+
     const qText = currentPair.question;
     const aText = currentPair.answer;
 
-    const qInterval = setInterval(() => {
-      if (qIndex < qText.length) {
-        setTypedQuestion(qText.slice(0, qIndex + 1));
-        qIndex++;
-      } else {
-        clearInterval(qInterval);
-        setIsTypingQuestion(false);
-        setIsTypingAnswer(true);
+    playAudio();
 
-        let aIndex = 0;
-        aInterval = setInterval(() => {
-          if (aIndex < aText.length) {
-            setTypedAnswer(aText.slice(0, aIndex + 1));
-            aIndex++;
-          } else {
-            if (aInterval) clearInterval(aInterval);
-            setIsTypingAnswer(false);
-          }
-        }, 20);
+    const interval = setInterval(() => {
+      if (typingState === "question") {
+        if (qIndex < qText.length) {
+          setTypedQuestion(qText.slice(0, qIndex + 1));
+          qIndex++;
+        } else {
+          typingState = "answer";
+          setIsTypingQuestion(false);
+          setIsTypingAnswer(true);
+        }
+      } else if (typingState === "answer") {
+        if (aIndex < aText.length) {
+          setTypedAnswer(aText.slice(0, aIndex + 1));
+          aIndex++;
+        } else {
+          typingState = "done";
+          setIsTypingAnswer(false);
+          stopAudio();
+          clearInterval(interval);
+        }
       }
     }, 25);
 
     return () => {
-      clearInterval(qInterval);
-      if (aInterval) clearInterval(aInterval);
+      clearInterval(interval);
+      stopAudio();
     };
   }, [activeWitness, currentQAIndex]);
 
@@ -200,7 +234,7 @@ export default function EvidenceTab({
                     </span>
                   </div>
                   <p
-                    className={`text-stone-700 text-sm ${
+                    className={`text-stone-700 text-sm transition-all duration-500 ${
                       isForensicPending ? "blur-sm select-none" : ""
                     }`}
                   >
@@ -213,7 +247,6 @@ export default function EvidenceTab({
         )}
       </div>
 
-      {/* WITNESS STATEMENTS CARD */}
       <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-xl">
         <h2 className="text-2xl font-bold text-stone-900 mb-6">
           Witness Statements
@@ -224,7 +257,7 @@ export default function EvidenceTab({
             No witness statements recorded for this case.
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-6">
             {witnesses.map((w, idx) => {
               const isInterviewed = interviewedWitnesses.includes(w.role);
               const wPairs = parseWitnessQnA(w);
@@ -232,42 +265,56 @@ export default function EvidenceTab({
               return (
                 <div
                   key={w.id || `witness-${idx}`}
-                  className="p-5 bg-stone-50 border border-stone-200 rounded-xl space-y-4 flex flex-col justify-between"
+                  className="p-6 bg-stone-50 border border-stone-200 rounded-2xl space-y-4"
                 >
                   <div className="flex items-center gap-3">
                     <CharacterAvatar
                       seed={w.role}
-                      className="w-10 h-10 rounded-lg shrink-0"
+                      className="w-10 h-10 rounded-lg shrink-0 border border-stone-300 shadow-sm"
                     />
-                    <span className="font-bold text-stone-900">{w.role}</span>
+                    <span className="font-bold text-lg text-stone-900">
+                      {w.role}
+                    </span>
                   </div>
 
-                  <div className="flex-1">
-                    {isInterviewed ? (
-                      <div className="space-y-3 bg-white p-4 rounded-lg border border-stone-200">
+                  {isInterviewed ? (
+                    <div className="flex flex-col md:flex-row gap-6 items-start pt-2">
+                      <div className="flex-1 space-y-3 bg-white p-5 rounded-xl border border-stone-200 w-full shadow-sm">
                         {wPairs.map((pair, qIdx) => (
                           <div
                             key={qIdx}
-                            className="space-y-1 border-b border-stone-100 pb-2 last:border-b-0 last:pb-0"
+                            className="space-y-1 border-b border-stone-100 pb-3 last:border-b-0 last:pb-0"
                           >
                             <p className="text-xs font-semibold text-stone-900">
                               {pair.question}
                             </p>
-                            <p className="text-sm italic text-stone-700">
+                            <p className="text-sm italic text-stone-700 leading-relaxed">
                               "{pair.answer}"
                             </p>
                           </div>
                         ))}
                       </div>
-                    ) : (
+
+                      {w.reliability && (
+                        <div className="relative w-full md:w-64 shrink-0 bg-amber-100/90 border border-amber-300/80 rounded-sm p-5 shadow-md rotate-1 transition-transform  mt-2 md:mt-0">
+                          <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full  flex items-center justify-center">
+                            <div className="w-2 h-2 rounded-full bg-stone-900/60" />
+                          </div>
+
+                          <span className="font-bold tracking-wider uppercase text-[10px] text-amber-900/70 block mb-2 pt-1 border-b border-amber-300/70 pb-1">
+                            Detective's Note
+                          </span>
+                          <p className="text-xs italic text-amber-950 leading-relaxed">
+                            "My assessment on this witness: {w.reliability}"
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between pt-2">
                       <p className="text-xs text-stone-400 italic">
                         Statement unrecorded
                       </p>
-                    )}
-                  </div>
-
-                  {!isInterviewed && (
-                    <div className="flex justify-center pt-2">
                       <button
                         type="button"
                         onClick={() => handleStartInterview(w)}
@@ -284,7 +331,6 @@ export default function EvidenceTab({
         )}
       </div>
 
-      {/* INTERVIEW MODAL */}
       {activeWitness && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-2xl max-w-2xl w-full relative flex flex-col md:flex-row items-center gap-6">

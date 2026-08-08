@@ -62,11 +62,6 @@ export default function HeaderNav({
             </h1>
             <p className="text-sm text-stone-600">{title}</p>
           </div>
-          <span
-            className={`px-3 py-1 rounded-full text-xs font-semibold border ${config.color}`}
-          >
-            {config.label} Detective
-          </span>
         </div>
 
         <div className="flex items-center gap-6">
