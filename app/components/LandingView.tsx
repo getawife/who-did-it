@@ -66,8 +66,6 @@ export default function CombinedLandingView({
             />
           )}
         </AnimatePresence>
-
-        <ProgressIndicator step={step} />
       </div>
     </div>
   );
@@ -226,12 +224,11 @@ const DIFFICULTY_LEVELS = [
   {
     id: "easy" as const,
     title: "Junior Detective",
-    description:
-      "Clear evidence, reliable witnesses. Recommended for first-time investigators.",
+    description: "Clear evidence, reliable witnesses.",
     time: "10s forensic, 15s subpoenas",
     color: "border-green-200 bg-green-50 hover:bg-green-100",
     selectedBg: "bg-green-100/80",
-    dotColor: "border-stone-800 bg-stone-800",
+    dotColor: "border-blue-500 bg-blue-500",
   },
   {
     id: "medium" as const,
@@ -240,7 +237,7 @@ const DIFFICULTY_LEVELS = [
     time: "30s forensic, 60s subpoenas",
     color: "border-amber-200 bg-amber-50 hover:bg-amber-100",
     selectedBg: "bg-amber-100/80",
-    dotColor: "border-stone-800 bg-stone-800",
+    dotColor: "border-blue-500 bg-blue-500",
   },
   {
     id: "hard" as const,
@@ -249,7 +246,7 @@ const DIFFICULTY_LEVELS = [
     time: "60s forensic, 45s subpoenas",
     color: "border-red-200 bg-red-50 hover:bg-red-100",
     selectedBg: "bg-red-100/80",
-    dotColor: "border-stone-800 bg-stone-800",
+    dotColor: "border-blue-500 bg-blue-500",
   },
 ];
 
@@ -336,41 +333,5 @@ function DifficultyStep({
         </div>
       </div>
     </motion.div>
-  );
-}
-
-const STEPS: Step[] = ["name", "warning", "difficulty"];
-
-function ProgressIndicator({ step }: { step: Step }) {
-  const currentIndex = STEPS.indexOf(step);
-
-  return (
-    <div className="mt-8">
-      <div className="flex items-center justify-center gap-2">
-        {STEPS.map((s, i) => (
-          <div key={s} className="flex items-center">
-            <div
-              className={`w-3 h-3 rounded-full ${
-                step === s
-                  ? "bg-blue-600"
-                  : currentIndex >= i
-                    ? "bg-stone-400"
-                    : "bg-stone-200"
-              }`}
-            />
-            {i < STEPS.length - 1 && (
-              <div
-                className={`w-8 h-0.5 ${
-                  currentIndex > i ? "bg-stone-400" : "bg-stone-200"
-                }`}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-      <div className="text-center text-sm text-stone-500 mt-2">
-        Step {currentIndex + 1} of {STEPS.length}
-      </div>
-    </div>
   );
 }

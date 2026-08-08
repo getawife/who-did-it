@@ -13,8 +13,12 @@ import VictimTab from "./VictimTab";
 import SuspectsTab from "./SuspectsTab";
 import EvidenceTab from "./EvidenceTab";
 import NotebookDrawer, { Clue } from "./NotebookDrawer";
-
 const handDrawn = Short_Stack({ weight: "400", subsets: ["latin"] });
+const FORENSIC_DELAYS: Record<Difficulty, number> = {
+  easy: 10,
+  medium: 30,
+  hard: 60,
+};
 
 interface Message {
   id: string;
@@ -152,7 +156,10 @@ function CustomSelect({
             className="absolute z-50 left-0 right-0 mt-1 bg-white border border-stone-300 rounded-xl shadow-xl max-h-52 overflow-y-auto"
           >
             {options.length === 0 ? (
-              <li className="p-3 text-sm text-stone-400 font-bold text-center">
+              <li
+                key="no-options"
+                className="p-3 text-sm text-stone-400 font-bold text-center"
+              >
                 No items available yet
               </li>
             ) : (
@@ -187,7 +194,9 @@ export default function DossierView({
 }) {
   const [activeTab, setActiveTab] = useState<TabType>("briefing");
   const [currentCase, setCurrentCase] = useState<Case | null>(null);
-  const [hoursRemaining, setHoursRemaining] = useState<number | null>(null);
+  const [timeRemainingMinutes, setTimeRemainingMinutes] = useState<
+    number | null
+  >(null);
   const [interviewedWitnesses, setInterviewedWitnesses] = useState<string[]>(
     [],
   );
@@ -215,18 +224,6 @@ export default function DossierView({
   const [selectedOpportunity, setSelectedOpportunity] = useState("");
   const [selectedMotive, setSelectedMotive] = useState("");
   const [accusationError, setAccusationError] = useState<string | null>(null);
-
-  const costs = ACTION_COSTS[difficulty];
-
-  const consumeHours = useCallback(
-    (amount: number) => {
-      if (difficulty === "easy" || amount <= 0) return;
-      setHoursRemaining((prev) =>
-        prev !== null ? Math.max(0, prev - amount) : null,
-      );
-    },
-    [difficulty],
-  );
 
   const unlockClue = useCallback(
     (type: "evidence" | "statements" | "messages", id: string) => {
@@ -290,35 +287,34 @@ export default function DossierView({
         });
       }
 
-      if (difficulty !== "easy") {
-        const suspectCount = currentCase.suspects?.length || 0;
-        const subpoenaCount = (currentCase.suspects || []).filter(
-          (s) => s.isSubpoenaed || s.subpoenaData,
-        ).length;
-
-        if (difficulty === "medium") {
-          setHoursRemaining(
-            Math.round(suspectCount * 2 + subpoenaCount * 2 + 2),
-          );
-        } else if (difficulty === "hard") {
-          setHoursRemaining(
-            Math.round(suspectCount * 1.5 + subpoenaCount * 1.5),
-          );
-        }
-      } else {
-        setHoursRemaining(null);
+      if (difficulty === "easy") {
+        setTimeRemainingMinutes(
+          Math.floor(Math.random() * (900 - 720 + 1)) + 720,
+        );
+      } else if (difficulty === "medium") {
+        setTimeRemainingMinutes(
+          Math.floor(Math.random() * (600 - 480 + 1)) + 480,
+        );
+      } else if (difficulty === "hard") {
+        setTimeRemainingMinutes(
+          Math.floor(Math.random() * (480 - 300 + 1)) + 300,
+        );
       }
     }
   }, [currentCase, difficulty, unlockClue]);
 
+  useEffect(() => {
+    if (timeRemainingMinutes === null || timeRemainingMinutes <= 0) return;
+    const timer = setInterval(() => {
+      setTimeRemainingMinutes((prev) =>
+        prev !== null && prev > 0 ? prev - 1 : 0,
+      );
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [timeRemainingMinutes]);
+
   const handleInterview = (role: string, statement: string) => {
     if (!interviewedWitnesses.includes(role)) {
-      if (hoursRemaining !== null && hoursRemaining < costs.interview) {
-        alert("Not enough shift hours remaining to conduct this interview.");
-        return;
-      }
-
-      consumeHours(costs.interview);
       setInterviewedWitnesses((prev) => [...prev, role]);
       setWitnessTestimonies((prev) => ({
         ...prev,
@@ -344,12 +340,6 @@ export default function DossierView({
   };
 
   const handleSubpoenaRequest = (suspectName: string) => {
-    if (hoursRemaining !== null && hoursRemaining < costs.subpoena) {
-      alert("Not enough shift hours remaining to execute a subpoena.");
-      return;
-    }
-
-    consumeHours(costs.subpoena);
     const suspectData = currentCase?.suspects.find(
       (s) => s.name === suspectName,
     );
@@ -427,7 +417,12 @@ export default function DossierView({
 
   if (!currentCase) return null;
 
-  const isTimeUp = hoursRemaining !== null && hoursRemaining <= 0;
+  const isTimeUp = timeRemainingMinutes !== null && timeRemainingMinutes <= 0;
+
+  const displayHours =
+    timeRemainingMinutes !== null
+      ? (timeRemainingMinutes / 60).toFixed(1)
+      : "0";
 
   const suspectOptions: DropdownOption[] = (currentCase.suspects || []).map(
     (s) => ({
@@ -435,13 +430,6 @@ export default function DossierView({
       label: `${s.name} (${s.role || s.relationToVictim || "Suspect"})`,
     }),
   );
-
-  const meansOptions: DropdownOption[] = (currentCase.evidence || [])
-    .filter((e) => unlockedClues.evidence.includes(e.id))
-    .map((e) => ({
-      id: e.id,
-      label: `[Evidence] ${e.name}`,
-    }));
 
   const availableWitnesses = (currentCase.witnesses || []).filter((w) =>
     unlockedClues.statements.includes(w.id),
@@ -458,20 +446,26 @@ export default function DossierView({
     }
   });
 
-  const opportunityOptions: DropdownOption[] = [
+  const allClueOptions: DropdownOption[] = [
+    ...(currentCase.evidence || [])
+      .filter((e) => unlockedClues.evidence.includes(e.id))
+      .map((e) => ({
+        id: e.id,
+        label: `[Evidence] ${e.name}`,
+      })),
     ...availableWitnesses.map((w) => ({
       id: w.id,
       label: `[Witness] ${w.role}: "${w.statement.slice(0, 35)}..."`,
     })),
-    ...meansOptions,
-  ];
-
-  const motiveOptions: DropdownOption[] = [
     ...availableMessages.map((msg) => ({
       id: msg.id,
       label: `[Text - ${msg.suspectName}] ${msg.time}: "${msg.text.slice(0, 35)}..."`,
     })),
   ];
+
+  const meansOptions = allClueOptions;
+  const opportunityOptions = allClueOptions;
+  const motiveOptions = allClueOptions;
 
   return (
     <div
@@ -508,14 +502,14 @@ export default function DossierView({
             ))}
           </nav>
 
-          {hoursRemaining !== null && (
-            <div className="bg-amber-50 border border-amber-300 px-5 py-2.5 rounded-2xl flex items-center gap-3 shadow-sm">
+          {timeRemainingMinutes !== null && (
+            <div className="bg-white shadow-sm px-5 py-2.5 rounded-2xl flex items-center gap-3 ">
               <div>
-                <p className="text-xs uppercase font-extrabold text-amber-800">
+                <p className="text-xs uppercase font-extrabold text-black">
                   Shift Hours Remaining
                 </p>
-                <p className="text-lg font-bold text-amber-900">
-                  {hoursRemaining} Hours
+                <p className="text-lg font-bold text-stone-600">
+                  {displayHours} Hours
                 </p>
               </div>
             </div>
@@ -568,7 +562,7 @@ export default function DossierView({
               <EvidenceTab
                 evidence={currentCase.evidence}
                 witnesses={currentCase.witnesses}
-                forensicTimer={hoursRemaining}
+                forensicTimer={timeRemainingMinutes}
                 interviewedWitnesses={interviewedWitnesses}
                 witnessTestimonies={witnessTestimonies}
                 onInterview={handleInterview}
@@ -587,8 +581,8 @@ export default function DossierView({
               Shift Ended
             </h2>
             <p className="text-stone-700 text-lg">
-              You ran out of action points and time. The suspect caught wind of
-              the investigation and fled town before a warrant could be issued.
+              You ran out of time. The suspect caught wind of the investigation
+              and fled town before a warrant could be issued.
             </p>
             <button
               type="button"

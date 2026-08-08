@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import CharacterAvatar from "./CharacterAvatar";
 import { Short_Stack } from "next/font/google";
 
@@ -12,87 +13,225 @@ interface EvidenceItem {
   description?: string;
 }
 
+interface QAItem {
+  question: string;
+  answer: string;
+}
+
 interface WitnessItem {
   id?: string;
   role: string;
-  statement: string;
+  statement?: string;
+  qna?: string | QAItem[];
 }
 
 interface EvidenceTabProps {
   evidence?: EvidenceItem[];
   witnesses?: WitnessItem[];
-  forensicTimer: number | null;
+  forensicDelay?: number;
   interviewedWitnesses?: string[];
   witnessTestimonies?: Record<string, string>;
   onInterview: (role: string, statement: string) => void;
 }
 
+function parseWitnessQnA(witnessData: WitnessItem): QAItem[] {
+  if (Array.isArray(witnessData.qna)) {
+    return witnessData.qna;
+  }
+
+  const textSource = witnessData.qna || witnessData.statement || "";
+  const blocks = textSource.split(/(?=Q:\s*)/).filter(Boolean);
+
+  const parsed: QAItem[] = [];
+  for (const block of blocks) {
+    const qMatch = block.match(/Q:\s*([\s\S]*?)(?=\nA:|$)/);
+    const aMatch = block.match(/A:\s*([\s\S]*?)(?=\nQ:|$)/);
+    if (qMatch && aMatch) {
+      parsed.push({
+        question: qMatch[1].trim(),
+        answer: aMatch[1].trim(),
+      });
+    }
+  }
+
+  if (parsed.length === 0 && textSource.trim()) {
+    parsed.push({
+      question: "Statement / Observation",
+      answer: textSource.trim(),
+    });
+  }
+
+  return parsed;
+}
+
 export default function EvidenceTab({
   evidence = [],
   witnesses = [],
-  forensicTimer,
+  forensicDelay = 30,
   interviewedWitnesses = [],
   witnessTestimonies = {},
   onInterview,
 }: EvidenceTabProps) {
+  const [activeWitness, setActiveWitness] = useState<WitnessItem | null>(null);
+  const [currentQAIndex, setCurrentQAIndex] = useState(0);
+  const [typedQuestion, setTypedQuestion] = useState("");
+  const [typedAnswer, setTypedAnswer] = useState("");
+  const [isTypingQuestion, setIsTypingQuestion] = useState(false);
+  const [isTypingAnswer, setIsTypingAnswer] = useState(false);
+
+  // Dedicated forensic countdown state
+  const [localForensicTime, setLocalForensicTime] =
+    useState<number>(forensicDelay);
+
+  useEffect(() => {
+    setLocalForensicTime(forensicDelay);
+  }, [forensicDelay]);
+
+  useEffect(() => {
+    if (localForensicTime <= 0) return;
+    const timer = setInterval(() => {
+      setLocalForensicTime((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [localForensicTime]);
+
+  const qaPairs = activeWitness ? parseWitnessQnA(activeWitness) : [];
+  const currentPair = qaPairs[currentQAIndex];
+
+  useEffect(() => {
+    if (!activeWitness || !currentPair) return;
+
+    setTypedQuestion("");
+    setTypedAnswer("");
+    setIsTypingQuestion(true);
+
+    let qIndex = 0;
+    const qText = currentPair.question;
+
+    const qInterval = setInterval(() => {
+      if (qIndex < qText.length) {
+        setTypedQuestion(qText.slice(0, qIndex + 1));
+        qIndex++;
+      } else {
+        clearInterval(qInterval);
+        setIsTypingQuestion(false);
+        setIsTypingAnswer(true);
+
+        let aIndex = 0;
+        const aText = currentPair.answer;
+
+        const aInterval = setInterval(() => {
+          if (aIndex < aText.length) {
+            setTypedAnswer(aText.slice(0, aIndex + 1));
+            aIndex++;
+          } else {
+            clearInterval(aInterval);
+            setIsTypingAnswer(false);
+          }
+        }, 20);
+      }
+    }, 25);
+
+    return () => {
+      clearInterval(qInterval);
+    };
+  }, [activeWitness, currentQAIndex]);
+
+  const handleStartInterview = (witness: WitnessItem) => {
+    setActiveWitness(witness);
+    setCurrentQAIndex(0);
+  };
+
+  const handleContinue = () => {
+    if (currentQAIndex < qaPairs.length - 1) {
+      setCurrentQAIndex((prev) => prev + 1);
+    } else {
+      if (activeWitness) {
+        const fullStatement = qaPairs
+          .map((p) => `Q: ${p.question}\nA: ${p.answer}`)
+          .join("\n");
+        onInterview(activeWitness.role, fullStatement);
+      }
+      setActiveWitness(null);
+    }
+  };
+
+  const hasForensicItem = evidence.some(
+    (item) => item.type?.toLowerCase() === "forensic",
+  );
+
   return (
-    <div className={`${handDrawn.className} space-y-8`}>
+    <div className={`${handDrawn.className} space-y-8 relative`}>
+      {/* PHYSICAL EVIDENCE CARD */}
       <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-xl">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-stone-900">
             Physical Evidence
           </h2>
-          {forensicTimer !== null && forensicTimer > 0 && (
+          {hasForensicItem && localForensicTime > 0 && (
             <span className="px-4 py-2 bg-amber-100 text-amber-800 border border-amber-300 rounded-xl text-xs font-semibold animate-pulse">
-              Forensic Available in ({forensicTimer}s)
+              Forensic Available in ({localForensicTime}s)
             </span>
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {evidence.map((item) => {
-            const isForensicPending =
-              item.type === "Forensic" && (forensicTimer ?? 0) > 0;
+        {evidence.length === 0 ? (
+          <p className="text-stone-400 italic text-sm py-4">
+            No physical evidence collected for this case yet.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {evidence.map((item, idx) => {
+              const isForensicPending =
+                item.type?.toLowerCase() === "forensic" &&
+                localForensicTime > 0;
 
-            return (
-              <div
-                key={item.id}
-                className="p-5 bg-stone-50 border border-stone-200 rounded-xl"
-              >
-                <div className="flex justify-between items-center mb-2">
-                  <h3 className="font-bold text-stone-900">{item.name}</h3>
-                  <span className="text-xs px-2 py-0.5 bg-stone-200 rounded-md font-semibold text-stone-700">
-                    {item.type}
-                  </span>
-                </div>
-                <p
-                  className={`text-stone-700 text-sm ${
-                    isForensicPending ? "blur-sm select-none" : ""
-                  }`}
+              return (
+                <div
+                  key={item.id || `evidence-${idx}`}
+                  className="p-5 bg-stone-50 border border-stone-200 rounded-xl"
                 >
-                  {item.description || "No description recorded."}
-                </p>
-              </div>
-            );
-          })}
-        </div>
+                  <div className="flex justify-between items-center mb-2">
+                    <h3 className="font-bold text-stone-900">{item.name}</h3>
+                    <span className="text-xs px-2 py-0.5 bg-stone-200 rounded-md font-semibold text-stone-700">
+                      {item.type}
+                    </span>
+                  </div>
+                  <p
+                    className={`text-stone-700 text-sm ${
+                      isForensicPending ? "blur-sm select-none" : ""
+                    }`}
+                  >
+                    {item.description || "No description recorded."}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
+      {/* WITNESS STATEMENTS CARD */}
       <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-xl">
         <h2 className="text-2xl font-bold text-stone-900 mb-6">
           Witness Statements
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {witnesses.map((w, idx) => {
-            const isInterviewed = interviewedWitnesses.includes(w.role);
+        {witnesses.length === 0 ? (
+          <p className="text-stone-400 italic text-sm py-4">
+            No witness statements recorded for this case.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {witnesses.map((w, idx) => {
+              const isInterviewed = interviewedWitnesses.includes(w.role);
+              const wPairs = parseWitnessQnA(w);
 
-            return (
-              <div
-                key={w.id || `witness-${idx}`}
-                className="p-5 bg-stone-50 border border-stone-200 rounded-xl space-y-3"
-              >
-                <div className="flex items-center justify-between">
+              return (
+                <div
+                  key={w.id || `witness-${idx}`}
+                  className="p-5 bg-stone-50 border border-stone-200 rounded-xl space-y-4 flex flex-col justify-between"
+                >
                   <div className="flex items-center gap-3">
                     <CharacterAvatar
                       seed={w.role}
@@ -101,30 +240,96 @@ export default function EvidenceTab({
                     <span className="font-bold text-stone-900">{w.role}</span>
                   </div>
 
+                  <div className="flex-1">
+                    {isInterviewed ? (
+                      <div className="space-y-3 bg-white p-4 rounded-lg border border-stone-200">
+                        {wPairs.map((pair, qIdx) => (
+                          <div
+                            key={qIdx}
+                            className="space-y-1 border-b border-stone-100 pb-2 last:border-b-0 last:pb-0"
+                          >
+                            <p className="text-xs font-semibold text-stone-900">
+                              {pair.question}
+                            </p>
+                            <p className="text-sm italic text-stone-700">
+                              "{pair.answer}"
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-stone-400 italic">
+                        Statement unrecorded
+                      </p>
+                    )}
+                  </div>
+
                   {!isInterviewed && (
-                    <button
-                      onClick={() => onInterview(w.role, w.statement)}
-                      className="px-3 py-1.5 bg-stone-900 text-white rounded-lg text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer"
-                    >
-                      Question
-                    </button>
+                    <div className="flex justify-center pt-2">
+                      <button
+                        onClick={() => handleStartInterview(w)}
+                        className="px-6 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-md"
+                      >
+                        Question
+                      </button>
+                    </div>
                   )}
                 </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
-                {isInterviewed ? (
-                  <p className="text-sm italic text-stone-700 bg-white p-3 rounded-lg border border-stone-200">
-                    "{witnessTestimonies[w.role] || w.statement}"
-                  </p>
-                ) : (
-                  <p className="text-xs text-stone-400 italic">
-                    Statement unrecorded
-                  </p>
+      {/* INTERVIEW MODAL */}
+      {activeWitness && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-2xl max-w-2xl w-full relative flex flex-col md:flex-row items-center gap-6">
+            <div className="flex-1 space-y-4 w-full">
+              <div className="border-b border-stone-100 pb-2">
+                <p className="text-base font-semibold text-stone-900 mt-1 min-h-[3rem]">
+                  {typedQuestion}
+                  {isTypingQuestion && (
+                    <span className="inline-block w-1.5 h-4 bg-stone-900 ml-1 animate-pulse" />
+                  )}
+                </p>
+              </div>
+
+              <div className="min-h-[5rem] bg-stone-50 p-4 rounded-xl border border-stone-200">
+                <p className="text-sm italic text-stone-700">
+                  "{typedAnswer}"
+                  {isTypingAnswer && (
+                    <span className="inline-block w-1.5 h-3 bg-stone-700 ml-1 animate-pulse" />
+                  )}
+                </p>
+              </div>
+
+              <div className="flex justify-end pt-2">
+                {!isTypingQuestion && !isTypingAnswer && (
+                  <button
+                    onClick={handleContinue}
+                    className="px-6 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-md"
+                  >
+                    {currentQAIndex < qaPairs.length - 1
+                      ? "Continue"
+                      : "Finish"}
+                  </button>
                 )}
               </div>
-            );
-          })}
+            </div>
+
+            <div className="flex-shrink-0 flex flex-col items-center">
+              <CharacterAvatar
+                seed={activeWitness.role}
+                className="w-24 h-24 rounded-2xl shadow-md border-2 border-stone-200"
+              />
+              <span className="text-sm font-bold text-stone-900 mt-2">
+                {activeWitness.role}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
