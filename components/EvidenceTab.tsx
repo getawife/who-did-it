@@ -2,16 +2,13 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import CharacterAvatar from "./CharacterAvatar";
-import { Short_Stack } from "next/font/google";
-
-const handDrawn = Short_Stack({ weight: "400", subsets: ["latin"] });
 
 export interface EvidenceItem {
   id: string;
   name: string;
   type: string;
   description?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface QAItem {
@@ -25,7 +22,7 @@ export interface WitnessItem {
   statement?: string;
   reliability?: string;
   qna?: string | QAItem[];
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface EvidenceTabProps {
@@ -72,7 +69,6 @@ export default function EvidenceTab({
   witnesses = [],
   forensicDelay = 30,
   interviewedWitnesses = [],
-  witnessTestimonies = {},
   onInterview,
 }: EvidenceTabProps) {
   const [activeWitness, setActiveWitness] = useState<WitnessItem | null>(null);
@@ -88,9 +84,9 @@ export default function EvidenceTab({
   const typewriterAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const audio = new Audio("/audio/Typewriter.mp3");
+    const audio = new Audio("/audio/Typewriter.wav");
     audio.volume = 0.2;
-    audio.loop = true; // Loop audio as long as typing continues
+    audio.loop = true;
     typewriterAudioRef.current = audio;
 
     return () => {
@@ -198,21 +194,21 @@ export default function EvidenceTab({
   );
 
   return (
-    <div className={`${handDrawn.className} space-y-8 relative`}>
-      <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-xl">
+    <div className="space-y-8 relative">
+      <div className="bg-parchment-card rounded-2xl border-2 border-stone-800 p-8 shadow-xl">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-stone-900">
             Physical Evidence
           </h2>
           {hasForensicItem && localForensicTime > 0 && (
-            <span className="px-4 py-2 bg-amber-100 text-amber-800 border border-amber-300 rounded-xl text-xs font-semibold">
+            <span className="px-4 py-2 bg-parchment-main text-stone-900 border-2 border-stone-800 rounded-xl text-xs font-bold">
               Forensic Available in ({localForensicTime}s)
             </span>
           )}
         </div>
 
         {evidence.length === 0 ? (
-          <p className="text-stone-400 italic text-sm py-4">
+          <p className="text-stone-700 italic text-sm py-4">
             No physical evidence collected for this case yet.
           </p>
         ) : (
@@ -225,16 +221,16 @@ export default function EvidenceTab({
               return (
                 <div
                   key={item.id || `evidence-${idx}`}
-                  className="p-5 bg-stone-50 border border-stone-200 rounded-xl"
+                  className="p-5 bg-parchment-main border-2 border-stone-800 rounded-xl"
                 >
                   <div className="flex justify-between items-center mb-2">
                     <h3 className="font-bold text-stone-900">{item.name}</h3>
-                    <span className="text-xs px-2 py-0.5 bg-stone-200 rounded-md font-semibold text-stone-700">
+                    <span className="text-xs px-2 py-0.5 bg-stone-800 text-parchment-main rounded-md font-bold">
                       {item.type}
                     </span>
                   </div>
                   <p
-                    className={`text-stone-700 text-sm transition-all duration-500 ${
+                    className={`text-stone-800 text-sm transition-all duration-500 ${
                       isForensicPending ? "blur-sm select-none" : ""
                     }`}
                   >
@@ -247,13 +243,13 @@ export default function EvidenceTab({
         )}
       </div>
 
-      <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-xl">
+      <div className="bg-parchment-card rounded-2xl border-2 border-stone-800 p-8 shadow-xl">
         <h2 className="text-2xl font-bold text-stone-900 mb-6">
           Witness Statements
         </h2>
 
         {witnesses.length === 0 ? (
-          <p className="text-stone-400 italic text-sm py-4">
+          <p className="text-stone-700 italic text-sm py-4">
             No witness statements recorded for this case.
           </p>
         ) : (
@@ -265,12 +261,12 @@ export default function EvidenceTab({
               return (
                 <div
                   key={w.id || `witness-${idx}`}
-                  className="p-6 bg-stone-50 border border-stone-200 rounded-2xl space-y-4"
+                  className="p-6 bg-parchment-main border-2 border-stone-800 rounded-2xl space-y-4"
                 >
                   <div className="flex items-center gap-3">
                     <CharacterAvatar
                       seed={w.role}
-                      className="w-10 h-10 rounded-lg shrink-0 border border-stone-300 shadow-sm"
+                      className="w-10 h-10 rounded-lg shrink-0 border-2 border-stone-800 shadow-sm"
                     />
                     <span className="font-bold text-lg text-stone-900">
                       {w.role}
@@ -279,46 +275,43 @@ export default function EvidenceTab({
 
                   {isInterviewed ? (
                     <div className="flex flex-col md:flex-row gap-6 items-start pt-2">
-                      <div className="flex-1 space-y-3 bg-white p-5 rounded-xl border border-stone-200 w-full shadow-sm">
+                      <div className="flex-1 space-y-3 bg-parchment-card p-5 rounded-xl border-2 border-stone-800 w-full shadow-sm">
                         {wPairs.map((pair, qIdx) => (
                           <div
                             key={qIdx}
-                            className="space-y-1 border-b border-stone-100 pb-3 last:border-b-0 last:pb-0"
+                            className="space-y-1 border-b-2 border-stone-800/10 pb-3 last:border-b-0 last:pb-0"
                           >
-                            <p className="text-xs font-semibold text-stone-900">
+                            <p className="text-xs font-bold text-stone-900">
                               {pair.question}
                             </p>
-                            <p className="text-sm italic text-stone-700 leading-relaxed">
-                              "{pair.answer}"
+                            <p className="text-sm italic text-stone-800 leading-relaxed">
+                              &ldquo;{pair.answer}&rdquo;
                             </p>
                           </div>
                         ))}
                       </div>
 
                       {w.reliability && (
-                        <div className="relative w-full md:w-64 shrink-0 bg-amber-100/90 border border-amber-300/80 rounded-sm p-5 shadow-md rotate-1 transition-transform  mt-2 md:mt-0">
-                          <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full  flex items-center justify-center">
-                            <div className="w-2 h-2 rounded-full bg-stone-900/60" />
-                          </div>
-
-                          <span className="font-bold tracking-wider uppercase text-[10px] text-amber-900/70 block mb-2 pt-1 border-b border-amber-300/70 pb-1">
-                            Detective's Note
+                        <div className="relative w-full md:w-64 shrink-0 bg-parchment-card border-2 border-stone-800 rounded-xl p-5 shadow-md mt-2 md:mt-0">
+                          <span className="font-bold tracking-wider uppercase text-[10px] text-stone-900 block mb-2 border-b-2 border-stone-800/20 pb-1">
+                            Detective&apos;s Note
                           </span>
-                          <p className="text-xs italic text-amber-950 leading-relaxed">
-                            "My assessment on this witness: {w.reliability}"
+                          <p className="text-xs italic text-stone-800 leading-relaxed">
+                            &ldquo;My assessment on this witness:{" "}
+                            {w.reliability}&rdquo;
                           </p>
                         </div>
                       )}
                     </div>
                   ) : (
                     <div className="flex items-center justify-between pt-2">
-                      <p className="text-xs text-stone-400 italic">
+                      <p className="text-xs text-stone-700 italic">
                         Statement unrecorded
                       </p>
                       <button
                         type="button"
                         onClick={() => handleStartInterview(w)}
-                        className="px-6 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-md"
+                        className="px-6 py-2 bg-stone-800 text-parchment-main rounded-xl text-xs font-bold border-2 border-stone-800 hover:bg-stone-900 transition-colors cursor-pointer shadow-md"
                       >
                         Question
                       </button>
@@ -332,11 +325,11 @@ export default function EvidenceTab({
       </div>
 
       {activeWitness && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-2xl max-w-2xl w-full relative flex flex-col md:flex-row items-center gap-6">
+        <div className="fixed inset-0 bg-stone-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-parchment-main rounded-2xl border-2 border-stone-800 p-8 shadow-2xl max-w-2xl w-full relative flex flex-col md:flex-row items-center gap-6">
             <div className="flex-1 space-y-4 w-full">
-              <div className="border-b border-stone-100 pb-2">
-                <p className="text-base font-semibold text-stone-900 mt-1 min-h-[3rem]">
+              <div className="border-b-2 border-stone-800/20 pb-2">
+                <p className="text-base font-bold text-stone-900 mt-1 min-h-[3rem]">
                   {typedQuestion}
                   {isTypingQuestion && (
                     <span className="inline-block w-1.5 h-4 bg-stone-900 ml-1 animate-pulse" />
@@ -344,11 +337,11 @@ export default function EvidenceTab({
                 </p>
               </div>
 
-              <div className="min-h-[5rem] bg-stone-50 p-4 rounded-xl border border-stone-200">
-                <p className="text-sm italic text-stone-700">
-                  "{typedAnswer}"
+              <div className="min-h-[5rem] bg-parchment-card p-4 rounded-xl border-2 border-stone-800">
+                <p className="text-sm italic text-stone-800">
+                  &ldquo;{typedAnswer}&rdquo;
                   {isTypingAnswer && (
-                    <span className="inline-block w-1.5 h-3 bg-stone-700 ml-1 animate-pulse" />
+                    <span className="inline-block w-1.5 h-3 bg-stone-800 ml-1 animate-pulse" />
                   )}
                 </p>
               </div>
@@ -358,7 +351,7 @@ export default function EvidenceTab({
                   <button
                     type="button"
                     onClick={handleContinue}
-                    className="px-6 py-2 bg-stone-900 text-white rounded-xl text-xs font-bold hover:bg-stone-800 transition-colors cursor-pointer shadow-md"
+                    className="px-6 py-2 bg-stone-800 text-parchment-main rounded-xl text-xs font-bold border-2 border-stone-800 hover:bg-stone-900 transition-colors cursor-pointer shadow-md"
                   >
                     {currentQAIndex < qaPairs.length - 1
                       ? "Continue"
@@ -371,7 +364,7 @@ export default function EvidenceTab({
             <div className="shrink-0 flex flex-col items-center">
               <CharacterAvatar
                 seed={activeWitness.role}
-                className="w-24 h-24 rounded-2xl shadow-md border-2 border-stone-200"
+                className="w-24 h-24 rounded-2xl shadow-md border-2 border-stone-800"
               />
               <span className="text-sm font-bold text-stone-900 mt-2">
                 {activeWitness.role}

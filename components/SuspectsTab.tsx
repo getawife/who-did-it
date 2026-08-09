@@ -2,9 +2,6 @@
 
 import { useState } from "react";
 import CharacterAvatar from "./CharacterAvatar";
-import { Short_Stack } from "next/font/google";
-
-const handDrawn = Short_Stack({ weight: "400", subsets: ["latin"] });
 
 export interface Message {
   id: string;
@@ -24,7 +21,7 @@ export interface Suspect {
   subpoenaData?: {
     messages?: Message[];
   };
-  [key: string]: any; // Flexible index signature
+  [key: string]: any;
 }
 
 export interface SuspectsTabProps {
@@ -44,15 +41,13 @@ export default function SuspectsTab({
   };
 
   return (
-    <div
-      className={`${handDrawn.className} bg-white rounded-2xl border border-stone-200 p-8 shadow-xl`}
-    >
-      <h2 className="text-2xl font-bold text-stone-900 mb-6">
+    <div className="bg-parchment-card rounded-2xl border-2 border-stone-800 p-8 shadow-xl text-stone-900">
+      <h2 className="text-2xl font-extrabold text-stone-900 mb-6">
         Persons of Interest
       </h2>
 
       {suspects.length === 0 ? (
-        <p className="text-stone-400 italic text-sm py-4">
+        <p className="text-stone-600 italic text-sm py-4 font-medium">
           No suspects recorded for this case.
         </p>
       ) : (
@@ -62,20 +57,23 @@ export default function SuspectsTab({
               key={suspect.id || `suspect-${idx}`}
               type="button"
               onClick={() => handleSelect(suspect)}
-              className="p-5 rounded-xl border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50/50 transition-all text-left flex items-center gap-4 group cursor-pointer"
+              className="p-5 rounded-xl border-2 border-stone-800 bg-parchment-main hover:bg-parchment-card transition-all text-left flex items-center gap-4 group cursor-pointer shadow-sm"
             >
-              <CharacterAvatar
-                seed={suspect.name}
-                className="w-16 h-16 rounded-xl border border-stone-300 shadow-sm shrink-0"
-              />
+              <div className="w-16 h-16 rounded-xl border-2 border-stone-800 shadow-sm shrink-0 bg-parchment-card overflow-hidden p-1 flex items-center justify-center">
+                <CharacterAvatar
+                  seed={suspect.name}
+                  isSuspect={true}
+                  className="w-full h-full"
+                />
+              </div>
               <div>
-                <h3 className="font-bold text-lg text-stone-900 group-hover:text-blue-700">
+                <h3 className="font-extrabold text-lg text-stone-900 group-hover:underline">
                   {suspect.name}
                 </h3>
-                <p className="text-stone-600 text-sm mb-1">
+                <p className="text-stone-700 text-sm mb-1 font-semibold">
                   {suspect.relationToVictim || "Relation unspecified"}
                 </p>
-                <span className="text-xs font-semibold text-blue-600">
+                <span className="text-xs font-bold uppercase tracking-wider text-stone-900 bg-stone-200 px-2 py-0.5 rounded border border-stone-800">
                   Review File
                 </span>
               </div>
@@ -85,12 +83,12 @@ export default function SuspectsTab({
       )}
 
       {selectedSuspect && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-stone-50 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative border-2 border-stone-300 shadow-2xl flex flex-col md:flex-row gap-6">
+        <div className="fixed inset-0 z-50 bg-stone-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-parchment-main rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative border-4 border-stone-800 shadow-2xl flex flex-col md:flex-row gap-6">
             <button
               type="button"
               onClick={() => setSelectedSuspect(null)}
-              className="cursor-pointer absolute top-4 right-4 text-stone-500 hover:text-stone-800 text-xl font-bold z-10"
+              className="cursor-pointer absolute top-4 right-4 text-stone-800 hover:text-stone-950 text-xl font-black z-10 w-8 h-8 rounded-full border-2 border-stone-800 flex items-center justify-center bg-parchment-card"
               aria-label="Close dossier modal"
             >
               ✕
@@ -98,40 +96,43 @@ export default function SuspectsTab({
 
             <div className="flex-1 space-y-4">
               <div className="flex items-center gap-4">
-                <CharacterAvatar
-                  seed={selectedSuspect.name}
-                  className="w-20 h-20 rounded-xl border border-stone-300 shadow-md"
-                />
+                <div className="w-20 h-20 rounded-xl border-2 border-stone-800 shadow-md bg-parchment-card overflow-hidden p-1.5 flex items-center justify-center shrink-0">
+                  <CharacterAvatar
+                    seed={selectedSuspect.name}
+                    isSuspect={true}
+                    className="w-full h-full"
+                  />
+                </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-stone-900">
+                  <h3 className="text-2xl font-extrabold text-stone-900">
                     {selectedSuspect.name}
                   </h3>
-                  <p className="text-stone-600 text-sm">
+                  <p className="text-stone-700 text-sm font-semibold">
                     {selectedSuspect.relationToVictim || "Relation unspecified"}
                   </p>
                   {selectedSuspect.role && (
-                    <span className="inline-block mt-1 text-xs px-2 py-0.5 bg-amber-100 text-amber-800 rounded border border-amber-300 font-semibold">
+                    <span className="inline-block mt-1 text-xs px-2.5 py-0.5 bg-stone-800 text-parchment-main rounded border border-stone-800 font-bold uppercase tracking-wider">
                       {selectedSuspect.role}
                     </span>
                   )}
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-xl border border-stone-200">
-                <h4 className="font-bold text-sm text-stone-700 uppercase tracking-wide mb-1">
+              <div className="bg-parchment-card p-4 rounded-xl border-2 border-stone-800">
+                <h4 className="font-extrabold text-xs text-stone-900 uppercase tracking-wider mb-1">
                   Alibi
                 </h4>
-                <p className="text-stone-800 text-sm leading-relaxed">
+                <p className="text-stone-800 text-sm leading-relaxed font-semibold">
                   {selectedSuspect.alibi || "No alibi statement recorded."}
                 </p>
               </div>
 
               {selectedSuspect.motive && (
-                <div className="bg-white p-4 rounded-xl border border-stone-200">
-                  <h4 className="font-bold text-sm text-stone-700 uppercase tracking-wide mb-1">
+                <div className="bg-parchment-card p-4 rounded-xl border-2 border-stone-800">
+                  <h4 className="font-extrabold text-xs text-stone-900 uppercase tracking-wider mb-1">
                     Suspected Motive
                   </h4>
-                  <p className="text-stone-800 text-sm leading-relaxed">
+                  <p className="text-stone-800 text-sm leading-relaxed font-semibold">
                     {selectedSuspect.motive}
                   </p>
                 </div>
@@ -139,14 +140,14 @@ export default function SuspectsTab({
             </div>
 
             <div className="w-full md:w-72 shrink-0">
-              <div className="bg-stone-900 rounded-[2.5rem] p-3 shadow-2xl border-4 border-stone-700">
+              <div className="bg-stone-900 rounded-[2.5rem] p-3 shadow-2xl border-4 border-stone-800">
                 <div className="w-20 h-4 bg-stone-800 rounded-full mx-auto mb-2 flex items-center justify-center">
                   <div className="w-3 h-3 rounded-full bg-stone-900 border border-stone-700"></div>
                 </div>
 
-                <div className="bg-slate-900 rounded-[1.8rem] p-3 h-96 flex flex-col justify-between overflow-hidden font-sans">
-                  <div className="border-b border-slate-800 pb-2 text-center">
-                    <p className="text-xs font-semibold text-slate-300">
+                <div className="bg-stone-950 rounded-[1.8rem] p-3 h-96 flex flex-col justify-between overflow-hidden font-sans">
+                  <div className="border-b border-stone-800 pb-2 text-center">
+                    <p className="text-xs font-bold uppercase tracking-wider text-stone-400">
                       Subpoenaed Records
                     </p>
                   </div>
@@ -167,14 +168,14 @@ export default function SuspectsTab({
                               isSuspect ? "items-end" : "items-start"
                             }`}
                           >
-                            <span className="text-[9px] text-slate-400 mb-0.5 px-1">
+                            <span className="text-[9px] text-stone-400 mb-0.5 px-1 font-semibold">
                               {senderName} {msg.time ? `• ${msg.time}` : ""}
                             </span>
                             <div
-                              className={`max-w-[85%] rounded-2xl px-3 py-2 text-xs leading-snug ${
+                              className={`max-w-[85%] rounded-2xl px-3 py-2 text-xs leading-snug font-medium ${
                                 isSuspect
-                                  ? "bg-blue-600 text-white rounded-br-none"
-                                  : "bg-slate-800 text-slate-200 rounded-bl-none border border-slate-700"
+                                  ? "bg-stone-800 text-parchment-main rounded-br-none border border-stone-700"
+                                  : "bg-stone-900 text-stone-200 rounded-bl-none border border-stone-800"
                               }`}
                             >
                               {msg.text || ""}
@@ -183,14 +184,14 @@ export default function SuspectsTab({
                         );
                       })
                     ) : (
-                      <div className="h-full flex items-center justify-center text-center p-4 text-slate-500 text-xs italic">
+                      <div className="h-full flex items-center justify-center text-center p-4 text-stone-500 text-xs italic font-semibold">
                         No subpoenaed message logs available for this suspect.
                       </div>
                     )}
                   </div>
 
-                  <div className="pt-2 border-t border-slate-800 flex justify-center">
-                    <div className="w-16 h-1 bg-slate-700 rounded-full"></div>
+                  <div className="pt-2 border-t border-stone-800 flex justify-center">
+                    <div className="w-16 h-1 bg-stone-700 rounded-full"></div>
                   </div>
                 </div>
               </div>

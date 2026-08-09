@@ -14,33 +14,36 @@ export default function BriefingTab({
   witnessesCount,
 }: BriefingTabProps) {
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 p-8 shadow-xl space-y-6">
-      <div className="inline-block bg-stone-800 text-white px-3 py-1 rounded-lg text-sm font-semibold tracking-wide">
+    <div className="bg-parchment-main rounded-2xl border-2 border-stone-800 p-8 shadow-md space-y-6">
+      <div className="inline-block bg-stone-800 text-parchment-main px-3 py-1 rounded-lg text-sm font-semibold tracking-wide">
         Case Overview
       </div>
-      <p className="text-xl text-stone-800 leading-relaxed">{description}</p>
 
-      <div className="pt-6 border-t border-stone-200 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 bg-stone-50 border border-stone-200 rounded-xl">
-          <span className="text-xs text-stone-500 uppercase tracking-wider">
+      <p className="text-xl text-stone-900 leading-relaxed">{description}</p>
+
+      <div className="pt-6 border-t-2 border-stone-800/20 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="p-4 bg-parchment-card border-2 border-stone-800 rounded-xl">
+          <span className="text-xs text-stone-700 uppercase tracking-wider font-semibold">
             Crime Type
           </span>
           <p className="text-lg font-bold text-stone-900 mt-1">{crimeType}</p>
         </div>
-        <div className="p-4 bg-stone-50 border border-stone-200 rounded-xl">
-          <span className="text-xs text-stone-500 uppercase tracking-wider">
+
+        <div className="p-4 bg-parchment-card border-2 border-stone-800 rounded-xl">
+          <span className="text-xs text-stone-700 uppercase tracking-wider font-semibold">
             Suspects
           </span>
           <p className="text-lg font-bold text-stone-900 mt-1">
-            {suspectsCount} Persons
+            {suspectsCount} {suspectsCount === 1 ? "Person" : "Persons"}
           </p>
         </div>
-        <div className="p-4 bg-stone-50 border border-stone-200 rounded-xl">
-          <span className="text-xs text-stone-500 uppercase tracking-wider">
+
+        <div className="p-4 bg-parchment-card border-2 border-stone-800 rounded-xl">
+          <span className="text-xs text-stone-700 uppercase tracking-wider font-semibold">
             Witnesses
           </span>
           <p className="text-lg font-bold text-stone-900 mt-1">
-            {witnessesCount} Interviews
+            {witnessesCount} {witnessesCount === 1 ? "Interview" : "Interviews"}
           </p>
         </div>
       </div>

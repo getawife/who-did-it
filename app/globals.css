@@ -1,16 +1,22 @@
 @import "tailwindcss";
 
+@theme {
+  --color-parchment-main: #fdf6e3;
+  --color-parchment-card: #f5e6c8;
+  --color-parchment-border: #e7d7c1;
+  --color-parchment-suspect: #d9d0c1;
+  --color-parchment-suspect-dark: #c8beae;
+
+  --color-background: #fafaf9;
+  --color-foreground: #1c1917;
+}
+
 :root {
   --background: #fafaf9;
   --foreground: #1c1917;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
-
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
 }

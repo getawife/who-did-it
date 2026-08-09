@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Short_Stack } from "next/font/google";
 import easyCases from "@/cases/easyCases.json";
 import mediumCases from "@/cases/mediumCases.json";
 import hardCases from "@/cases/hardCases.json";
@@ -15,8 +14,6 @@ import EvidenceTab from "./EvidenceTab";
 import NotebookDrawer, { Clue } from "./NotebookDrawer";
 import CharacterAvatar from "./CharacterAvatar";
 
-const handDrawn = Short_Stack({ weight: "400", subsets: ["latin"] });
-
 type Difficulty = "easy" | "medium" | "hard";
 
 const FORENSIC_DELAYS: Record<Difficulty, number> = {
@@ -26,7 +23,7 @@ const FORENSIC_DELAYS: Record<Difficulty, number> = {
 };
 
 interface Message {
-  id: string;
+  id?: string | number;
   time: string;
   text: string;
 }
@@ -49,6 +46,7 @@ interface Witness {
   id: string;
   role: string;
   statement: string;
+  [key: string]: unknown;
 }
 
 interface EvidenceItem {
@@ -56,6 +54,7 @@ interface EvidenceItem {
   name: string;
   type: string;
   description?: string;
+  [key: string]: unknown;
 }
 
 interface Victim {
@@ -131,12 +130,12 @@ function CustomSelect({
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full bg-stone-50 border border-stone-300 rounded-xl p-3 text-sm text-stone-800 font-bold focus:ring-2 focus:ring-blue-500 focus:outline-none flex justify-between items-center text-left cursor-pointer"
+        className="w-full bg-parchment-card border-2 border-stone-800 rounded-xl p-3 text-sm text-stone-900 font-bold focus:ring-2 focus:ring-stone-800 focus:outline-none flex justify-between items-center text-left cursor-pointer"
       >
         <span className="truncate">
           {selectedOption ? selectedOption.label : placeholder}
         </span>
-        <span className="text-xs text-stone-500 ml-2">▼</span>
+        <span className="text-xs text-stone-700 ml-2">▼</span>
       </button>
 
       <AnimatePresence>
@@ -146,27 +145,24 @@ function CustomSelect({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -5 }}
             transition={{ duration: 0.15 }}
-            className="absolute z-50 left-0 right-0 mt-1 bg-white border border-stone-300 rounded-xl shadow-xl max-h-52 overflow-y-auto"
+            className="absolute z-50 left-0 right-0 mt-1 bg-parchment-main border-2 border-stone-800 rounded-xl shadow-xl max-h-52 overflow-y-auto"
           >
             {options.length === 0 ? (
-              <li
-                key="no-options"
-                className="p-3 text-sm text-stone-400 font-bold text-center"
-              >
+              <li className="p-3 text-sm text-stone-600 font-bold text-center">
                 No items available yet
               </li>
             ) : (
-              options.map((opt) => (
+              options.map((opt, idx) => (
                 <li
-                  key={opt.id}
+                  key={opt.id ?? `option-${idx}`}
                   onClick={() => {
                     onChange(opt.id);
                     setIsOpen(false);
                   }}
-                  className={`p-3 text-sm font-bold border-b border-stone-100 last:border-b-0 cursor-pointer transition-colors ${
+                  className={`p-3 text-sm font-bold border-b-2 border-stone-800/10 last:border-b-0 cursor-pointer transition-colors ${
                     opt.id === value
-                      ? "bg-blue-50 text-blue-700"
-                      : "text-stone-800 hover:bg-stone-100"
+                      ? "bg-stone-800 text-parchment-main"
+                      : "text-stone-900 hover:bg-parchment-card"
                   }`}
                 >
                   {opt.label}
@@ -220,6 +216,11 @@ export default function DossierView({
   const [formValidationMessage, setFormValidationMessage] = useState<
     string | null
   >(null);
+
+  const playAudio = (filename: string) => {
+    const audio = new Audio(`/audio/${filename}`);
+    audio.play().catch(() => {});
+  };
 
   const unlockClue = useCallback(
     (type: "evidence" | "statements" | "messages", id: string | number) => {
@@ -289,7 +290,7 @@ export default function DossierView({
         );
       } else if (difficulty === "hard") {
         setTimeRemainingMinutes(
-          Math.floor(Math.random() * (480 - 300 + 1)) + 300,
+          Math.floor(Math.random() * (300 - 300 + 1)) + 300,
         );
       }
     }
@@ -298,12 +299,18 @@ export default function DossierView({
   useEffect(() => {
     if (timeRemainingMinutes === null || timeRemainingMinutes <= 0) return;
     const timer = setInterval(() => {
-      setTimeRemainingMinutes((prev) =>
-        prev !== null && prev > 0 ? prev - 1 : 0,
-      );
+      setTimeRemainingMinutes((prev) => {
+        if (prev !== null && prev > 0) {
+          if (prev - 1 === 0 && verdict === "pending") {
+            playAudio("GameLost.wav");
+          }
+          return prev - 1;
+        }
+        return 0;
+      });
     }, 1000);
     return () => clearInterval(timer);
-  }, [timeRemainingMinutes]);
+  }, [timeRemainingMinutes, verdict]);
 
   const handleInterview = (role: string, statement: string) => {
     if (!interviewedWitnesses.includes(role)) {
@@ -337,8 +344,12 @@ export default function DossierView({
     );
 
     if (suspectData?.subpoenaData?.messages) {
-      suspectData.subpoenaData.messages.forEach((msg) => {
-        unlockClue("messages", msg.id);
+      suspectData.subpoenaData.messages.forEach((msg, idx) => {
+        if (msg.id !== undefined) {
+          unlockClue("messages", msg.id);
+        } else {
+          unlockClue("messages", `${suspectName}-${idx}`);
+        }
       });
     }
 
@@ -398,15 +409,17 @@ export default function DossierView({
       isMotiveCorrect
     ) {
       setVerdict("correct");
+      playAudio("GameWon.wav");
       setDaFeedback(
         solution?.closingStatement ||
           "Solid work, Detective! Your theory and proof held up cleanly in court. We got a conviction.",
       );
     } else {
       setVerdict("incorrect");
+      playAudio("GameLost.wav");
       if (!isSuspectCorrect) {
         setDaFeedback(
-          "I can't take this to court. You brought us the wrong suspect entirely—the real killer is walking free.",
+          "I can't take this to court. You brought us the wrong suspect entirely! The real killer is walking free.",
         );
       } else if (!isMeansCorrect) {
         setDaFeedback(
@@ -449,42 +462,44 @@ export default function DossierView({
     return unlockedClues.statements.includes(witnessKey);
   });
 
-  const availableMessages: Array<Message & { suspectName: string }> = [];
+  const availableMessages: Array<
+    Message & { suspectName: string; keyId: string }
+  > = [];
   (currentCase.suspects || []).forEach((s) => {
     if (s.subpoenaData?.messages) {
-      s.subpoenaData.messages.forEach((msg) => {
-        if (unlockedClues.messages.includes(String(msg.id))) {
-          availableMessages.push({ ...msg, suspectName: s.name });
+      s.subpoenaData.messages.forEach((msg, idx) => {
+        const msgIdStr =
+          msg.id !== undefined ? String(msg.id) : `${s.name}-${idx}`;
+        if (unlockedClues.messages.includes(msgIdStr)) {
+          availableMessages.push({
+            ...msg,
+            suspectName: s.name,
+            keyId: msgIdStr,
+          });
         }
       });
     }
   });
 
-  const allClueOptions: DropdownOption[] = [
-    ...(currentCase.evidence || [])
-      .filter((e) => unlockedClues.evidence.includes(String(e.id)))
-      .map((e) => ({
-        id: `evidence-${e.id}`,
-        label: `[Evidence] ${e.name}`,
-      })),
-    ...availableWitnesses.map((w) => ({
-      id: `witness-${w.id || w.role}`,
-      label: `[Witness] ${w.role}: "${w.statement.slice(0, 35)}..."`,
-    })),
-    ...availableMessages.map((msg) => ({
-      id: `message-${msg.id}`,
-      label: `[Subpoena Text - ${msg.suspectName}] ${msg.time}: "${msg.text.slice(0, 35)}..."`,
-    })),
-  ];
+  const meansOptions = (currentCase.evidence || [])
+    .filter((e) => unlockedClues.evidence.includes(String(e.id)))
+    .map((e) => ({
+      id: `evidence-${e.id}`,
+      label: `[Evidence] ${e.name}`,
+    }));
 
-  const meansOptions = allClueOptions;
-  const opportunityOptions = allClueOptions;
-  const motiveOptions = allClueOptions;
+  const opportunityOptions = availableWitnesses.map((w) => ({
+    id: `witness-${w.id || w.role}`,
+    label: `[Witness] ${w.role}: "${w.statement.slice(0, 35)}..."`,
+  }));
+
+  const motiveOptions = availableMessages.map((msg) => ({
+    id: `message-${msg.keyId}`,
+    label: `[Subpoena Text - ${msg.suspectName}] ${msg.time}: "${msg.text.slice(0, 35)}..."`,
+  }));
 
   return (
-    <div
-      className={`${handDrawn.className} min-h-screen bg-gradient-to-br from-stone-50 to-stone-100 text-stone-900 pb-12 relative`}
-    >
+    <div className="min-h-screen bg-parchment-main text-stone-900 pb-12 relative">
       <HeaderNav
         caseNumber={currentCase.caseNumber}
         title={currentCase.title}
@@ -505,10 +520,10 @@ export default function DossierView({
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id as TabType)}
-                className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold transition-all cursor-pointer ${
+                className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-bold border-2 border-stone-800 transition-all cursor-pointer ${
                   activeTab === tab.id
-                    ? "bg-blue-600 text-white"
-                    : "bg-white border border-stone-200 text-stone-600 hover:bg-stone-50"
+                    ? "bg-stone-800 text-parchment-main"
+                    : "bg-parchment-card text-stone-800 hover:bg-parchment-main"
                 }`}
               >
                 {tab.label}
@@ -517,12 +532,12 @@ export default function DossierView({
           </nav>
 
           {timeRemainingMinutes !== null && (
-            <div className="bg-white shadow-sm px-5 py-2.5 rounded-2xl flex items-center gap-3">
+            <div className="bg-parchment-card border-2 border-stone-800 shadow-sm px-5 py-2.5 rounded-2xl flex items-center gap-3">
               <div>
-                <p className="text-xs uppercase font-extrabold text-black">
+                <p className="text-xs uppercase font-extrabold text-stone-900">
                   Shift Hours Remaining
                 </p>
-                <p className="text-lg font-bold text-stone-600">
+                <p className="text-lg font-bold text-stone-700">
                   {displayHours} Hours
                 </p>
               </div>
@@ -590,18 +605,18 @@ export default function DossierView({
 
       {isTimeUp && verdict === "pending" && (
         <div className="fixed inset-0 bg-stone-900/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-8 text-center space-y-6 shadow-2xl border border-stone-200">
-            <h2 className="text-4xl font-extrabold text-red-600">
+          <div className="bg-parchment-main rounded-2xl max-w-lg w-full p-8 text-center space-y-6 shadow-2xl border-2 border-stone-800">
+            <h2 className="text-4xl font-extrabold text-stone-900">
               Shift Ended
             </h2>
-            <p className="text-stone-700 text-lg">
+            <p className="text-stone-800 text-lg">
               You ran out of time. The suspect caught wind of the investigation
               and fled town before a warrant could be issued.
             </p>
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="w-full py-3.5 bg-blue-600 text-white font-bold rounded-xl shadow-lg hover:bg-blue-700 transition-all cursor-pointer"
+              className="w-full py-3.5 bg-stone-800 text-parchment-main border-2 border-stone-800 font-bold rounded-xl shadow-lg hover:bg-stone-900 transition-all cursor-pointer"
             >
               Try Case Again
             </button>
@@ -611,15 +626,15 @@ export default function DossierView({
 
       {isAccusing && !isTimeUp && (
         <div className="fixed inset-0 bg-stone-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-stone-200 space-y-5">
-            <div className="flex justify-between items-center border-b border-stone-200 pb-3">
+          <div className="bg-parchment-main rounded-2xl max-w-lg w-full p-6 shadow-2xl border-2 border-stone-800 space-y-5">
+            <div className="flex justify-between items-center border-b-2 border-stone-800/20 pb-3">
               <h2 className="text-2xl font-bold text-stone-900">
                 Create a Formal Accusation
               </h2>
               <button
                 type="button"
                 onClick={closeAccusationModal}
-                className="text-stone-400 font-bold hover:text-stone-700 cursor-pointer"
+                className="text-stone-600 font-bold hover:text-stone-900 cursor-pointer"
                 aria-label="Close accusation modal"
               >
                 ✕
@@ -628,7 +643,7 @@ export default function DossierView({
 
             <form onSubmit={handleAccusationSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-extrabold uppercase text-stone-500 mb-1">
+                <label className="block text-xs font-extrabold uppercase text-stone-700 mb-1">
                   1. Primary Suspect
                 </label>
                 <CustomSelect
@@ -640,7 +655,7 @@ export default function DossierView({
               </div>
 
               <div>
-                <label className="block text-xs font-extrabold uppercase text-stone-500 mb-1">
+                <label className="block text-xs font-extrabold uppercase text-stone-700 mb-1">
                   2. Proof of Means / Weapon
                 </label>
                 <CustomSelect
@@ -652,7 +667,7 @@ export default function DossierView({
               </div>
 
               <div>
-                <label className="block text-xs font-extrabold uppercase text-stone-500 mb-1">
+                <label className="block text-xs font-extrabold uppercase text-stone-700 mb-1">
                   3. Proof of Opportunity
                 </label>
                 <CustomSelect
@@ -664,7 +679,7 @@ export default function DossierView({
               </div>
 
               <div>
-                <label className="block text-xs font-extrabold uppercase text-stone-500 mb-1">
+                <label className="block text-xs font-extrabold uppercase text-stone-700 mb-1">
                   4. Proof of Motive
                 </label>
                 <CustomSelect
@@ -676,7 +691,7 @@ export default function DossierView({
               </div>
 
               {formValidationMessage && (
-                <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs font-bold">
+                <div className="p-3 bg-parchment-card border-2 border-stone-800 text-stone-900 rounded-xl text-xs font-bold">
                   {formValidationMessage}
                 </div>
               )}
@@ -685,13 +700,13 @@ export default function DossierView({
                 <button
                   type="button"
                   onClick={closeAccusationModal}
-                  className="px-5 py-2.5 rounded-xl font-bold bg-stone-200 hover:bg-stone-300 transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl font-bold bg-parchment-card border-2 border-stone-800 text-stone-800 hover:bg-parchment-main transition-colors cursor-pointer"
                 >
                   Review Case
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl font-bold text-parchment-main bg-stone-800 border-2 border-stone-800 hover:bg-stone-900 transition-colors cursor-pointer"
                 >
                   Submit Accusation
                 </button>
@@ -703,28 +718,24 @@ export default function DossierView({
 
       {verdict !== "pending" && (
         <div className="fixed inset-0 bg-stone-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl border border-stone-200 space-y-6">
-            <h2
-              className={`text-4xl font-extrabold text-center ${
-                verdict === "correct" ? "text-green-600" : "text-red-600"
-              }`}
-            >
+          <div className="bg-parchment-main rounded-2xl max-w-2xl w-full p-8 shadow-2xl border-2 border-stone-800 space-y-6">
+            <h2 className="text-4xl font-extrabold text-center text-stone-900">
               {verdict === "correct" ? "Case Solved!" : "Verdict: Acquitted!"}
             </h2>
 
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-6 bg-stone-50 p-6 rounded-2xl border border-stone-200">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-6 bg-parchment-card p-6 rounded-2xl border-2 border-stone-800">
               <div className="flex-shrink-0 text-center">
                 <CharacterAvatar
                   seed="District Attorney DA"
-                  className="w-24 h-24 rounded-full object-cover"
+                  className="w-24 h-24 rounded-full border-2 border-stone-800"
                 />
-                <p className="mt-2 text-xs font-extrabold uppercase tracking-wider text-stone-500">
+                <p className="mt-2 text-xs font-extrabold uppercase tracking-wider text-stone-700">
                   District Attorney
                 </p>
               </div>
 
               <div className="flex-1 space-y-2">
-                <p className="text-xs font-extrabold uppercase text-blue-600">
+                <p className="text-xs font-extrabold uppercase text-stone-900">
                   DA Statement
                 </p>
                 <p className="text-stone-800 text-base leading-relaxed italic">
@@ -736,7 +747,7 @@ export default function DossierView({
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="w-full py-3.5 bg-blue-600 text-white font-bold rounded-xl shadow-lg hover:bg-blue-700 transition-all cursor-pointer"
+              className="w-full py-3.5 bg-stone-800 text-parchment-main border-2 border-stone-800 font-bold rounded-xl shadow-lg hover:bg-stone-900 transition-all cursor-pointer"
             >
               Play Another Case
             </button>
